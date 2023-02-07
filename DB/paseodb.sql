@@ -16,31 +16,28 @@ CREATE SCHEMA IF NOT EXISTS `paseodb` DEFAULT CHARACTER SET utf8 ;
 USE `paseodb` ;
 
 -- -----------------------------------------------------
--- Table `location`
+-- Table `address`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `location` ;
+DROP TABLE IF EXISTS `address` ;
 
-CREATE TABLE IF NOT EXISTS `location` (
+CREATE TABLE IF NOT EXISTS `address` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(100) NOT NULL,
-  `state` VARCHAR(45) NULL,
+  `street` VARCHAR(45) NULL,
   `city` VARCHAR(45) NULL,
-  `description` VARCHAR(100) NULL,
-  `locationcol` VARCHAR(45) NULL,
-  `walk_user_id` INT NOT NULL,
-  `walk_location_id` INT NOT NULL,
+  `state` VARCHAR(45) NULL,
+  `zip` VARCHAR(45) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `profile_img`
+-- Table `gender`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `profile_img` ;
+DROP TABLE IF EXISTS `gender` ;
 
-CREATE TABLE IF NOT EXISTS `profile_img` (
+CREATE TABLE IF NOT EXISTS `gender` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `img_Url` VARCHAR(45) NULL,
+  `gender` VARCHAR(45) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -56,27 +53,25 @@ CREATE TABLE IF NOT EXISTS `user` (
   `password` VARCHAR(100) NOT NULL,
   `first_name` VARCHAR(100) NULL,
   `last_name` VARCHAR(45) NULL,
-  `gender` VARCHAR(45) NULL,
-  `age` INT NULL,
-  `description` VARCHAR(250) NULL,
+  `birthdate` DATE NULL,
+  `description` TEXT NULL,
   `enabled` TINYINT NULL,
   `role` VARCHAR(45) NULL,
-  `location_id` INT NULL,
-  `location_walk_location_id1` INT NULL,
-  `location_walk_user_id1` INT NULL,
-  `profile_img_id` INT NULL,
+  `profile_image_url` VARCHAR(2000) NULL,
+  `address_id` INT NULL,
+  `gender_id` INT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_user_location1_idx` (`location_id` ASC),
-  INDEX `fk_user_profile_img1_idx` (`profile_img_id` ASC),
   UNIQUE INDEX `username_UNIQUE` (`username` ASC),
-  CONSTRAINT `fk_user_location1`
-    FOREIGN KEY (`location_id`)
-    REFERENCES `location` (`id`)
+  INDEX `fk_user_address1_idx` (`address_id` ASC),
+  INDEX `fk_user_gender1_idx` (`gender_id` ASC),
+  CONSTRAINT `fk_user_address1`
+    FOREIGN KEY (`address_id`)
+    REFERENCES `address` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_user_profile_img1`
-    FOREIGN KEY (`profile_img_id`)
-    REFERENCES `profile_img` (`id`)
+  CONSTRAINT `fk_user_gender1`
+    FOREIGN KEY (`gender_id`)
+    REFERENCES `gender` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -90,7 +85,7 @@ DROP TABLE IF EXISTS `walk_type` ;
 CREATE TABLE IF NOT EXISTS `walk_type` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NULL,
-  `descripion` VARCHAR(200) NULL,
+  `descripion` TEXT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -103,27 +98,27 @@ DROP TABLE IF EXISTS `walk_category` ;
 CREATE TABLE IF NOT EXISTS `walk_category` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(100) NULL,
-  `location_categoriescol` VARCHAR(45) NULL,
-  `description` VARCHAR(100) NULL,
+  `description` TEXT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `preference`
+-- Table `walk_location`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `preference` ;
+DROP TABLE IF EXISTS `walk_location` ;
 
-CREATE TABLE IF NOT EXISTS `preference` (
+CREATE TABLE IF NOT EXISTS `walk_location` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `gender` VARCHAR(45) NULL,
-  `description` VARCHAR(100) NULL,
-  `user_id` INT NULL,
+  `name` VARCHAR(100) NOT NULL,
+  `description` TEXT NULL,
+  `address_id` INT NOT NULL,
+  `image_url` VARCHAR(2000) NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_preference_user1_idx` (`user_id` ASC),
-  CONSTRAINT `fk_preference_user1`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `user` (`id`)
+  INDEX `fk_location_address1_idx` (`address_id` ASC),
+  CONSTRAINT `fk_location_address1`
+    FOREIGN KEY (`address_id`)
+    REFERENCES `address` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -138,12 +133,21 @@ CREATE TABLE IF NOT EXISTS `walk` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(200) NULL,
   `date` DATE NULL,
-  `description` VARCHAR(200) NULL,
+  `description` TEXT NULL,
   `walk_category_id` INT NOT NULL,
   `walk_type_id` INT NOT NULL,
+  `location_id` INT NOT NULL,
+  `user_id` INT NOT NULL,
+  `privacy` TINYINT NULL,
+  `start_time` TIME NULL,
+  `end_time` TIME NULL,
+  `main_image_url` VARCHAR(2000) NULL,
+  `enabled` TINYINT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_walk_walk_category1_idx` (`walk_category_id` ASC),
   INDEX `fk_walk_walk_type1_idx` (`walk_type_id` ASC),
+  INDEX `fk_walk_location1_idx` (`location_id` ASC),
+  INDEX `fk_walk_user1_idx` (`user_id` ASC),
   CONSTRAINT `fk_walk_walk_category1`
     FOREIGN KEY (`walk_category_id`)
     REFERENCES `walk_category` (`id`)
@@ -153,54 +157,13 @@ CREATE TABLE IF NOT EXISTS `walk` (
     FOREIGN KEY (`walk_type_id`)
     REFERENCES `walk_type` (`id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `user_has_walk`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `user_has_walk` ;
-
-CREATE TABLE IF NOT EXISTS `user_has_walk` (
-  `user_id` INT NOT NULL,
-  `user_setting_id` VARCHAR(45) NOT NULL,
-  `user_level_id` VARCHAR(45) NOT NULL,
-  `user_interest_id` VARCHAR(45) NOT NULL,
-  `user_location_category_id` VARCHAR(100) NOT NULL,
-  `walk_id` INT NOT NULL,
-  PRIMARY KEY (`user_id`, `user_setting_id`, `user_level_id`, `user_interest_id`, `user_location_category_id`, `walk_id`),
-  INDEX `fk_user_has_walk_user_idx` (`user_id` ASC, `user_setting_id` ASC, `user_level_id` ASC, `user_interest_id` ASC, `user_location_category_id` ASC),
-  CONSTRAINT `fk_user_has_walk_user`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `user` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `walk_type_has_user`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `walk_type_has_user` ;
-
-CREATE TABLE IF NOT EXISTS `walk_type_has_user` (
-  `walk_type_id` INT NOT NULL,
-  `user_id` INT NOT NULL,
-  `user_walk_type_id` VARCHAR(45) NOT NULL,
-  `user_preference_id` VARCHAR(45) NOT NULL,
-  `user_interest_id` VARCHAR(45) NOT NULL,
-  `user_location_category_id` VARCHAR(100) NOT NULL,
-  `user_walk_location_id` INT NOT NULL,
-  PRIMARY KEY (`walk_type_id`, `user_id`, `user_walk_type_id`, `user_preference_id`, `user_interest_id`, `user_location_category_id`, `user_walk_location_id`),
-  INDEX `fk_walk_type_has_user_user1_idx` (`user_id` ASC, `user_walk_type_id` ASC, `user_preference_id` ASC, `user_interest_id` ASC, `user_location_category_id` ASC, `user_walk_location_id` ASC),
-  INDEX `fk_walk_type_has_user_walk_type1_idx` (`walk_type_id` ASC),
-  CONSTRAINT `fk_walk_type_has_user_walk_type1`
-    FOREIGN KEY (`walk_type_id`)
-    REFERENCES `walk_type` (`id`)
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_walk_location1`
+    FOREIGN KEY (`location_id`)
+    REFERENCES `walk_location` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_walk_type_has_user_user1`
+  CONSTRAINT `fk_walk_user1`
     FOREIGN KEY (`user_id`)
     REFERENCES `user` (`id`)
     ON DELETE NO ACTION
@@ -215,13 +178,22 @@ DROP TABLE IF EXISTS `message` ;
 
 CREATE TABLE IF NOT EXISTS `message` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `contents` VARCHAR(500) NOT NULL,
+  `contents` TEXT NOT NULL,
   `date_sent` DATETIME NULL,
-  `user_id1` INT NOT NULL,
+  `sender` INT NOT NULL,
+  `receiver` INT NOT NULL,
+  `seen` TINYINT NULL,
+  `enabled` TINYINT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_message_user1_idx` (`user_id1` ASC),
+  INDEX `fk_message_user1_idx` (`sender` ASC),
+  INDEX `fk_message_user2_idx` (`receiver` ASC),
   CONSTRAINT `fk_message_user1`
-    FOREIGN KEY (`user_id1`)
+    FOREIGN KEY (`sender`)
+    REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_message_user2`
+    FOREIGN KEY (`receiver`)
     REFERENCES `user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -235,41 +207,47 @@ DROP TABLE IF EXISTS `walk_image` ;
 
 CREATE TABLE IF NOT EXISTS `walk_image` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `img_Url` VARCHAR(45) NULL,
+  `image_url` VARCHAR(2000) NULL,
   `walk_id` INT NOT NULL,
-  `walk_walk_category_id` INT NOT NULL,
+  `description` TEXT NULL,
+  `user_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_walk_image_walk1_idx` (`walk_id` ASC),
+  INDEX `fk_walk_image_user1_idx` (`user_id` ASC),
   CONSTRAINT `fk_walk_image_walk1`
     FOREIGN KEY (`walk_id`)
     REFERENCES `walk` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_walk_image_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `walk_rating`
+-- Table `user_walk`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `walk_rating` ;
+DROP TABLE IF EXISTS `user_walk` ;
 
-CREATE TABLE IF NOT EXISTS `walk_rating` (
-  `id` INT NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `user_walk` (
   `description` VARCHAR(250) NULL,
-  `walk_id` INT NOT NULL,
-  `walk_walk_category_id` INT NOT NULL,
   `user_id` INT NOT NULL,
-  PRIMARY KEY (`id`, `walk_id`, `walk_walk_category_id`, `user_id`),
-  INDEX `fk_walk_rating_walk1_idx` (`walk_id` ASC),
+  `rating` INT NULL,
+  `walk_id` INT NOT NULL,
+  PRIMARY KEY (`user_id`, `walk_id`),
   INDEX `fk_walk_rating_user1_idx` (`user_id` ASC),
-  CONSTRAINT `fk_walk_rating_walk1`
-    FOREIGN KEY (`walk_id`)
-    REFERENCES `walk` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+  INDEX `fk_walk_rating_walk1_idx` (`walk_id` ASC),
   CONSTRAINT `fk_walk_rating_user1`
     FOREIGN KEY (`user_id`)
     REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_walk_rating_walk1`
+    FOREIGN KEY (`walk_id`)
+    REFERENCES `walk` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -297,23 +275,146 @@ CREATE TABLE IF NOT EXISTS `followed_user` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+
+-- -----------------------------------------------------
+-- Table `preferred_gender`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `preferred_gender` ;
+
+CREATE TABLE IF NOT EXISTS `preferred_gender` (
+  `user_id` INT NOT NULL,
+  `gender_id` INT NOT NULL,
+  PRIMARY KEY (`user_id`, `gender_id`),
+  INDEX `fk_user_has_gender_gender1_idx` (`gender_id` ASC),
+  INDEX `fk_user_has_gender_user1_idx` (`user_id` ASC),
+  CONSTRAINT `fk_user_has_gender_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_user_has_gender_gender1`
+    FOREIGN KEY (`gender_id`)
+    REFERENCES `gender` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `preferred_walk_location`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `preferred_walk_location` ;
+
+CREATE TABLE IF NOT EXISTS `preferred_walk_location` (
+  `user_id` INT NOT NULL,
+  `walk_location_id` INT NOT NULL,
+  PRIMARY KEY (`user_id`, `walk_location_id`),
+  INDEX `fk_user_has_walk_location_walk_location1_idx` (`walk_location_id` ASC),
+  INDEX `fk_user_has_walk_location_user1_idx` (`user_id` ASC),
+  CONSTRAINT `fk_user_has_walk_location_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_user_has_walk_location_walk_location1`
+    FOREIGN KEY (`walk_location_id`)
+    REFERENCES `walk_location` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `preferred_walk_type`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `preferred_walk_type` ;
+
+CREATE TABLE IF NOT EXISTS `preferred_walk_type` (
+  `user_id` INT NOT NULL,
+  `walk_type_id` INT NOT NULL,
+  PRIMARY KEY (`user_id`, `walk_type_id`),
+  INDEX `fk_user_has_walk_type_walk_type1_idx` (`walk_type_id` ASC),
+  INDEX `fk_user_has_walk_type_user1_idx` (`user_id` ASC),
+  CONSTRAINT `fk_user_has_walk_type_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_user_has_walk_type_walk_type1`
+    FOREIGN KEY (`walk_type_id`)
+    REFERENCES `walk_type` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `preferred_walk_category`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `preferred_walk_category` ;
+
+CREATE TABLE IF NOT EXISTS `preferred_walk_category` (
+  `user_id` INT NOT NULL,
+  `walk_category_id` INT NOT NULL,
+  PRIMARY KEY (`user_id`, `walk_category_id`),
+  INDEX `fk_user_has_walk_category_walk_category1_idx` (`walk_category_id` ASC),
+  INDEX `fk_user_has_walk_category_user1_idx` (`user_id` ASC),
+  CONSTRAINT `fk_user_has_walk_category_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_user_has_walk_category_walk_category1`
+    FOREIGN KEY (`walk_category_id`)
+    REFERENCES `walk_category` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
 SET SQL_MODE = '';
 DROP USER IF EXISTS paseo@localhost;
 SET SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 CREATE USER 'paseo'@'localhost' IDENTIFIED BY 'paseo';
 
 GRANT SELECT, INSERT, TRIGGER, UPDATE, DELETE ON TABLE * TO 'paseo'@'localhost';
+SET SQL_MODE = '';
+DROP USER IF EXISTS paseo;
+SET SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+CREATE USER 'paseo' IDENTIFIED BY 'paseo';
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 -- -----------------------------------------------------
+-- Data for table `address`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `paseodb`;
+INSERT INTO `address` (`id`, `street`, `city`, `state`, `zip`) VALUES (1, '123 street', 'la mirada', 'CA', '123456');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `gender`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `paseodb`;
+INSERT INTO `gender` (`id`, `gender`) VALUES (1, 'female');
+INSERT INTO `gender` (`id`, `gender`) VALUES (2, 'male');
+INSERT INTO `gender` (`id`, `gender`) VALUES (3, 'any');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
 -- Data for table `user`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `paseodb`;
-INSERT INTO `user` (`id`, `username`, `password`, `first_name`, `last_name`, `gender`, `age`, `description`, `enabled`, `role`, `location_id`, `location_walk_location_id1`, `location_walk_user_id1`, `profile_img_id`) VALUES (1, 'admin', '$2a$10$4SMKDcs9jT18dbFxqtIqDeLEynC7MUrCEUbv1a/bhO.x9an9WGPvm', 'Bob', 'hope', 'M', NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `user` (`id`, `username`, `password`, `first_name`, `last_name`, `birthdate`, `description`, `enabled`, `role`, `profile_image_url`, `address_id`, `gender_id`) VALUES (1, 'admin', '$2a$10$4SMKDcs9jT18dbFxqtIqDeLEynC7MUrCEUbv1a/bhO.x9an9WGPvm', 'Bob', 'hope', NULL, NULL, 1, NULL, NULL, NULL, NULL);
 
 COMMIT;
 
@@ -335,24 +436,112 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `paseodb`;
-INSERT INTO `walk_category` (`id`, `name`, `location_categoriescol`, `description`) VALUES (1, 'city walking', NULL, NULL);
-INSERT INTO `walk_category` (`id`, `name`, `location_categoriescol`, `description`) VALUES (2, 'park', NULL, NULL);
-INSERT INTO `walk_category` (`id`, `name`, `location_categoriescol`, `description`) VALUES (3, 'nature', NULL, NULL);
-INSERT INTO `walk_category` (`id`, `name`, `location_categoriescol`, `description`) VALUES (4, 'mall walking', NULL, NULL);
-INSERT INTO `walk_category` (`id`, `name`, `location_categoriescol`, `description`) VALUES (5, 'tracks', NULL, NULL);
-INSERT INTO `walk_category` (`id`, `name`, `location_categoriescol`, `description`) VALUES (6, 'trails', NULL, NULL);
+INSERT INTO `walk_category` (`id`, `name`, `description`) VALUES (1, 'city walking', NULL);
+INSERT INTO `walk_category` (`id`, `name`, `description`) VALUES (2, 'park', NULL);
+INSERT INTO `walk_category` (`id`, `name`, `description`) VALUES (3, 'nature', NULL);
+INSERT INTO `walk_category` (`id`, `name`, `description`) VALUES (4, 'mall walking', NULL);
+INSERT INTO `walk_category` (`id`, `name`, `description`) VALUES (5, 'tracks', NULL);
+INSERT INTO `walk_category` (`id`, `name`, `description`) VALUES (6, 'trails', NULL);
 
 COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `preference`
+-- Data for table `walk_location`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `paseodb`;
-INSERT INTO `preference` (`id`, `gender`, `description`, `user_id`) VALUES (1, 'women', NULL, NULL);
-INSERT INTO `preference` (`id`, `gender`, `description`, `user_id`) VALUES (2, 'men', NULL, NULL);
-INSERT INTO `preference` (`id`, `gender`, `description`, `user_id`) VALUES (3, 'family', NULL, NULL);
+INSERT INTO `walk_location` (`id`, `name`, `description`, `address_id`, `image_url`) VALUES (1, 'Sunside Park', 'Sunny grassy knoll. ', 1, NULL);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `walk`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `paseodb`;
+INSERT INTO `walk` (`id`, `name`, `date`, `description`, `walk_category_id`, `walk_type_id`, `location_id`, `user_id`, `privacy`, `start_time`, `end_time`, `main_image_url`, `enabled`) VALUES (1, 'Fun in the sun', '2023-01-12', 'This was an amazing walk! ', 1, 1, 1, 1, 1, NULL, NULL, NULL, NULL);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `message`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `paseodb`;
+INSERT INTO `message` (`id`, `contents`, `date_sent`, `sender`, `receiver`, `seen`, `enabled`) VALUES (1, 'Let\'s go for a walk! ', '2023-12-01', 1, 1, 1, 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `walk_image`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `paseodb`;
+INSERT INTO `walk_image` (`id`, `image_url`, `walk_id`, `description`, `user_id`) VALUES (1, 'https://pullmanchamber.com/wp-content/uploads/2015/04/Parks11.jpg', 1, NULL, 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `user_walk`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `paseodb`;
+INSERT INTO `user_walk` (`description`, `user_id`, `rating`, `walk_id`) VALUES ('This is a description', 1, 1, 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `followed_user`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `paseodb`;
+INSERT INTO `followed_user` (`user_id`, `followed_user_id`) VALUES (1, 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `preferred_gender`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `paseodb`;
+INSERT INTO `preferred_gender` (`user_id`, `gender_id`) VALUES (1, 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `preferred_walk_location`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `paseodb`;
+INSERT INTO `preferred_walk_location` (`user_id`, `walk_location_id`) VALUES (1, 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `preferred_walk_type`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `paseodb`;
+INSERT INTO `preferred_walk_type` (`user_id`, `walk_type_id`) VALUES (1, 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `preferred_walk_category`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `paseodb`;
+INSERT INTO `preferred_walk_category` (`user_id`, `walk_category_id`) VALUES (1, 1);
 
 COMMIT;
 
