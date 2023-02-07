@@ -6,6 +6,6 @@ import com.skilldistillery.paseo.entities.User;
 
 public interface UserRepository extends JpaRepository<User, Integer> {
 	
-User findByUserName(String username);
+User findByUsername(String username);
 
 }
