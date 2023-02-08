@@ -29,6 +29,9 @@ public class Message {
 	
 	private boolean enabled;
 	
+	
+
+	
 	public Message() {
 		super();
 	}
@@ -88,6 +91,11 @@ public class Message {
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
+
+	
+	
+
+
 
 	@Override
 	public int hashCode() {

@@ -1,11 +1,16 @@
 package com.skilldistillery.paseo.entities;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 
 @Entity
 public class User {
@@ -18,6 +23,11 @@ public class User {
 	private String password;
 	private Boolean enabled;
 	private String role;
+	
+	@OneToMany
+	@JoinTable(name = "followed_user", joinColumns = @JoinColumn(name = "user_id"), 
+	inverseJoinColumns = @JoinColumn(name = "followed_user_id"))
+	private List<User> followedUsers;
 
 	public User() {
 		super();
@@ -79,11 +89,28 @@ public class User {
 		User other = (User) obj;
 		return id == other.id;
 	}
+	
+	
+	public void addFollower(User followedUser) {
+		if (followedUsers == null) {
+			followedUsers = new ArrayList<>();
+		}
+		if (!followedUsers.contains(followedUser)) {
+			followedUsers.add(followedUser);
+			
+		}
+	}
+	public void removeFollower(User followedUser) {
+		if (followedUsers != null && followedUsers.contains(followedUser)) {
+			followedUsers.remove(followedUser);
+			followedUser.removeFollower(this);
+		}
+	}
 
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", password=" + password + ", enabled=" + enabled
-				+ ", role=" + role + "]";
+				+ ", role=" + role + ", followedUsers=" + followedUsers + "]";
 	}
 
 }
