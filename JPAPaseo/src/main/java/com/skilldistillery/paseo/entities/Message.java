@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Message {
@@ -29,7 +31,9 @@ public class Message {
 	
 	private boolean enabled;
 	
-	
+	@ManyToOne
+	@JoinColumn(name="user_id")
+	private User user;
 
 	
 	public Message() {
@@ -97,6 +101,14 @@ public class Message {
 
 
 
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -117,7 +129,7 @@ public class Message {
 	@Override
 	public String toString() {
 		return "Message [id=" + id + ", contents=" + contents + ", dateSent=" + dateSent + ", sender=" + sender
-				+ ", receiver=" + receiver + ", seen=" + seen + ", enabled=" + enabled + "]";
+				+ ", receiver=" + receiver + ", seen=" + seen + ", enabled=" + enabled + ", user=" + user + "]";
 	}
 
 	
