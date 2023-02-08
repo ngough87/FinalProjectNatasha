@@ -2,30 +2,55 @@ package com.skilldistillery.paseo.entities;
 
 import java.util.Objects;
 
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="followed_user")	
+@Table(name = "followed_user")
 public class FollowedUser {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	@EmbeddedId
+	private FollowedUserKey id;
+
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	@MapsId(value = "user")
+	private User user;
+
+	@ManyToOne
+	@JoinColumn(name = "followed_user_id")
+	@MapsId(value = "followedUser")
+	private User followedUser;
 
 	public FollowedUser() {
 		super();
 	}
 
-	public int getId() {
+	public FollowedUserKey getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(FollowedUserKey id) {
 		this.id = id;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public User getFollowedUser() {
+		return followedUser;
+	}
+
+	public void setFollowedUser(User followedUser) {
+		this.followedUser = followedUser;
 	}
 
 	@Override
@@ -42,14 +67,12 @@ public class FollowedUser {
 		if (getClass() != obj.getClass())
 			return false;
 		FollowedUser other = (FollowedUser) obj;
-		return id == other.id;
+		return Objects.equals(id, other.id);
 	}
 
 	@Override
 	public String toString() {
-		return "FollowedUser [id=" + id + "]";
+		return "FollowedUser [id=" + id + ", user=" + user + ", followedUser=" + followedUser + "]";
 	}
-	
-	
 
 }
