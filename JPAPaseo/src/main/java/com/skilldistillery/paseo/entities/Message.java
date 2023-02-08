@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Message {
@@ -15,22 +17,17 @@ public class Message {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
 	private String contents;
-	
 	@Column(name="date_sent")
 	private LocalDate dateSent;
-	
-	
-	private int sender;
-	
-	private int receiver;
-	
+	@ManyToOne
+	@JoinColumn(name="sender")
+	private User sender;
+	@ManyToOne
+	@JoinColumn(name="receiver")
+	private User receiver;
 	private boolean seen;
-	
 	private boolean enabled;
-	
-
 	
 	public Message() {
 		super();
@@ -60,19 +57,19 @@ public class Message {
 		this.dateSent = dateSent;
 	}
 
-	public int getSender() {
+	public User getSender() {
 		return sender;
 	}
 
-	public void setSender(int sender) {
+	public void setSender(User sender) {
 		this.sender = sender;
 	}
 
-	public int getReceiver() {
+	public User getReceiver() {
 		return receiver;
 	}
 
-	public void setReceiver(int receiver) {
+	public void setReceiver(User receiver) {
 		this.receiver = receiver;
 	}
 
@@ -91,12 +88,6 @@ public class Message {
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
-
-	
-	
-
-
-
 
 	@Override
 	public int hashCode() {
@@ -120,9 +111,4 @@ public class Message {
 		return "Message [id=" + id + ", contents=" + contents + ", dateSent=" + dateSent + ", sender=" + sender
 				+ ", receiver=" + receiver + ", seen=" + seen + ", enabled=" + enabled + "]";
 	}
-
-	
-
-
-
 }
