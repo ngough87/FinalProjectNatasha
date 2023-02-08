@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Walk {
@@ -23,16 +24,20 @@ public class Walk {
 	
 	private String description;
 	
+	@ManyToOne
 	@JoinColumn(name = "walk_category_id")
 	private WalkCategory walkCategory;
 	
+	@ManyToOne
 	@JoinColumn(name = "walk_type_id")
 	private WalkType walkType;
 	
+	@ManyToOne
 	@JoinColumn(name = "location_id")
 	private WalkLocation walkLocation;
 	
-	@JoinColumn(name = "user_id")
+	@ManyToOne
+	@JoinColumn(name="user_id")
 	private User user;
 
 	private Boolean privacy;
