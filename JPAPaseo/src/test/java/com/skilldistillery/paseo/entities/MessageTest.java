@@ -32,7 +32,7 @@ class MessageTest {
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
 		message = em.find(Message.class, 1);
-				}
+	}
 
 	@AfterEach
 	void tearDown() throws Exception {
