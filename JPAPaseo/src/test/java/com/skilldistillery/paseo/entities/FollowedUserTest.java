@@ -31,7 +31,8 @@ class FollowedFollowedUserTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		followedUser = em.find(FollowedUser.class, 1);
+		FollowedUserKey key = new FollowedUserKey(1, 1);
+		followedUser = em.find(FollowedUser.class, key);
 				}
 
 	@AfterEach

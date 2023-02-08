@@ -17,6 +17,11 @@ public class FollowedUserKey implements Serializable {
 	public FollowedUserKey() {
 		super();
 	}
+	
+	public FollowedUserKey(int followedUser, int user) {
+		this.followedUser = followedUser;
+		this.user = user;
+	}
 
 	public int getFollowedUser() {
 		return followedUser;
