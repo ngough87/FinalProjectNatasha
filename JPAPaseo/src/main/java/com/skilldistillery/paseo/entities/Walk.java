@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 
 @Entity
 public class Walk {
@@ -22,17 +23,17 @@ public class Walk {
 	
 	private String description;
 	
-	@Column(name = "walk_category_id")
-	private int walkCatId;
+	@JoinColumn(name = "walk_category_id")
+	private WalkCategory walkCategory;
 	
-	@Column(name = "walk_type_id")
-	private int walkTypeId;
+	@JoinColumn(name = "walk_type_id")
+	private WalkType walkType;
 	
-	@Column(name = "location_id")
-	private int locationId;
+	@JoinColumn(name = "location_id")
+	private WalkLocation walkLocation;
 	
-	@Column(name = "user_id")
-	private int userId;
+	@JoinColumn(name = "user_id")
+	private User user;
 
 	private Boolean privacy;
 	 
@@ -47,187 +48,118 @@ public class Walk {
 	
 	private Boolean enabled;
 
-	
-	
 	public Walk() {
 		super();
 	}
-
-
 
 	public int getId() {
 		return id;
 	}
 
-
-
 	public void setId(int id) {
 		this.id = id;
 	}
-
-
 
 	public String getName() {
 		return name;
 	}
 
-
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
-
 
 	public LocalDate getDate() {
 		return date;
 	}
 
-
-
 	public void setDate(LocalDate date) {
 		this.date = date;
 	}
-
-
 
 	public String getDescription() {
 		return description;
 	}
 
-
-
 	public void setDescription(String description) {
 		this.description = description;
 	}
 
-
-
-	public int getWalkCatId() {
-		return walkCatId;
+	public WalkCategory getWalkCategory() {
+		return walkCategory;
 	}
 
-
-
-	public void setWalkCatId(int walkCatId) {
-		this.walkCatId = walkCatId;
+	public void setWalkCategory(WalkCategory walkCategory) {
+		this.walkCategory = walkCategory;
 	}
 
-
-
-	public int getWalkTypeId() {
-		return walkTypeId;
+	public WalkType getWalkType() {
+		return walkType;
 	}
 
-
-
-	public void setWalkTypeId(int walkTypeId) {
-		this.walkTypeId = walkTypeId;
+	public void setWalkType(WalkType walkType) {
+		this.walkType = walkType;
 	}
 
-
-
-	public int getLocationId() {
-		return locationId;
+	public WalkLocation getWalkLocation() {
+		return walkLocation;
 	}
 
-
-
-	public void setLocationId(int locationId) {
-		this.locationId = locationId;
+	public void setWalkLocation(WalkLocation walkLocation) {
+		this.walkLocation = walkLocation;
 	}
 
-
-
-	public int getUserId() {
-		return userId;
+	public User getUser() {
+		return user;
 	}
 
-
-
-	public void setUserId(int userId) {
-		this.userId = userId;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
-
-
-	public boolean isPrivacy() {
+	public Boolean getPrivacy() {
 		return privacy;
 	}
 
-
-
-	public void setPrivacy(boolean privacy) {
+	public void setPrivacy(Boolean privacy) {
 		this.privacy = privacy;
 	}
-
-
 
 	public LocalTime getStartTime() {
 		return startTime;
 	}
 
-
-
 	public void setStartTime(LocalTime startTime) {
 		this.startTime = startTime;
 	}
-
-
 
 	public LocalTime getEndTime() {
 		return endTime;
 	}
 
-
-
 	public void setEndTime(LocalTime endTime) {
 		this.endTime = endTime;
 	}
-
-
 
 	public String getMainImgUrl() {
 		return mainImgUrl;
 	}
 
-
-
 	public void setMainImgUrl(String mainImgUrl) {
 		this.mainImgUrl = mainImgUrl;
 	}
 
-
-
-	public boolean isEnabled() {
+	public Boolean getEnabled() {
 		return enabled;
 	}
 
-
-
-	public void setEnabled(boolean enabled) {
+	public void setEnabled(Boolean enabled) {
 		this.enabled = enabled;
 	}
 
-
-
-	@Override
-	public String toString() {
-		return "Walk [id=" + id + ", name=" + name + ", date=" + date + ", description=" + description + ", walkCatId="
-				+ walkCatId + ", walkTypeId=" + walkTypeId + ", locationId=" + locationId + ", userId=" + userId
-				+ ", privacy=" + privacy + ", startTime=" + startTime + ", endTime=" + endTime + ", mainImgUrl="
-				+ mainImgUrl + ", enabled=" + enabled + "]";
-	}
-
-
-
 	@Override
 	public int hashCode() {
-		return Objects.hash(date, description, enabled, endTime, id, locationId, mainImgUrl, name, privacy, startTime,
-				userId, walkCatId, walkTypeId);
+		return Objects.hash(id);
 	}
-
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -238,17 +170,16 @@ public class Walk {
 		if (getClass() != obj.getClass())
 			return false;
 		Walk other = (Walk) obj;
-		return Objects.equals(date, other.date) && Objects.equals(description, other.description)
-				&& enabled == other.enabled && Objects.equals(endTime, other.endTime) && id == other.id
-				&& locationId == other.locationId && Objects.equals(mainImgUrl, other.mainImgUrl)
-				&& Objects.equals(name, other.name) && privacy == other.privacy
-				&& Objects.equals(startTime, other.startTime) && userId == other.userId && walkCatId == other.walkCatId
-				&& walkTypeId == other.walkTypeId;
+		return id == other.id;
 	}
 
-
-
-
-
-
+	@Override
+	public String toString() {
+		return "Walk [id=" + id + ", name=" + name + ", date=" + date + ", description=" + description
+				+ ", walkCategory=" + walkCategory + ", walkType=" + walkType + ", walkLocation=" + walkLocation
+				+ ", user=" + user + ", privacy=" + privacy + ", startTime=" + startTime + ", endTime=" + endTime
+				+ ", mainImgUrl=" + mainImgUrl + ", enabled=" + enabled + "]";
+	}
+	
+	
 }

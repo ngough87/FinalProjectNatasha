@@ -43,7 +43,9 @@ public class User {
 	@OneToMany
 	@JoinTable(name = "user_walk", joinColumns = @JoinColumn(name = "user_id"), 
 	inverseJoinColumns = @JoinColumn(name = "walk_id"))
-	private List<Walk> walks;
+	private List<Walk> joinedWalks;
+	@OneToMany(mappedBy="user")
+	private List<Walk> createdWalks;
 
 	public User() {
 		super();
@@ -121,12 +123,20 @@ public class User {
 		this.preferredWalkTypes = preferredWalkTypes;
 	}
 
-	public List<Walk> getWalks() {
-		return walks;
+	public List<Walk> getJoinedWalks() {
+		return joinedWalks;
 	}
 
-	public void setWalks(List<Walk> walks) {
-		this.walks = walks;
+	public void setJoinedWalks(List<Walk> joinedWalks) {
+		this.joinedWalks = joinedWalks;
+	}
+
+	public List<Walk> getCreatedWalks() {
+		return createdWalks;
+	}
+
+	public void setCreatedWalks(List<Walk> createdWalks) {
+		this.createdWalks = createdWalks;
 	}
 
 	@Override
@@ -168,7 +178,7 @@ public class User {
 		return "User [id=" + id + ", username=" + username + ", password=" + password + ", enabled=" + enabled
 				+ ", role=" + role + ", followedUsers=" + followedUsers + ", preferredWalkCats=" + preferredWalkCats
 				+ ", preferredWalkLocations=" + preferredWalkLocations + ", preferredWalkTypes=" + preferredWalkTypes
-				+ ", walks=" + walks + "]";
+				+ ", walks=" + joinedWalks + "]";
 	}
 
 }
