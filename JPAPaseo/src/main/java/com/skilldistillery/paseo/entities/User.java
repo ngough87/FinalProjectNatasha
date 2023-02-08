@@ -10,7 +10,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class User {
@@ -23,11 +25,21 @@ public class User {
 	private String password;
 	private Boolean enabled;
 	private String role;
+	@OneToOne
+	@JoinColumn(name="address_id")
+	private Address address;
+	@ManyToOne
+	@JoinColumn(name="gender_id")
+	private Gender gender;
 	
 	@OneToMany
 	@JoinTable(name = "followed_user", joinColumns = @JoinColumn(name = "user_id"), 
 	inverseJoinColumns = @JoinColumn(name = "followed_user_id"))
 	private List<User> followedUsers;
+	@OneToMany
+	@JoinTable(name = "preferred_gender", joinColumns = @JoinColumn(name = "user_id"), 
+	inverseJoinColumns = @JoinColumn(name = "gender_id"))
+	private List<Gender> preferredGenders;
 	@OneToMany
 	@JoinTable(name = "preferred_walk_category", joinColumns = @JoinColumn(name = "user_id"), 
 	inverseJoinColumns = @JoinColumn(name = "walk_category_id"))
@@ -137,6 +149,30 @@ public class User {
 
 	public void setCreatedWalks(List<Walk> createdWalks) {
 		this.createdWalks = createdWalks;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+	public Gender getGender() {
+		return gender;
+	}
+
+	public void setGender(Gender gender) {
+		this.gender = gender;
+	}
+
+	public List<Gender> getPreferredGenders() {
+		return preferredGenders;
+	}
+
+	public void setPreferredGenders(List<Gender> preferredGenders) {
+		this.preferredGenders = preferredGenders;
 	}
 
 	@Override

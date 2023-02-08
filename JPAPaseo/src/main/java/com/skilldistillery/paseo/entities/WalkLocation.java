@@ -25,7 +25,7 @@ public class WalkLocation {
 	
 	@OneToOne
 	@JoinColumn(name = "address_id")
-	private Address addressId ;
+	private Address address ;
 	
 	@Column(name = "image_url")
 	private String imageUrl;
@@ -57,11 +57,11 @@ public class WalkLocation {
 
 
 	public Address getAddressId() {
-		return addressId;
+		return address;
 	}
 
 	public void setAddressId(Address addressId) {
-		this.addressId = addressId;
+		this.address = addressId;
 	}
 
 	public String getImageUrl() {
@@ -73,14 +73,8 @@ public class WalkLocation {
 	}
 
 	@Override
-	public String toString() {
-		return "WalkLocation [id=" + id + ", name=" + name + ", description=" + description + ", addressId=" + addressId
-				+ ", imageUrl=" + imageUrl + "]";
-	}
-
-	@Override
 	public int hashCode() {
-		return Objects.hash(addressId, description, id, imageUrl, name);
+		return Objects.hash(address, id);
 	}
 
 	@Override
@@ -92,10 +86,12 @@ public class WalkLocation {
 		if (getClass() != obj.getClass())
 			return false;
 		WalkLocation other = (WalkLocation) obj;
-		return addressId == other.addressId && Objects.equals(description, other.description) && id == other.id
-				&& Objects.equals(imageUrl, other.imageUrl) && Objects.equals(name, other.name);
+		return Objects.equals(address, other.address) && id == other.id;
 	}
-	
 
-
+	@Override
+	public String toString() {
+		return "WalkLocation [id=" + id + ", name=" + name + ", description=" + description + ", addressId=" + address
+				+ ", imageUrl=" + imageUrl + "]";
+	}
 }

@@ -47,6 +47,8 @@ class UserTest {
 	void test_user_entity_mappings() {
 		assertNotNull(user);
 		assertEquals("admin", user.getUsername());
+		assertEquals(null, user.getGender());
+		assertEquals(null, user.getAddress());
 	
 	}
 	
@@ -59,6 +61,7 @@ class UserTest {
 		assertTrue(user.getFollowedUsers().size() > 0);
 		assertTrue(user.getJoinedWalks().size() > 0);
 		assertTrue(user.getCreatedWalks().size() > 0);
+		assertTrue(user.getPreferredGenders().size() > 0);
 	}
 
 }

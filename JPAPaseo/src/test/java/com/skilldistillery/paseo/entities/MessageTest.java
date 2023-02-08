@@ -32,7 +32,7 @@ class MessageTest {
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
 		message = em.find(Message.class, 1);
-				}
+	}
 
 	@AfterEach
 	void tearDown() throws Exception {
@@ -43,7 +43,7 @@ class MessageTest {
 	@Test
 	void test() {
 		assertNotNull(message);
-		assertEquals(1, message.getSender());
-	
+		assertEquals(1, message.getSender().getId());
+		assertEquals(1, message.getReceiver().getId());
 	}
 }
