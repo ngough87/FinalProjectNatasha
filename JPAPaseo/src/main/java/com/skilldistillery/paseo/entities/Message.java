@@ -31,9 +31,6 @@ public class Message {
 	
 	private boolean enabled;
 	
-	@ManyToOne
-	@JoinColumn(name="user_id")
-	private User user;
 
 	
 	public Message() {
@@ -101,13 +98,6 @@ public class Message {
 
 
 
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
 
 	@Override
 	public int hashCode() {
@@ -129,7 +119,7 @@ public class Message {
 	@Override
 	public String toString() {
 		return "Message [id=" + id + ", contents=" + contents + ", dateSent=" + dateSent + ", sender=" + sender
-				+ ", receiver=" + receiver + ", seen=" + seen + ", enabled=" + enabled + ", user=" + user + "]";
+				+ ", receiver=" + receiver + ", seen=" + seen + ", enabled=" + enabled + "]";
 	}
 
 	
