@@ -57,7 +57,8 @@ class UserTest {
 		assertTrue(user.getPreferredWalkLocations().size() > 0);
 		assertTrue(user.getPreferredWalkTypes().size() > 0);
 		assertTrue(user.getFollowedUsers().size() > 0);
-		assertTrue(user.getWalks().size() > 0);
+		assertTrue(user.getJoinedWalks().size() > 0);
+		assertTrue(user.getCreatedWalks().size() > 0);
 	}
 
 }

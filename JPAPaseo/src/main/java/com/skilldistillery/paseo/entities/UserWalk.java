@@ -59,6 +59,14 @@ public class UserWalk {
 		this.rating = rating;
 	}
 
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
