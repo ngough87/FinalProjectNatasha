@@ -22,6 +22,8 @@ public class UserWalk {
 	@JoinColumn(name="walk_id")
 	@MapsId(value="walk")
 	private Walk walk;
+	private String description;
+	private int rating;
 	
 	public UserWalk () {}
 
@@ -39,6 +41,22 @@ public class UserWalk {
 
 	public void setWalk(Walk walk) {
 		this.walk = walk;
+	}
+
+	public UserWalkKey getId() {
+		return id;
+	}
+
+	public void setId(UserWalkKey id) {
+		this.id = id;
+	}
+
+	public int getRating() {
+		return rating;
+	}
+
+	public void setRating(int rating) {
+		this.rating = rating;
 	}
 
 	@Override

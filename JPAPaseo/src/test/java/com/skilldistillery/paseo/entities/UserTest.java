@@ -2,6 +2,7 @@ package com.skilldistillery.paseo.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -43,10 +44,20 @@ class UserTest {
 	}
 
 	@Test
-	void test() {
+	void test_user_entity_mappings() {
 		assertNotNull(user);
 		assertEquals("admin", user.getUsername());
 	
+	}
+	
+	@Test
+	void test_user_many_to_one_mappings () {
+		assertNotNull(user);
+		assertTrue(user.getPreferredWalkCats().size() > 0);
+		assertTrue(user.getPreferredWalkLocations().size() > 0);
+		assertTrue(user.getPreferredWalkTypes().size() > 0);
+		assertTrue(user.getFollowedUsers().size() > 0);
+		assertTrue(user.getWalks().size() > 0);
 	}
 
 }
