@@ -2,6 +2,8 @@ package com.skilldistillery.paseo.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -55,6 +57,13 @@ class WalkTest {
 
 		assertNotNull(walk);
 		assertEquals("Fun in the sun", walk.getName());
+		assertEquals(2023, walk.getDate().getYear());
+		assertEquals("This was an amazing walk! ", walk.getDescription()); //Space in db at end.
+		
+			
+		
 	}
 
+
 }
+
