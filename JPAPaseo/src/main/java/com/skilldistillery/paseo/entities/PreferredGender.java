@@ -68,7 +68,7 @@ public class PreferredGender {
 
 	@Override
 	public String toString() {
-		return "PreferredGender [id=" + id + ", user=" + user + "]";
+		return "PreferredGender [id=" + id + ", user=" + user + ", gender=" + gender + "]";
 	}
 	
 	
