@@ -13,21 +13,21 @@ export class HomeComponent implements OnInit{
   constructor(private auth: AuthService, private router:Router){}
 
   ngOnInit(){
-    this.tempTestDeleteMeLater();
+    // this.tempTestDeleteMeLater();
   }
 
-  tempTestDeleteMeLater(){
-    this.auth.login('admin','wombat1').subscribe({
-      next: (data) => {
-        console.log('Logged In');
-        console.log(data);
-      },
-      error:(fail) => {
-        console.error('Error Auth')
-        console.error(fail);
-      }
-    });
-  }
+  // tempTestDeleteMeLater(){
+  //   this.auth.login('admin','wombat1').subscribe({
+  //     next: (data) => {
+  //       console.log('Logged In');
+  //       console.log(data);
+  //     },
+  //     error:(fail) => {
+  //       console.error('Error Auth')
+  //       console.error(fail);
+  //     }
+  //   });
+  // }
 
   registerRedir() {
     this.router.navigateByUrl('/register');
