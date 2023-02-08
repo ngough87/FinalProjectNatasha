@@ -43,7 +43,7 @@ class MessageTest {
 	@Test
 	void test() {
 		assertNotNull(message);
-		assertEquals("Let's go for a walk!", message.getContents());
+		assertEquals(1, message.getSender());
 	
 	}
 }

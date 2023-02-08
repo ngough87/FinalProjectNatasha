@@ -85,7 +85,7 @@ DROP TABLE IF EXISTS `walk_type` ;
 CREATE TABLE IF NOT EXISTS `walk_type` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NULL,
-  `descripion` TEXT NULL,
+  `description` TEXT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -424,9 +424,9 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `paseodb`;
-INSERT INTO `walk_type` (`id`, `name`, `descripion`) VALUES (1, 'stroll', NULL);
-INSERT INTO `walk_type` (`id`, `name`, `descripion`) VALUES (2, 'dog_walking', NULL);
-INSERT INTO `walk_type` (`id`, `name`, `descripion`) VALUES (3, 'speed_walking', NULL);
+INSERT INTO `walk_type` (`id`, `name`, `description`) VALUES (1, 'stroll', NULL);
+INSERT INTO `walk_type` (`id`, `name`, `description`) VALUES (2, 'dog_walking', NULL);
+INSERT INTO `walk_type` (`id`, `name`, `description`) VALUES (3, 'speed_walking', NULL);
 
 COMMIT;
 
