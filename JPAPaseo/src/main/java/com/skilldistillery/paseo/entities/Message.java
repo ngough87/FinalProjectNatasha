@@ -23,15 +23,11 @@ public class Message {
 	@Column(name="date_sent")
 	private LocalDate dateSent;
 	
-	@ManyToOne
-	@JoinColumn(name="sender")
-	private User sender;
 	
+	private int sender;
 	
-	@ManyToOne
-	@JoinColumn(name="receiver")
-	private User receiver;
-
+	private int receiver;
+	
 	private boolean seen;
 	
 	private boolean enabled;
@@ -66,21 +62,19 @@ public class Message {
 		this.dateSent = dateSent;
 	}
 
-	
-
-	public User getSender() {
+	public int getSender() {
 		return sender;
 	}
 
-	public void setSender(User sender) {
+	public void setSender(int sender) {
 		this.sender = sender;
 	}
 
-	public User getReceiver() {
+	public int getReceiver() {
 		return receiver;
 	}
 
-	public void setReceiver(User receiver) {
+	public void setReceiver(int receiver) {
 		this.receiver = receiver;
 	}
 
