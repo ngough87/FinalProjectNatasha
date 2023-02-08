@@ -1,1 +1,26 @@
 <h1>Paseo!!!!!</h1>
+<ngb-carousel *ngIf="images">
+	<ng-template ngbSlide>
+		<div class="picsum-img-wrapper">
+			<img [src]="images[0]" alt="Random first slide" style="width: -webkit-fill-available;"/>
+		</div>
+		<div class="carousel-caption">
+			<h3>First slide label</h3>
+			<p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+		</div>
+	</ng-template>
+	<ng-template ngbSlide>
+		<div class="picsum-img-wrapper">
+			<img [src]="images[1]" alt="Random second slide" style="width: -webkit-fill-available;"/>
+		</div>
+		<div class="carousel-caption">
+			<h3>Second slide label</h3>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+		</div>
+	</ng-template>
+</ngb-carousel>
+<hr/>
+<h3>Lorem Ipsum</h3>
+<form name="RegisterForm">
+<button name="RegisterButton" (click)="registerRedir()">Register</button>
+</form>
