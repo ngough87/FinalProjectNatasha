@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -20,13 +22,15 @@ public class WalkImage {
 	@Column(name = "image_url")
 	private String imageUrl;
 	
-	@Column(name = "walk_id")
-	private int walkId;
+	@ManyToOne
+	@JoinColumn(name = "walk_id")
+	private Walk walkId;
 	
 	private String description;
 	
-	@Column(name = "user_id")
-	private int userId;
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User userId;
 
 	public WalkImage() {
 		super();
@@ -48,13 +52,7 @@ public class WalkImage {
 		this.imageUrl = imageUrl;
 	}
 
-	public int getWalkId() {
-		return walkId;
-	}
-
-	public void setWalkId(int walkId) {
-		this.walkId = walkId;
-	}
+	
 
 	public String getDescription() {
 		return description;
@@ -64,11 +62,20 @@ public class WalkImage {
 		this.description = description;
 	}
 
-	public int getUserId() {
+
+	public Walk getWalkId() {
+		return walkId;
+	}
+
+	public void setWalkId(Walk walkId) {
+		this.walkId = walkId;
+	}
+
+	public User getUserId() {
 		return userId;
 	}
 
-	public void setUserId(int userId) {
+	public void setUserId(User userId) {
 		this.userId = userId;
 	}
 

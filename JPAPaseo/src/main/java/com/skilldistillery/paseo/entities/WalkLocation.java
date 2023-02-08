@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -20,9 +22,10 @@ public class WalkLocation {
 	private String name;
 	
 	private String description;
-
-	@Column(name = "address_id")
-	private int addressId;
+	
+	@OneToOne
+	@JoinColumn(name = "address_id")
+	private Address addressId ;
 	
 	@Column(name = "image_url")
 	private String imageUrl;
@@ -51,11 +54,13 @@ public class WalkLocation {
 		this.description = description;
 	}
 
-	public int getAddressId() {
+
+
+	public Address getAddressId() {
 		return addressId;
 	}
 
-	public void setAddressId(int addressId) {
+	public void setAddressId(Address addressId) {
 		this.addressId = addressId;
 	}
 
