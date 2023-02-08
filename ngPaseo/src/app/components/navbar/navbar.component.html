@@ -1,0 +1,39 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" [routerLink]="['/home']">Paseo</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" [routerLink]="['/about']">About Us</a>
+        </li>
+      </ul>
+
+      <div *ngIf="loggedIn()">
+        <ul class="navbar-nav topnav-right d-flex">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              {{loggedInUser?.username}}
+            </a>
+            <ul class="dropdown-menu navDropdown">
+              <li><a class="dropdown-item" [routerLink]="['/settings']">Account Settings</a></li>
+              <li><a class="dropdown-item" [routerLink]="['/profile']">My Profile</a></li>
+              <li><a class="dropdown-item" [routerLink]="['/messages']">Messages</a></li>
+              <li><a class="dropdown-item" [routerLink]="['/friends']">Followed Users</a></li>
+              <li><a class="dropdown-item" [routerLink]="['/ads']">Walkers Wanted</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" (click)="logout()" [routerLink]="['/home']">Logout</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+          <div *ngIf="!loggedIn()">
+            <input type="text" [(ngModel)]="user.username" placeholder="Username"/>
+            <input type="password" [(ngModel)]="user.password" placeholder="Username"/>
+            <button (click)="login(user)">Log In</button>
+          </div>
+    </div>
+  </div>
+</nav>
