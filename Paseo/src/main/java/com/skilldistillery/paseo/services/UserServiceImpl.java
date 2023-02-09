@@ -54,6 +54,9 @@ public class UserServiceImpl implements UserService {
 		return deleted;
 	}
 	
-	
+	@Override
+	public User findById(int id) {
+		return userRepo.findById(id).get();
+	}
 
 }
