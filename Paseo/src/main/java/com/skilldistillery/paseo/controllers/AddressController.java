@@ -22,7 +22,6 @@ import com.skilldistillery.paseo.services.UserService;
 @RequestMapping("api")
 @CrossOrigin({ "*", "http://localhost/" })
 
-
 public class AddressController {
 
 @Autowired

@@ -28,7 +28,7 @@
 
         <tr>
           <td>
-            <input [(ngModel)]="user.address.city" class="form-control" type="text" name="state" id="state">
+            <input [(ngModel)]="user.address.state" class="form-control" type="text" name="state" id="state">
             <label for="state" class="form-label">State</label>
           </td>
           <td>
@@ -59,7 +59,7 @@
       </tr>
       </tbody>
     </table>
-         <button (click)="updateUser(user)">Update</button>
+         <button (click)="updateAddress(user)">Update</button>
          <br>
          <button (click)="returnHome()">Cancel</button>
     </form>

@@ -1,3 +1,5 @@
+
+import { AddressService } from './../../services/address.service';
 import { UserService } from './../../services/user.service';
 import { GenderService } from './../../services/gender.service';
 import { Router } from '@angular/router';
@@ -5,6 +7,7 @@ import { AuthService } from './../../services/auth.service';
 import { User } from './../../models/user';
 import { Component } from '@angular/core';
 import { Gender } from 'src/app/models/gender';
+import { Address } from 'src/app/models/address';
 
 @Component({
   selector: 'app-settings',
@@ -21,7 +24,7 @@ export class SettingsComponent {
 
 
 
-constructor(private auth: AuthService, private genService: GenderService, private router: Router, private userService: UserService){}
+constructor(private auth: AuthService, private genService: GenderService, private router: Router, private userService: UserService, private addressService: AddressService){}
 
 ngOnInit() {
 this.getLoggedInUser();
@@ -34,6 +37,12 @@ getLoggedInUser(){
     next: (data) => {
       console.log(data);
       this.user = data;
+      if(!this.user.address)      {
+      this.user.address = new Address();
+    }
+      if(!this.user.gender){
+      this.user.gender = new Gender();
+    }
       this.imageUrl = Object.assign({}, this.user.profileImageUrl);
       console.log("Logged in");
     },
@@ -52,6 +61,30 @@ updateUser(user: User){
     error: (fail) => {
       this.router.navigateByUrl('/notFound')
       console.error(fail);
+    }
+  })
+}
+
+updateAddress(user: User){
+  this.addressService.updateAddress(user.address, user.username, user.password).subscribe({
+    next: (data) => {
+      console.log(data);
+      user.address = data;
+      this.updateUser(user);
+    },
+    error: () => {
+      this.addressService.createAddress(user.address, user.username, user.password).subscribe({
+        next: (data) => {
+          console.log(data);
+          user.address = data;
+          this.updateUser(user);
+
+        },
+        error: (fail) => {
+          this.router.navigateByUrl('/notFound')
+          console.error(fail);
+        }
+      })
     }
   })
 }
