@@ -1,4 +1,4 @@
-<div (load)="getLoggedInUser()">
+<div (load)="getLoggedInUser(); getGenders()">
 <div class="row">
   <div class="col-8">
     <form>
@@ -15,37 +15,61 @@
           </td>
         </tr>
         <tr>
-          <td>
-            <input class="form-control" type="text" name="Birthday" id="">
-            <label for="firstname" class="form-label">Birthday</label>
-          </td>
+
           <td>
             <input  class="form-control" type="text" name="street" id="">
-            <label for="lastname" class="form-label">Address Street</label>
+            <label for="street" class="form-label">Street Address</label>
           </td>
-        </tr>
-
-        <tr>
           <td>
             <input class="form-control" type="text" name="city" id="">
-            <label for="firstname" class="form-label">Address City</label>
-          </td>
-          <td>
-            <input  class="form-control" type="text" name="state" id="">
-            <label for="lastname" class="form-label">Address State</label>
+            <label for="city" class="form-label">City</label>
           </td>
         </tr>
 
         <tr>
+          <td>
+            <input  class="form-control" type="text" name="state" id="">
+            <label for="state" class="form-label">State</label>
+          </td>
+          <td>
+            <input class="form-control" type="text" name="city" id="">
+            <label for="zip" class="form-label"> zip</label>
+          </td>
         </tr>
+
+
+        <tr>
+          <td colspan="2">
+            <textarea  class="form-control" type="text" name="description" id=""></textarea>
+            <label for="lastname" class="form-label">Description</label>
+          </td>
+        </tr>
+        <tr>
+        <td>
+          <input class="form-control" type="text" name="Birthday" id="">
+          <label for="firstname" class="form-label">Birthday</label>
+        </td>
+        <td >
+          <select name="">
+           <option value="" *ngFor="let gender of genders"></option>
+
+         </select>
+          <label for="firstname" class="form-label">Gender</label>
+        </td>
+      </tr>
       </tbody>
     </table>
-         <button (click)="updateUser(user)">Submit</button>
+         <button (click)="updateUser(user)">Update</button>
+         <br>
+         <button (click)="returnHome()">Cancel</button>
     </form>
 
   </div>
+  <div class="col-4">
+<div class="container">
+  <img [src]="imageUrl" onerror="this.onerror=null; this.src='https://t4.ftcdn.net/jpg/03/46/93/61/360_F_346936114_RaxE6OQogebgAWTalE1myseY1Hbb5qPM.jpg'">
+  <input type="text" name="profileImageUrl" [(ngModel)]="user.profileImageUrl">
+</div>
+  </div>
 </div>
 </div>
-
-
-

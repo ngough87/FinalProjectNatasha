@@ -1,7 +1,9 @@
+import { GenderService } from './../../services/gender.service';
 import { Router } from '@angular/router';
 import { AuthService } from './../../services/auth.service';
 import { User } from './../../models/user';
 import { Component } from '@angular/core';
+import { Gender } from 'src/app/models/gender';
 
 @Component({
   selector: 'app-settings',
@@ -12,12 +14,17 @@ export class SettingsComponent {
 
   user: User = new User();
 
-constructor(private auth: AuthService, private router: Router){}
+  genders: Gender[] = [];
+
+  imageUrl: string = '';
+
+constructor(private auth: AuthService, private genService: GenderService, private router: Router){}
 
 getLoggedInUser(){
   this.auth.getLoggedInUser().subscribe({
     next: (data) => {
       this.user = data;
+      this.imageUrl = Object.assign({}, this.user.profileImageUrl);
       console.log("Logged in");
     },
     error: (fail) => {
@@ -28,4 +35,19 @@ getLoggedInUser(){
   })
 }
 updateUser(user: User){}
+
+getGenders(){
+  this.genService.index(this.user.username, this.user.password).subscribe({
+    next: (data) => {
+      this.genders = data;
+    },
+    error: (fail) => {
+      this.router.navigateByUrl('/notFound')
+      console.error(fail);
+    }
+  })
+}
+returnHome(){
+  this.router.navigateByUrl('/home')
+}
 }
