@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,7 +19,9 @@ import com.skilldistillery.paseo.services.AddressService;
 import com.skilldistillery.paseo.services.UserService;
 
 @RestController
-@RequestMapping("api/address")
+@RequestMapping("api")
+@CrossOrigin({ "*", "http://localhost/" })
+
 
 public class AddressController {
 
@@ -27,7 +30,7 @@ private AddressService addressService;
 @Autowired
 private UserService userService;
 	
-@PostMapping("{id}")
+@PostMapping("address/user/{UserId}")
 	public Address createUserAddress(Principal principal, @PathVariable int UserId, @RequestBody Address address, HttpServletRequest req, HttpServletResponse res) {
 		Address newAddress = null;
 	try {
@@ -38,8 +41,13 @@ private UserService userService;
 		}
 		else {
 		newAddress = addressService.create(address);
-		res.setStatus(204);
+		
+		
 		user.setAddress(newAddress);
+		
+		userService.update(principal.getName(), user, user.getId());
+		res.setStatus(204);
+		
 		}
 	} catch (Exception e) {
 		res.setStatus(400);

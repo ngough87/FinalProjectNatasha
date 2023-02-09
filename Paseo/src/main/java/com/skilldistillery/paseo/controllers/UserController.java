@@ -28,6 +28,7 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
+	
 	@GetMapping("users")
 	public List <User> show( HttpServletRequest req, HttpServletResponse resp) {
 			
