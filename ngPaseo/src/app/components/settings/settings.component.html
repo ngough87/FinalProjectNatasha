@@ -6,55 +6,55 @@
       <tbody>
         <tr>
           <td>
-            <input class="form-control" type="text" name="firstname" id="">
-            <label for="firstname" class="form-label">First Name</label>
+            <input [(ngModel)]="user.firstName"  class="form-control" type="text" name="firstname" id="firstname" [placeholder]="user.firstName">
+            <label for="firstname" class="form-label" >First Name</label>
           </td>
           <td>
-            <input  class="form-control" type="text" name="lastname" id="">
+            <input [value]="user.lastName" class="form-control" type="text" name="lastname" id="lastname">
             <label for="lastname" class="form-label">Last Name</label>
           </td>
         </tr>
         <tr>
 
           <td>
-            <input  class="form-control" type="text" name="street" id="">
+            <input  class="form-control" type="text" name="street" id="street">
             <label for="street" class="form-label">Street Address</label>
           </td>
           <td>
-            <input class="form-control" type="text" name="city" id="">
+            <input class="form-control" type="text" name="city" id="city">
             <label for="city" class="form-label">City</label>
           </td>
         </tr>
 
         <tr>
           <td>
-            <input  class="form-control" type="text" name="state" id="">
+            <input  class="form-control" type="text" name="state" id="state">
             <label for="state" class="form-label">State</label>
           </td>
           <td>
-            <input class="form-control" type="text" name="city" id="">
-            <label for="zip" class="form-label"> zip</label>
+            <input class="form-control" type="text" name="zip" id="zip">
+            <label for="zip" class="form-label"> Zip</label>
           </td>
         </tr>
 
 
         <tr>
           <td colspan="2">
-            <textarea  class="form-control" type="text" name="description" id=""></textarea>
-            <label for="lastname" class="form-label">Description</label>
+            <textarea  class="form-control" type="text" name="description" id="description"></textarea>
+            <label for="description" class="form-label">Description</label>
           </td>
         </tr>
         <tr>
         <td>
-          <input class="form-control" type="text" name="Birthday" id="">
-          <label for="firstname" class="form-label">Birthday</label>
+          <input [value]="user.birthdate" class="form-control" type="date" name="Birthday" id="birthday">
+          <label for="birthday" class="form-label">Birthday</label>
         </td>
         <td >
-          <select name="">
-           <option value="" *ngFor="let gender of genders"></option>
+          <select name="" id="genders">
+           <option [value]="gender" *ngFor="let gender of genders">{{gender.gender}}</option>
 
          </select>
-          <label for="firstname" class="form-label">Gender</label>
+          <label for="genders" class="form-label">Gender</label>
         </td>
       </tr>
       </tbody>

@@ -23,6 +23,7 @@ constructor(private auth: AuthService, private genService: GenderService, privat
 getLoggedInUser(){
   this.auth.getLoggedInUser().subscribe({
     next: (data) => {
+      console.log(data);
       this.user = data;
       this.imageUrl = Object.assign({}, this.user.profileImageUrl);
       console.log("Logged in");
