@@ -1,1 +1,51 @@
-<p>settings works!</p>
+<div (load)="getLoggedInUser()">
+<div class="row">
+  <div class="col-8">
+    <form>
+    <table>
+      <tbody>
+        <tr>
+          <td>
+            <input class="form-control" type="text" name="firstname" id="">
+            <label for="firstname" class="form-label">First Name</label>
+          </td>
+          <td>
+            <input  class="form-control" type="text" name="lastname" id="">
+            <label for="lastname" class="form-label">Last Name</label>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input class="form-control" type="text" name="Birthday" id="">
+            <label for="firstname" class="form-label">Birthday</label>
+          </td>
+          <td>
+            <input  class="form-control" type="text" name="street" id="">
+            <label for="lastname" class="form-label">Address Street</label>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <input class="form-control" type="text" name="city" id="">
+            <label for="firstname" class="form-label">Address City</label>
+          </td>
+          <td>
+            <input  class="form-control" type="text" name="state" id="">
+            <label for="lastname" class="form-label">Address State</label>
+          </td>
+        </tr>
+
+        <tr>
+        </tr>
+      </tbody>
+    </table>
+         <button (click)="updateUser(user)">Submit</button>
+    </form>
+
+  </div>
+</div>
+</div>
+
+
+

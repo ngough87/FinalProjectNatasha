@@ -27,6 +27,7 @@ class WalkImageTest {
 
 	@AfterAll
 	static void tearDownAfterClass() throws Exception {
+		
 		emf.close();
 	}
 

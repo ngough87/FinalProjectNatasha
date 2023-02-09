@@ -15,6 +15,7 @@ import { FriendsComponent } from './components/friends/friends.component';
 import { AdsComponent } from './components/ads/ads.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { AboutComponent } from './components/about/about.component';
+import { RegisterComponent } from './components/register/register.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { AboutComponent } from './components/about/about.component';
     FriendsComponent,
     AdsComponent,
     NotFoundComponent,
-    AboutComponent
+    AboutComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
