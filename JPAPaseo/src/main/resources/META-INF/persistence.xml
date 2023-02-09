@@ -6,6 +6,26 @@
 
 
 		<class>com.skilldistillery.paseo.entities.User</class>
+		<class>com.skilldistillery.paseo.entities.Address</class>
+		<class>com.skilldistillery.paseo.entities.FollowedUser</class>
+		<class>com.skilldistillery.paseo.entities.FollowedUserKey</class>
+		<class>com.skilldistillery.paseo.entities.Gender</class>
+		<class>com.skilldistillery.paseo.entities.PreferredGender</class>
+		<class>com.skilldistillery.paseo.entities.PreferredGenderKey</class>
+		<class>com.skilldistillery.paseo.entities.Message</class>
+		<class>com.skilldistillery.paseo.entities.PreferredWalkCategory</class>
+		<class>com.skilldistillery.paseo.entities.PreferredWalkCategoryKey</class>
+		<class>com.skilldistillery.paseo.entities.PreferredWalkLocation</class>
+		<class>com.skilldistillery.paseo.entities.PreferredWalkLocationKey</class>
+		<class>com.skilldistillery.paseo.entities.PreferredWalkType</class>
+		<class>com.skilldistillery.paseo.entities.PreferredWalkTypeKey</class>
+		<class>com.skilldistillery.paseo.entities.UserWalk</class>
+		<class>com.skilldistillery.paseo.entities.UserWalkKey</class>
+		<class>com.skilldistillery.paseo.entities.WalkCategory</class>
+		<class>com.skilldistillery.paseo.entities.Walk</class>
+		<class>com.skilldistillery.paseo.entities.WalkImage</class>
+		<class>com.skilldistillery.paseo.entities.WalkLocation</class>
+		<class>com.skilldistillery.paseo.entities.WalkType</class>
 		
 
 		<properties>

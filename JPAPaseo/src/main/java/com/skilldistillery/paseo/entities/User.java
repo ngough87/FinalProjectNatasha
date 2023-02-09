@@ -1,9 +1,11 @@
 package com.skilldistillery.paseo.entities;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,6 +26,46 @@ public class User {
 	private String username;
 	private String password;
 	private Boolean enabled;
+	@Column(name="first_name")
+	private String firstName;
+	@Column(name="last_name")
+	private String lastName;
+	@Column(name="profile_image_url")
+	private String profileImg;
+	
+	public String getProfileImg() {
+		return profileImg;
+	}
+
+	public void setProfileImg(String profileImg) {
+		this.profileImg = profileImg;
+	}
+
+	public Date getBirthdate() {
+		return birthdate;
+	}
+
+	public void setBirthdate(Date birthdate) {
+		this.birthdate = birthdate;
+	}
+
+	private Date birthdate;
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
 	private String role;
 	@OneToOne
 	@JoinColumn(name="address_id")
@@ -212,9 +254,11 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", password=" + password + ", enabled=" + enabled
-				+ ", role=" + role + ", followedUsers=" + followedUsers + ", preferredWalkCats=" + preferredWalkCats
+				+ ", firstName=" + firstName + ", lastName=" + lastName + ", profileImg=" + profileImg + ", birthdate="
+				+ birthdate + ", role=" + role + ", address=" + address + ", gender=" + gender + ", followedUsers="
+				+ followedUsers + ", preferredGenders=" + preferredGenders + ", preferredWalkCats=" + preferredWalkCats
 				+ ", preferredWalkLocations=" + preferredWalkLocations + ", preferredWalkTypes=" + preferredWalkTypes
-				+ ", walks=" + joinedWalks + "]";
+				+ ", joinedWalks=" + joinedWalks + ", createdWalks=" + createdWalks + "]";
 	}
 
 }
