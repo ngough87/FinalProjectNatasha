@@ -11,4 +11,6 @@ public User update(String username, User user, int id);
 
 public boolean destroy(String username, int id);
 
+User findById(int id);
+
 }
