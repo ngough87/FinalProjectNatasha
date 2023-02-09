@@ -59,26 +59,37 @@ public class User {
 	inverseJoinColumns = @JoinColumn(name = "followed_user_id"))
 	private List<User> followedUsers;
 	
+	@JsonIgnore
 	@OneToMany
 	@JoinTable(name = "preferred_gender", joinColumns = @JoinColumn(name = "user_id"), 
 	inverseJoinColumns = @JoinColumn(name = "gender_id"))
 	private List<Gender> preferredGenders;
+	
+	@JsonIgnore
 	@OneToMany
 	@JoinTable(name = "preferred_walk_category", joinColumns = @JoinColumn(name = "user_id"), 
 	inverseJoinColumns = @JoinColumn(name = "walk_category_id"))
 	private List<WalkCategory> preferredWalkCats;
+	
+	@JsonIgnore
 	@OneToMany
 	@JoinTable(name = "preferred_walk_location", joinColumns = @JoinColumn(name = "user_id"), 
 	inverseJoinColumns = @JoinColumn(name = "walk_location_id"))
 	private List<WalkLocation> preferredWalkLocations;
+	
+	@JsonIgnore
 	@OneToMany
 	@JoinTable(name = "preferred_walk_type", joinColumns = @JoinColumn(name = "user_id"), 
 	inverseJoinColumns = @JoinColumn(name = "walk_type_id"))
 	private List<WalkType> preferredWalkTypes;
+	
+	@JsonIgnore
 	@OneToMany
 	@JoinTable(name = "user_walk", joinColumns = @JoinColumn(name = "user_id"), 
 	inverseJoinColumns = @JoinColumn(name = "walk_id"))
 	private List<Walk> joinedWalks;
+	
+	@JsonIgnore
 	@OneToMany(mappedBy="user")
 	private List<Walk> createdWalks;
 

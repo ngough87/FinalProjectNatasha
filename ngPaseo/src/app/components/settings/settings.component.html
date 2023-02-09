@@ -10,29 +10,29 @@
             <label for="firstname" class="form-label" >First Name</label>
           </td>
           <td>
-            <input [value]="user.lastName" class="form-control" type="text" name="lastname" id="lastname">
+            <input  [(ngModel)]="user.lastName" class="form-control" type="text" name="lastname" id="lastname">
             <label for="lastname" class="form-label">Last Name</label>
           </td>
         </tr>
         <tr>
 
           <td>
-            <input  class="form-control" type="text" name="street" id="street">
+            <input [(ngModel)]="" class="form-control" type="text" name="street" id="street">
             <label for="street" class="form-label">Street Address</label>
           </td>
           <td>
-            <input class="form-control" type="text" name="city" id="city">
+            <input [(ngModel)]="" class="form-control" type="text" name="city" id="city">
             <label for="city" class="form-label">City</label>
           </td>
         </tr>
 
         <tr>
           <td>
-            <input  class="form-control" type="text" name="state" id="state">
+            <input [(ngModel)]="" class="form-control" type="text" name="state" id="state">
             <label for="state" class="form-label">State</label>
           </td>
           <td>
-            <input class="form-control" type="text" name="zip" id="zip">
+            <input [(ngModel)]="" class="form-control" type="text" name="zip" id="zip">
             <label for="zip" class="form-label"> Zip</label>
           </td>
         </tr>
@@ -46,7 +46,7 @@
         </tr>
         <tr>
         <td>
-          <input [value]="user.birthdate" class="form-control" type="date" name="Birthday" id="birthday">
+          <input [(ngModel)]="" class="form-control" type="date" name="Birthday" id="birthday">
           <label for="birthday" class="form-label">Birthday</label>
         </td>
         <td >
@@ -66,9 +66,11 @@
 
   </div>
   <div class="col-4">
-<div class="container">
-  <img [src]="imageUrl" onerror="this.onerror=null; this.src='https://t4.ftcdn.net/jpg/03/46/93/61/360_F_346936114_RaxE6OQogebgAWTalE1myseY1Hbb5qPM.jpg'">
-  <input type="text" name="profileImageUrl" [(ngModel)]="user.profileImageUrl">
+<div class="container" >
+  <img src='https://t4.ftcdn.net/jpg/03/46/93/61/360_F_346936114_RaxE6OQogebgAWTalE1myseY1Hbb5qPM.jpg' *ngIf="!user.profileImageUrl">
+  <img [src]="imageUrl" onerror="this.onerror=null; this.src='https://t4.ftcdn.net/jpg/03/46/93/61/360_F_346936114_RaxE6OQogebgAWTalE1myseY1Hbb5qPM.jpg'" *ngIf="user.profileImageUrl">
+  <label for="profileImageUrl" class="form-label">Profile Image</label>
+  <input class="form-control" type="text" name="profileImageUrl" id="profileImageUrl" [(ngModel)]="user.profileImageUrl">
 </div>
   </div>
 </div>

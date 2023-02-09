@@ -1,3 +1,4 @@
+import { UserService } from './../../services/user.service';
 import { GenderService } from './../../services/gender.service';
 import { Router } from '@angular/router';
 import { AuthService } from './../../services/auth.service';
@@ -18,7 +19,9 @@ export class SettingsComponent {
 
   imageUrl: string = '';
 
-constructor(private auth: AuthService, private genService: GenderService, private router: Router){}
+
+
+constructor(private auth: AuthService, private genService: GenderService, private router: Router, private userService: UserService){}
 
 ngOnInit() {
 this.getLoggedInUser();
@@ -41,7 +44,17 @@ getLoggedInUser(){
 
   })
 }
-updateUser(user: User){}
+updateUser(user: User){
+  this.userService.updateUser(user, user.username, user.password).subscribe({
+    next: (data) => {
+      this.router.navigateByUrl('/profile/' + data.id);
+    },
+    error: (fail) => {
+      this.router.navigateByUrl('/notFound')
+      console.error(fail);
+    }
+  })
+}
 
 getGenders(){
   this.genService.index(this.user.username, this.user.password).subscribe({
