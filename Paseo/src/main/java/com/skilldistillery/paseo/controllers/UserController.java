@@ -48,7 +48,7 @@ public class UserController {
 			}
 			
 			else {
-			resp.setStatus(204);}
+			resp.setStatus(202);}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
