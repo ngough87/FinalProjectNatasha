@@ -414,7 +414,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `paseodb`;
-INSERT INTO `user` (`id`, `username`, `password`, `first_name`, `last_name`, `birthdate`, `description`, `enabled`, `role`, `profile_image_url`, `address_id`, `gender_id`) VALUES (1, 'admin', '$2a$10$4SMKDcs9jT18dbFxqtIqDeLEynC7MUrCEUbv1a/bhO.x9an9WGPvm', 'Bob', 'hope', NULL, NULL, 1, NULL, NULL, NULL, NULL);
+INSERT INTO `user` (`id`, `username`, `password`, `first_name`, `last_name`, `birthdate`, `description`, `enabled`, `role`, `profile_image_url`, `address_id`, `gender_id`) VALUES (1, 'admin', '$2a$10$4SMKDcs9jT18dbFxqtIqDeLEynC7MUrCEUbv1a/bhO.x9an9WGPvm', 'Bob', 'hope', NULL, NULL, 1, NULL, NULL, NULL, 1);
 
 COMMIT;
 

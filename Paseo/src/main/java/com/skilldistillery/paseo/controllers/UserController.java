@@ -28,6 +28,7 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
+	
 	@GetMapping("users")
 	public List <User> show( HttpServletRequest req, HttpServletResponse resp) {
 			
@@ -39,13 +40,16 @@ public class UserController {
 	@PutMapping("users/{id}")
 	public User update(@PathVariable int id, @RequestBody User user, HttpServletRequest req, HttpServletResponse resp,
 			Principal principal) {
-
+		User existing = null;
 		try {
-			user = userService.update(principal.getName(), user, id);
+			existing = userService.update(principal.getName(), user, id);
 			if (user == null) {
 				resp.setStatus(404);
 			}
-			resp.setStatus(204);
+			
+			else {
+			resp.setStatus(204);}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			resp.setStatus(400);

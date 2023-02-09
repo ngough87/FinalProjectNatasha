@@ -25,3 +25,21 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+
+
+
+## Controllers Rest End Points
+
+
+## UserController
+
+
+| HTTP Verb | URI                  | Request Body | Response Body |
+|-----------|----------------------|--------------|---------------|
+| GET       | `/api/users`    |              | JSON of `List<User>` |
+| GET       | `/api/user/1` |              | JSON of `User` 1 |
+| POST      | `/authenticate`    | JSON of a new `User` | JSON of created `user` |
+| PUT       | `/api/users/1` | JSON of a new version of `user` 17 | JSON of updated `User` |
+| DELETE    | `/api/users/1` |              | |
+
