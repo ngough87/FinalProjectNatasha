@@ -30,9 +30,10 @@ public class UserServiceImpl implements UserService {
 			existing.setFirstName(user.getFirstName());
 			existing.setLastName(user.getLastName());
 			existing.setBirthdate(user.getBirthdate());
-			existing.setProfileImg(user.getProfileImg());
+			existing.setProfileImageUrl(user.getProfileImageUrl());
 			existing.setAddress(user.getAddress());
 			existing.setGender(user.getGender());
+			existing.setDescription(user.getDescription());
 
 			return userRepo.saveAndFlush(existing);
 
@@ -46,7 +47,8 @@ public class UserServiceImpl implements UserService {
 		boolean deleted = false;
 		User user = userRepo.findByUsernameAndId(username, id);
 		if (user != null) {
-			userRepo.delete(user);
+			user.setEnabled(false);
+			userRepo.saveAndFlush(user);
 			deleted = true;
 
 		}

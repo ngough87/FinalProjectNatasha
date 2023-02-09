@@ -20,6 +20,12 @@ export class SettingsComponent {
 
 constructor(private auth: AuthService, private genService: GenderService, private router: Router){}
 
+ngOnInit() {
+this.getLoggedInUser();
+// this.getGenders();
+
+}
+
 getLoggedInUser(){
   this.auth.getLoggedInUser().subscribe({
     next: (data) => {

@@ -1,7 +1,7 @@
 package com.skilldistillery.paseo.entities;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -22,87 +22,64 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class User {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private int id;
 
 	private String username;
+	
 	private String password;
-	private Boolean enabled;
+	
 	@Column(name = "first_name")
 	private String firstName;
+	
 	@Column(name = "last_name")
 	private String lastName;
-	@Column(name = "profile_image_url")
-	private String profileImg;
-
-	public String getProfileImg() {
-		return profileImg;
-	}
-
-	public void setProfileImg(String profileImg) {
-		this.profileImg = profileImg;
-	}
-
-	public Date getBirthdate() {
-		return birthdate;
-	}
-
-	public void setBirthdate(Date birthdate) {
-		this.birthdate = birthdate;
-	}
-
-	private Date birthdate;
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
+	
+	private String description;
+	
+	@Column(name =" profile_image_url")
+	private String profileImageUrl;
+	
+	private LocalDate birthdate;
+	
+	private Boolean enabled;
+	
 	private String role;
+	
 	@OneToOne
-	@JoinColumn(name = "address_id")
+	@JoinColumn(name="address_id")
 	private Address address;
 	@ManyToOne
-	@JoinColumn(name = "gender_id")
+	@JoinColumn(name="gender_id")
 	private Gender gender;
-
+	
 	@JsonIgnore
 	@OneToMany
-	@JoinTable(name = "followed_user", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "followed_user_id"))
+	@JoinTable(name = "followed_user", joinColumns = @JoinColumn(name = "user_id"), 
+	inverseJoinColumns = @JoinColumn(name = "followed_user_id"))
 	private List<User> followedUsers;
-	@JsonIgnore
+	
 	@OneToMany
-	@JoinTable(name = "preferred_gender", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "gender_id"))
+	@JoinTable(name = "preferred_gender", joinColumns = @JoinColumn(name = "user_id"), 
+	inverseJoinColumns = @JoinColumn(name = "gender_id"))
 	private List<Gender> preferredGenders;
-	@JsonIgnore
 	@OneToMany
-	@JoinTable(name = "preferred_walk_category", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "walk_category_id"))
+	@JoinTable(name = "preferred_walk_category", joinColumns = @JoinColumn(name = "user_id"), 
+	inverseJoinColumns = @JoinColumn(name = "walk_category_id"))
 	private List<WalkCategory> preferredWalkCats;
-	@JsonIgnore
 	@OneToMany
-	@JoinTable(name = "preferred_walk_location", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "walk_location_id"))
+	@JoinTable(name = "preferred_walk_location", joinColumns = @JoinColumn(name = "user_id"), 
+	inverseJoinColumns = @JoinColumn(name = "walk_location_id"))
 	private List<WalkLocation> preferredWalkLocations;
-	@JsonIgnore
 	@OneToMany
-	@JoinTable(name = "preferred_walk_type", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "walk_type_id"))
+	@JoinTable(name = "preferred_walk_type", joinColumns = @JoinColumn(name = "user_id"), 
+	inverseJoinColumns = @JoinColumn(name = "walk_type_id"))
 	private List<WalkType> preferredWalkTypes;
-	@JsonIgnore
 	@OneToMany
-	@JoinTable(name = "user_walk", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "walk_id"))
+	@JoinTable(name = "user_walk", joinColumns = @JoinColumn(name = "user_id"), 
+	inverseJoinColumns = @JoinColumn(name = "walk_id"))
 	private List<Walk> joinedWalks;
-	@JsonIgnore
-	@OneToMany(mappedBy = "user")
+	@OneToMany(mappedBy="user")
 	private List<Walk> createdWalks;
 
 	public User() {
@@ -221,6 +198,46 @@ public class User {
 		this.preferredGenders = preferredGenders;
 	}
 
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getProfileImageUrl() {
+		return profileImageUrl;
+	}
+
+	public void setProfileImageUrl(String profileImageUrl) {
+		this.profileImageUrl = profileImageUrl;
+	}
+
+	public LocalDate getBirthdate() {
+		return birthdate;
+	}
+
+	public void setBirthdate(LocalDate birthdate) {
+		this.birthdate = birthdate;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -237,17 +254,17 @@ public class User {
 		User other = (User) obj;
 		return id == other.id;
 	}
-
+	
+	
 	public void addFollower(User followedUser) {
 		if (followedUsers == null) {
 			followedUsers = new ArrayList<>();
 		}
 		if (!followedUsers.contains(followedUser)) {
 			followedUsers.add(followedUser);
-
+			
 		}
 	}
-
 	public void removeFollower(User followedUser) {
 		if (followedUsers != null && followedUsers.contains(followedUser)) {
 			followedUsers.remove(followedUser);
@@ -257,12 +274,12 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password=" + password + ", enabled=" + enabled
-				+ ", firstName=" + firstName + ", lastName=" + lastName + ", profileImg=" + profileImg + ", birthdate="
-				+ birthdate + ", role=" + role + ", address=" + address + ", gender=" + gender + ", followedUsers="
-				+ followedUsers + ", preferredGenders=" + preferredGenders + ", preferredWalkCats=" + preferredWalkCats
-				+ ", preferredWalkLocations=" + preferredWalkLocations + ", preferredWalkTypes=" + preferredWalkTypes
-				+ ", joinedWalks=" + joinedWalks + ", createdWalks=" + createdWalks + "]";
+		return "User [id=" + id + ", username=" + username + ", password=" + password + ", firstName=" + firstName
+				+ ", lastName=" + lastName + ", description=" + description + ", profileImageUrl=" + profileImageUrl
+				+ ", enabled=" + enabled + ", role=" + role + ", address=" + address + ", gender=" + gender
+				+ ", followedUsers=" + followedUsers + ", preferredGenders=" + preferredGenders + ", preferredWalkCats="
+				+ preferredWalkCats + ", preferredWalkLocations=" + preferredWalkLocations + ", preferredWalkTypes="
+				+ preferredWalkTypes + ", joinedWalks=" + joinedWalks + ", createdWalks=" + createdWalks + "]";
 	}
 
-}
+} 
