@@ -2,6 +2,7 @@ package com.skilldistillery.paseo.entities;
 
 import java.util.Objects;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,7 +16,8 @@ public class Gender {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	private String gender;
+	@Column(name="gender")
+	private String sex;
 
 	public Gender() {
 		super();
@@ -29,12 +31,12 @@ public class Gender {
 		this.id = id;
 	}
 
-	public String getGender() {
-		return gender;
+	public String getSex() {
+		return sex;
 	}
 
-	public void setGender(String gender) {
-		this.gender = gender;
+	public void setSex(String gender) {
+		this.sex = gender;
 	}
 
 	@Override
@@ -56,7 +58,7 @@ public class Gender {
 
 	@Override
 	public String toString() {
-		return "Gender [id=" + id + ", gender=" + gender + "]";
+		return "Gender [id=" + id + ", sex=" + sex + "]";
 	}
 	
 	
