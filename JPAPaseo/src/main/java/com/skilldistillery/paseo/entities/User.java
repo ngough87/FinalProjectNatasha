@@ -16,23 +16,25 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class User {
 
 	@Id
-	@GeneratedValue(strategy= GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
 	private String username;
 	private String password;
 	private Boolean enabled;
-	@Column(name="first_name")
+	@Column(name = "first_name")
 	private String firstName;
-	@Column(name="last_name")
+	@Column(name = "last_name")
 	private String lastName;
-	@Column(name="profile_image_url")
+	@Column(name = "profile_image_url")
 	private String profileImg;
-	
+
 	public String getProfileImg() {
 		return profileImg;
 	}
@@ -50,6 +52,7 @@ public class User {
 	}
 
 	private Date birthdate;
+
 	public String getFirstName() {
 		return firstName;
 	}
@@ -68,37 +71,38 @@ public class User {
 
 	private String role;
 	@OneToOne
-	@JoinColumn(name="address_id")
+	@JoinColumn(name = "address_id")
 	private Address address;
 	@ManyToOne
-	@JoinColumn(name="gender_id")
+	@JoinColumn(name = "gender_id")
 	private Gender gender;
-	
+
+	@JsonIgnore
 	@OneToMany
-	@JoinTable(name = "followed_user", joinColumns = @JoinColumn(name = "user_id"), 
-	inverseJoinColumns = @JoinColumn(name = "followed_user_id"))
+	@JoinTable(name = "followed_user", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "followed_user_id"))
 	private List<User> followedUsers;
+	@JsonIgnore
 	@OneToMany
-	@JoinTable(name = "preferred_gender", joinColumns = @JoinColumn(name = "user_id"), 
-	inverseJoinColumns = @JoinColumn(name = "gender_id"))
+	@JoinTable(name = "preferred_gender", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "gender_id"))
 	private List<Gender> preferredGenders;
+	@JsonIgnore
 	@OneToMany
-	@JoinTable(name = "preferred_walk_category", joinColumns = @JoinColumn(name = "user_id"), 
-	inverseJoinColumns = @JoinColumn(name = "walk_category_id"))
+	@JoinTable(name = "preferred_walk_category", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "walk_category_id"))
 	private List<WalkCategory> preferredWalkCats;
+	@JsonIgnore
 	@OneToMany
-	@JoinTable(name = "preferred_walk_location", joinColumns = @JoinColumn(name = "user_id"), 
-	inverseJoinColumns = @JoinColumn(name = "walk_location_id"))
+	@JoinTable(name = "preferred_walk_location", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "walk_location_id"))
 	private List<WalkLocation> preferredWalkLocations;
+	@JsonIgnore
 	@OneToMany
-	@JoinTable(name = "preferred_walk_type", joinColumns = @JoinColumn(name = "user_id"), 
-	inverseJoinColumns = @JoinColumn(name = "walk_type_id"))
+	@JoinTable(name = "preferred_walk_type", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "walk_type_id"))
 	private List<WalkType> preferredWalkTypes;
+	@JsonIgnore
 	@OneToMany
-	@JoinTable(name = "user_walk", joinColumns = @JoinColumn(name = "user_id"), 
-	inverseJoinColumns = @JoinColumn(name = "walk_id"))
+	@JoinTable(name = "user_walk", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "walk_id"))
 	private List<Walk> joinedWalks;
-	@OneToMany(mappedBy="user")
+	@JsonIgnore
+	@OneToMany(mappedBy = "user")
 	private List<Walk> createdWalks;
 
 	public User() {
@@ -233,17 +237,17 @@ public class User {
 		User other = (User) obj;
 		return id == other.id;
 	}
-	
-	
+
 	public void addFollower(User followedUser) {
 		if (followedUsers == null) {
 			followedUsers = new ArrayList<>();
 		}
 		if (!followedUsers.contains(followedUser)) {
 			followedUsers.add(followedUser);
-			
+
 		}
 	}
+
 	public void removeFollower(User followedUser) {
 		if (followedUsers != null && followedUsers.contains(followedUser)) {
 			followedUsers.remove(followedUser);

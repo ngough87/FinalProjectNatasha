@@ -1,9 +1,11 @@
 package com.skilldistillery.paseo.services;
 
+import java.util.List;
+
 import com.skilldistillery.paseo.entities.User;
 
 public interface UserService {
-public User show(String username, int id);
+public List <User> show();
 
 public User update(String username, User user, int id);
 

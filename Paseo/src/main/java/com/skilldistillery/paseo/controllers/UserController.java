@@ -1,12 +1,12 @@
 package com.skilldistillery.paseo.controllers;
 
 import java.security.Principal;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,15 +28,11 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	@GetMapping("users/{id}")
-	public User show(@PathVariable int id, HttpServletRequest req, HttpServletResponse resp, Principal principal) {
-
-		User user = userService.show(principal.getName(), id);
-		if (user == null) {
-			resp.setStatus(404);
-		}
-
-		return user;
+	@GetMapping("users")
+	public List <User> show( HttpServletRequest req, HttpServletResponse resp) {
+			
+	
+		return userService.show();
 
 	}
 
