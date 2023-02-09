@@ -3,6 +3,7 @@ package com.skilldistillery.paseo.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.skilldistillery.paseo.entities.Gender;
 import com.skilldistillery.paseo.repositories.GenderRepository;
@@ -15,8 +16,8 @@ public class GenderServiceImpl implements GenderService {
 	
 	@Override
 	public List<Gender> index() {
-		genderRepo.findAll();
-		return null;
+		return genderRepo.findAll();
+		
 	}
 
 }

@@ -1,3 +1,4 @@
+import { AuthService } from './auth.service';
 import { Address } from './../models/address';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -10,21 +11,21 @@ import { environment } from 'src/environments/environment';
 export class AddressService {
   private url = environment.baseUrl;
 
-  constructor(private http: HttpClient) {}
-
-  updateAddress(address: Address, username: string|null, password: string|null): Observable<Address> {
-    // Make credentials
-    const credentials = this.generateBasicAuthCredentials(username, password);
-    // Send credentials as Authorization header specifying Basic HTTP authentication
-    const httpOptions = {
-      headers: new HttpHeaders({
-        Authorization: `Basic ${credentials}`,
+  constructor(private http: HttpClient, private auth: AuthService) {}
+  getHttpOptions() {
+    let options = {
+      headers: {
+        Authorization: 'Basic ' + this.auth.getCredentials(),
         'X-Requested-With': 'XMLHttpRequest',
-      }),
+      },
     };
+    return options;
+  }
 
+
+  updateAddress(address: Address): Observable<Address> {
     // Create GET request to authenticate credentials
-    return this.http.put<Address>(this.url + 'api/address/' + address.id, httpOptions).pipe(
+    return this.http.put<Address>(this.url + 'api/address/' + address.id, address, this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError(
@@ -34,19 +35,11 @@ export class AddressService {
     );
   }
 
-  createAddress(address: Address, username: string|null, password: string|null): Observable<Address> {
-    // Make credentials
-    const credentials = this.generateBasicAuthCredentials(username, password);
-    // Send credentials as Authorization header specifying Basic HTTP authentication
-    const httpOptions = {
-      headers: new HttpHeaders({
-        Authorization: `Basic ${credentials}`,
-        'X-Requested-With': 'XMLHttpRequest',
-      }),
-    };
+  createAddress(address: Address ): Observable<Address> {
 
+    console.log(address.city);
     // Create GET request to authenticate credentials
-    return this.http.post<Address>(this.url + 'api/address/', address, httpOptions).pipe(
+    return this.http.post<Address>(this.url + 'api/address', address, this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError(

@@ -54,7 +54,7 @@ getLoggedInUser(){
   })
 }
 updateUser(user: User){
-  this.userService.updateUser(user, user.username, user.password).subscribe({
+  this.userService.updateUser(user).subscribe({
     next: (data) => {
       this.router.navigateByUrl('/profile/' + data.id);
     },
@@ -66,27 +66,33 @@ updateUser(user: User){
 }
 
 updateAddress(user: User){
-  this.addressService.updateAddress(user.address, user.username, user.password).subscribe({
+  console.log(user);
+  if(user.address!.id ===0) {
+    this.addressService.createAddress(user.address!).subscribe({
+    next: (data) => {
+      console.log(data);
+      user.address = data;
+      this.updateUser(user);
+
+    },
+    error: (fail) => {
+      this.router.navigateByUrl('/notFound')
+      console.error(fail);
+    }
+  })
+}
+else {
+
+  this.addressService.updateAddress(user.address!).subscribe({
     next: (data) => {
       console.log(data);
       user.address = data;
       this.updateUser(user);
     },
     error: () => {
-      this.addressService.createAddress(user.address, user.username, user.password).subscribe({
-        next: (data) => {
-          console.log(data);
-          user.address = data;
-          this.updateUser(user);
-
-        },
-        error: (fail) => {
-          this.router.navigateByUrl('/notFound')
-          console.error(fail);
-        }
-      })
     }
   })
+}
 }
 
 getGenders(){

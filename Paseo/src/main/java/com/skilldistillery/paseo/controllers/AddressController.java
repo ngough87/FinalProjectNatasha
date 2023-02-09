@@ -21,7 +21,7 @@ import com.skilldistillery.paseo.services.UserService;
 
 @RestController
 @RequestMapping("api")
-@CrossOrigin({ "*", "http://localhost/" })
+@CrossOrigin({ "*", "http://localhost" })
 
 public class AddressController {
 
@@ -83,7 +83,7 @@ public class AddressController {
 		return newAddress;
 	}
 
-	@PutMapping("address/addressId")
+	@PutMapping("address/{addressId}")
 	public Address updateAddress(Principal princial, @PathVariable int addressId, @RequestBody Address address,
 			HttpServletRequest req, HttpServletResponse res) {
 

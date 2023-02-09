@@ -58,6 +58,8 @@ export class AuthService {
   }
 
   register(user: User): Observable<User>  {
+    user.address = null;
+    user.gender = null;
     // Create POST request to register a new account
     return this.http.post<User>(this.url + 'register', user).pipe(
       catchError((err: any) => {

@@ -1,13 +1,13 @@
 export class Gender {
   id: number;
-  gender: string;
+  sex: string;
 
   constructor(
     id: number = 0,
-    gender: string = ''
+    sex: string = ''
   )
 {
   this.id = id;
-  this.gender = gender
+  this.sex = sex
 }
 }

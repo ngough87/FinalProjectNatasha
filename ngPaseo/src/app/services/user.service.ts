@@ -1,3 +1,4 @@
+import { AuthService } from './auth.service';
 import { User } from 'src/app/models/user';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -10,21 +11,23 @@ import { environment } from 'src/environments/environment';
 export class UserService {
   private url = environment.baseUrl;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private auth: AuthService) {}
 
-  updateUser(user: User, username: string|null, password: string|null): Observable<User> {
-    // Make credentials
-    const credentials = this.generateBasicAuthCredentials(username, password);
-    // Send credentials as Authorization header specifying Basic HTTP authentication
-    const httpOptions = {
-      headers: new HttpHeaders({
-        Authorization: `Basic ${credentials}`,
+  getHttpOptions() {
+    let options = {
+      headers: {
+        Authorization: 'Basic ' + this.auth.getCredentials(),
         'X-Requested-With': 'XMLHttpRequest',
-      }),
+      },
     };
+    return options;
+  }
 
+
+
+  updateUser(user: User): Observable<User> {
     // Create GET request to authenticate credentials
-    return this.http.put<User>(this.url + '/api/user/' + user.id, user, httpOptions).pipe(
+    return this.http.put<User>(this.url + 'api/users/' + user.id, user, this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError(

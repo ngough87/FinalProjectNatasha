@@ -8,9 +8,9 @@ export class User {
   firstName: string;
   lastName: string;
   description: string;
-  address: Address;
+  address: Address | null;
   birthdate: Date;
-  gender: Gender;
+  gender: Gender | null;
   role: string;
   profileImageUrl: string;
   enabled: boolean;
@@ -26,7 +26,7 @@ export class User {
     address: Address = new Address(),
     birthdate: Date = new Date(),
     gender: Gender = new Gender(),
-    role: string = '',
+    role: string = "standard",
     profileImageUrl: string ='',
     enabled: boolean = false
 
