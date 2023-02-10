@@ -273,13 +273,103 @@ public class User {
 		}
 		if (!followedUsers.contains(followedUser)) {
 			followedUsers.add(followedUser);
-			
+			followedUser.addFollower(this);
 		}
 	}
 	public void removeFollower(User followedUser) {
 		if (followedUsers != null && followedUsers.contains(followedUser)) {
 			followedUsers.remove(followedUser);
 			followedUser.removeFollower(this);
+		}
+	}
+	
+	public void addPreferredGender(Gender gender) {
+		if (preferredGenders == null) {
+			preferredGenders = new ArrayList<>();
+		}
+		if (!preferredGenders.contains(gender)) {
+			preferredGenders.add(gender);
+		}
+	}
+
+	public void removePreferredGender(Gender gender) {
+		if (preferredGenders != null && preferredGenders.contains(gender)) {
+			preferredGenders.remove(gender);
+		}
+	}
+	
+	public void addPreferredWalkType(WalkType walkType) {
+		if (preferredWalkTypes == null) {
+			preferredWalkTypes = new ArrayList<>();
+		}
+		if (!preferredWalkTypes.contains(walkType)) {
+			preferredWalkTypes.add(walkType);
+		}
+	}
+	
+	public void removePreferredWalkType(WalkType walkType) {
+		if (preferredWalkTypes != null && preferredWalkTypes.contains(walkType)) {
+			preferredWalkTypes.remove(walkType);
+		}
+	}
+	
+	public void addPreferredWalkCategories(WalkCategory walkCategory) {
+		if (preferredWalkCats == null) {
+			preferredWalkCats = new ArrayList<>();
+		}
+		if (!preferredWalkCats.contains(walkCategory)) {
+			preferredWalkCats.add(walkCategory);
+		}
+	}
+	
+	public void removePreferredWalkCategories(WalkCategory walkCategory) {
+		if (preferredWalkCats != null && preferredWalkCats.contains(walkCategory)) {
+			preferredWalkCats.remove(walkCategory);
+		}
+	}
+	
+	public void addPreferredWalkLocation(WalkLocation walkLocation) {
+		if (preferredWalkLocations == null) {
+			preferredWalkLocations = new ArrayList<>();
+		}
+		if (!preferredWalkLocations.contains(walkLocation)) {
+			preferredWalkLocations.add(walkLocation);
+		}
+	}
+	
+	public void removePreferredWalkLocation(WalkLocation walkLocation) {
+		if (preferredWalkLocations != null && preferredWalkLocations.contains(walkLocation)) {
+			preferredWalkLocations.remove(walkLocation);
+		}
+	}
+	
+	public void addJoinedWalks(Walk walk) {
+		if (joinedWalks == null) {
+			joinedWalks = new ArrayList<>();
+		}
+		if (!joinedWalks.contains(walk)) {
+			joinedWalks.add(walk);
+		}
+	}
+	
+	public void removeJoinedWalks(Walk walk) {
+		if (joinedWalks != null && joinedWalks.contains(walk)) {
+			joinedWalks.remove(walk);
+		}
+	}
+	
+	public void addCreatedWalks(Walk walk) {
+		if (createdWalks == null) {
+			createdWalks = new ArrayList<>();
+		}
+		if (!createdWalks.contains(walk)) {
+			createdWalks.add(walk);
+		}
+	}
+	
+	public void removeCreatedWalks(Walk walk) {
+		if (createdWalks != null && createdWalks.contains(walk)) {
+			createdWalks.remove(walk);
 		}
 	}
 

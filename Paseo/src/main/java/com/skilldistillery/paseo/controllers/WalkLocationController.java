@@ -51,6 +51,7 @@ public class WalkLocationController {
 			resp.setStatus(201);
 			resp.setHeader("Location", "http://localhost:8090/api/walkLocation/" + output.getId());
 		} catch (Exception e) {
+			e.printStackTrace();
 			resp.setStatus(400);
 		}
 		return output;

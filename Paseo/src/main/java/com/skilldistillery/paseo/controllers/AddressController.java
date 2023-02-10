@@ -1,12 +1,14 @@
 package com.skilldistillery.paseo.controllers;
 
 import java.security.Principal;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -29,6 +31,11 @@ public class AddressController {
 	private AddressService addressService;
 	@Autowired
 	private UserService userService;
+	
+	@GetMapping("address")
+	public List<Address> index() {
+		return addressService.index();
+	}
 
 	@PostMapping("address/user/{userId}")
 	public Address createUserAddress(Principal principal, @PathVariable int userId, @RequestBody Address address,
@@ -95,7 +102,8 @@ public class AddressController {
 				res.setStatus(404);
 			} else {
 				existing = addressService.update(address, addressId);
-				res.setStatus(204);
+				res.setStatus(202);
+				res.setHeader("Location", "http://localhost:8090/api/address/" + existing.getId());
 
 			}
 		} catch (Exception e) {
