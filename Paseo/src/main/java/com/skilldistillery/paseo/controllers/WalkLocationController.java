@@ -43,18 +43,6 @@ public class WalkLocationController {
 		return output;
 	}
 
-	@GetMapping("walkLocation/user/{userId}")
-	public WalkLocation findByUserId(@PathVariable int userId, HttpServletResponse resp) {
-		WalkLocation output = null;
-		output = walkLocationServ.findByUser_Id(userId);
-		if (output == null) {
-			resp.setStatus(404);
-		} else {
-			resp.setHeader("Location", "http://localhost:8090/api/walkLocation/" + output.getId());
-		}
-		return output;
-	}
-
 	@PostMapping("walkLocation")
 	public WalkLocation createLocation(@RequestBody WalkLocation createMe, HttpServletResponse resp) {
 		WalkLocation output = null;

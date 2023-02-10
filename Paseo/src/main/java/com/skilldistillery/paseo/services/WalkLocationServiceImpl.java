@@ -24,10 +24,6 @@ public class WalkLocationServiceImpl implements WalkLocationService {
 		return walkLocationRepo.findById(id);
 	}
 
-	@Override
-	public WalkLocation findByUser_Id(int userId) {
-		return walkLocationRepo.findByUser_Id(userId);
-	}
 
 	@Override
 	public boolean destroy(WalkLocation deleteMe) {
