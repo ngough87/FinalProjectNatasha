@@ -51,9 +51,9 @@ export class AuthService {
     }
     let username = credentials.split(':')[0];
     let password = credentials.split(':')[1];
-    console.log(credentials)
-    console.log(username)
-    console.log(password)
+    // console.log(credentials)
+    // console.log(username)
+    // console.log(password)
     return this.login(username, password);
   }
 
