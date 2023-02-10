@@ -11,4 +11,8 @@ public interface WalkRepository extends JpaRepository<Walk, Integer>{
 	
 	List<Walk> findByUser_Id(int id);
 	
+	Walk findByUserId(int userId);
+	
+	Walk findById(int id);
+	
 }
