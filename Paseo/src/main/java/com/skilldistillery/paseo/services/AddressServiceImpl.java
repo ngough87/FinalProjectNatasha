@@ -1,5 +1,7 @@
 package com.skilldistillery.paseo.services;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,15 +20,15 @@ public class AddressServiceImpl implements AddressService {
 	}
 	@Override
 	public Address findById(int id) {
-		return addressRepo.findById(id).get();
-		
+		 return addressRepo.findById(id);
+	
 	}
 
 	@Override
 	public Address update(Address address, int id) {
 		
 		
-		Address existing = addressRepo.findById(id).get();
+		Address existing = addressRepo.findById(id);
 		
 		existing.setStreet(address.getStreet());
 		existing.setCity(address.getCity());

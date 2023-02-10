@@ -6,6 +6,7 @@ import com.skilldistillery.paseo.entities.Gender;
 
 public interface GenderRepository extends JpaRepository<Gender, Integer> {
 	
+	Gender findById(int id);
 	
 
 }
