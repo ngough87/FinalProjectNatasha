@@ -9,9 +9,9 @@ id: number;
 name: string;
 date: string;
 description: string;
-walkCategory: WalkCategory | null;
-walkType: WalkType | null;
-walkLocation: WalkLocation |null;
+walkCategory: WalkCategory ;
+walkType: WalkType;
+walkLocation: WalkLocation;
 userId: number;
 enabled: boolean;
 startTime: string;
@@ -25,9 +25,9 @@ id: number = 0,
 name: string = '',
 date: string = '',
 description: string = '',
-walkCategory: WalkCategory = new WalkCategory,
-walkType: WalkType = new WalkType,
-walkLocation: WalkLocation = new WalkLocation,
+walkCategory: WalkCategory = new WalkCategory(),
+walkType: WalkType = new WalkType(),
+walkLocation: WalkLocation = new WalkLocation(),
 userId: number = 0,
 enabled: boolean = false,
 startTime: string = '',

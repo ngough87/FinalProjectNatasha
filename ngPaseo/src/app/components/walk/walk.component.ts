@@ -27,6 +27,7 @@ export class WalkComponent implements OnInit{
 
   walkTypes: WalkType[] =  []
   walkCategories : WalkCategory[] = [];
+  walkLocations : WalkLocation [] = [];
   addLocation: boolean = false;
   addAddress: boolean = false;
 
@@ -48,6 +49,8 @@ export class WalkComponent implements OnInit{
   ngOnInit(): void {
     this.reload();
     this.loadCategories();
+    this.loadTypes();
+    this.loadLocation();
   }
 
   reload(): void {
@@ -75,6 +78,20 @@ next: (data) =>{
 
 
 }
+
+loadLocation(){
+
+  this.walkLocationService.index().subscribe({
+
+next: (data) =>{
+  this.walkLocations = data;
+}
+
+  })
+
+
+}
+
 
 loadTypes(){
 
