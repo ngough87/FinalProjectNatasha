@@ -1,6 +1,6 @@
 package com.skilldistillery.paseo.services;
 
-import java.util.Optional;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,9 +13,17 @@ public class AddressServiceImpl implements AddressService {
 	private AddressRepository addressRepo;
 	
 	@Override
+	public List<Address> index() {
+		return addressRepo.findAll();
+	}
+	
+	@Override
 	public Address create(Address address) {
-		
-		return addressRepo.saveAndFlush(address);
+		Address output = addressRepo.findByStreetAndCityAndStateAndZip(address.getStreet(), address.getCity(), address.getState(), address.getZip());
+		if (output == null) {
+			output = addressRepo.saveAndFlush(address);
+		}
+		return output;
 		
 	}
 	@Override
@@ -25,16 +33,18 @@ public class AddressServiceImpl implements AddressService {
 
 	@Override
 	public Address update(Address address, int id) {
+		Address output = addressRepo.findByStreetAndCityAndStateAndZip(address.getStreet(), address.getCity(), address.getState(), address.getZip());
+		if (output == null) {
+			output = addressRepo.findById(id);
+			
+			output.setStreet(address.getStreet());
+			output.setCity(address.getCity());
+			output.setState(address.getState());
+			output.setZip(address.getZip());
+			output = addressRepo.saveAndFlush(output);
+		}
 		
-		
-		Address existing = addressRepo.findById(id);
-		
-		existing.setStreet(address.getStreet());
-		existing.setCity(address.getCity());
-		existing.setState(address.getState());
-		existing.setZip(address.getZip());
-		
-		return addressRepo.saveAndFlush(existing);
+		return output;
 		
 	}
 
