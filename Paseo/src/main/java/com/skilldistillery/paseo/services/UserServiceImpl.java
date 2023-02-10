@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.skilldistillery.paseo.entities.User;
+import com.skilldistillery.paseo.repositories.AddressRepository;
+import com.skilldistillery.paseo.repositories.GenderRepository;
 import com.skilldistillery.paseo.repositories.UserRepository;
 
 @Service
@@ -13,6 +15,13 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserRepository userRepo;
+	@Autowired
+	private AddressRepository addRepo;
+	
+	@Autowired
+	private GenderRepository genderRepo;
+	
+	
 
 	@Override
 	public List<User> show() {
@@ -31,8 +40,8 @@ public class UserServiceImpl implements UserService {
 			existing.setLastName(user.getLastName());
 			existing.setBirthdate(user.getBirthdate());
 			existing.setProfileImageUrl(user.getProfileImageUrl());
-			existing.setAddress(user.getAddress());
-			existing.setGender(user.getGender());
+			existing.setAddress(addRepo.getById(user.getAddress().getId()));
+			existing.setGender(genderRepo.getById(user.getGender().getId()));
 			existing.setDescription(user.getDescription());
 
 			return userRepo.saveAndFlush(existing);

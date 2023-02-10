@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/services/auth.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, tap, catchError, throwError } from 'rxjs';
@@ -11,21 +12,24 @@ import { User } from '../models/user';
 export class GenderService {
   private url = environment.baseUrl;
 
-  constructor(private http: HttpClient) {}
-
-  index(username: string|null, password: string|null): Observable<Gender[]> {
-    // Make credentials
-    const credentials = this.generateBasicAuthCredentials(username, password);
-    // Send credentials as Authorization header specifying Basic HTTP authentication
-    const httpOptions = {
-      headers: new HttpHeaders({
-        Authorization: `Basic ${credentials}`,
+  constructor(private http: HttpClient, private auth: AuthService) {}
+  getHttpOptions() {
+    let options = {
+      headers: {
+        Authorization: 'Basic ' + this.auth.getCredentials(),
         'X-Requested-With': 'XMLHttpRequest',
-      }),
+      },
     };
+    return options;
+  }
+
+
+
+  index(): Observable<Gender[]> {
+
 
     // Create GET request to authenticate credentials
-    return this.http.get<Gender[]>(this.url + '/api/gender', httpOptions).pipe(
+    return this.http.get<Gender[]>(this.url + 'api/genders', this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError(

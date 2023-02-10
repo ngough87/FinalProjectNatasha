@@ -50,8 +50,8 @@
           <label for="birthday" class="form-label">Birthday</label>
         </td>
         <td >
-          <select name="" id="genders">
-           <option [(ngModel)]="user.gender" *ngFor="let gender of genders">{{gender.sex}}</option>
+          <select [(ngModel)]="user.gender" name="genders" id="genders">
+           <option  [ngValue]="gender" name="gender" *ngFor="let gender of genders">{{gender.sex}}</option>
 
          </select>
           <label for="genders" class="form-label">Gender</label>

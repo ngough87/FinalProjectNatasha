@@ -28,7 +28,7 @@ constructor(private auth: AuthService, private genService: GenderService, privat
 
 ngOnInit() {
 this.getLoggedInUser();
-// this.getGenders();
+this.getGenders();
 
 }
 
@@ -96,7 +96,7 @@ else {
 }
 
 getGenders(){
-  this.genService.index(this.user.username, this.user.password).subscribe({
+  this.genService.index().subscribe({
     next: (data) => {
       this.genders = data;
     },

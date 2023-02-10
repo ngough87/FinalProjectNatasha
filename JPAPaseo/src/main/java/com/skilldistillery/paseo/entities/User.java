@@ -14,7 +14,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -46,9 +45,10 @@ public class User {
 	
 	private String role;
 	
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name="address_id")
 	private Address address;
+	
 	@ManyToOne
 	@JoinColumn(name="gender_id")
 	private Gender gender;

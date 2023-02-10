@@ -2,6 +2,7 @@ package com.skilldistillery.paseo.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import javax.persistence.EntityManager;
@@ -47,8 +48,8 @@ class UserTest {
 	void test_user_entity_mappings() {
 		assertNotNull(user);
 		assertEquals("admin", user.getUsername());
-		assertEquals(null, user.getGender());
-		assertEquals(null, user.getAddress());
+		assertNotNull(user.getGender());
+		assertNull(user.getAddress());
 	
 	}
 	
