@@ -10,6 +10,8 @@ User findByUsername(String username);
 
 User findByUsernameAndId(String username, int id);
 
+User findById(int id);
+
 
 
 }

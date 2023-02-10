@@ -30,24 +30,18 @@ public class WalkController {
 
 	@GetMapping("walks")
 	public List<Walk> show() {
-		return walkService.show();
-
+		return walkService.showWalksThatArePublic();
 	}
-
+	
 	@GetMapping("walks/user/{userId}")
-	public List<Walk> findAllByUserId(Principal principal, @PathVariable("userId") int userId,
-			HttpServletResponse res) {
-		System.out.println("principle inside controllers " + principal.getName());
-		System.out.println("userid " + userId);
-		
-
-		if (principal != null) {
+	public List<Walk> findAllByUserId(@PathVariable("userId") int id, HttpServletResponse res) {
+		 boolean enabled = true;  
+		if (id > 0 && enabled) {
 			List<Walk> userWalks = null;
+			
 			try {
 
-				userWalks = walkService.findAllWalksByUserId(principal.getName(), userId);
-
-				System.out.println("users list of walks: " + userWalks);
+				userWalks = walkService.findAllWalksByUserId(id);
 				res.setStatus(200);
 				return userWalks;
 
@@ -60,4 +54,15 @@ public class WalkController {
 		return null;
 	}
 
+//	// Create a walk for a logged in user. Allow user to set it to public or private.
+//	@PostMapping("walks/user/{walkId}")
+//	public Walk create(Walk walk, int userId) {
+//		boolean enabled = true;
+//		Walk walk = new walk
+//	}
+//	
+	// Update a walk based on userId. Also allow user to set it to public or private.
+	
+	// Allow user to "Delete" a walk. Allow user to set it to enabled or disabled. 
+	
 }

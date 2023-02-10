@@ -34,52 +34,56 @@ public class WalkServiceImpl implements WalkService {
 
 	// non authorized view of data below
 	@Override
-	public List<Walk> show() {
-
-		return walkRepo.findAll();
+	public List<Walk> showWalksThatArePublic() {
+		
+		List<Walk> walks = walkRepo.findAll();
+		
+		List<Walk> copyWalkList = walks;
+		
+		for (Walk walk : copyWalkList) {
+			
+			if(walk.getPrivacy() == true) {
+				return copyWalkList;
+			}
+			
+		}
+		return null;
 	}
 
-	public List<Walk> findAllWalksByUserId(String username, int userId) {
+
+	public List<Walk> findAllWalksByUserId(int id) {
 		User user = null;
+		
 		List<Walk> usersListOfWalks = null;
-		System.out.println( " inside impl user id: " + userId);
-		System.out.println( " inside impl user name: " + username);
-		
-		
-		  user = userRepo.findByUsername(username);
-		  
-		  System.out.println("user op is : " + user);
-		
-	
 
-		if (user != null) {
-			System.out.println("inside userOP: " + user);
-			
-			if (user.getUsername().equals(username)) {
+		user = userRepo.findById(id);
 
-				usersListOfWalks = walkRepo.findByUser_Id(userId);
-				System.out.println(usersListOfWalks);
-			}
+		if (user != null && user.getEnabled() == true ) {
+
+			usersListOfWalks = walkRepo.findByUser_Id(id);
 
 		}
+
 		return usersListOfWalks;
 	}
+//
+//	@Override
+//	public Walk create(Walk walk, int userId) {
+//		Optional<User> userWalk = userRepo.findById(userId);
+//		System.out.println("walk: " + walk);
+//		System.out.println("user id: " + userId);
+//		User user = null;
+//		if (userWalk.isPresent()) {
+//			user = userWalk.get();
+//			if (walk != null) {
+//				walk.setUser(user);
+//				walkRepo.saveAndFlush(walk);
+//
+//			}
+//		}
+//		return walk;
+//	}
 
-	@Override
-	public Walk create(Walk walk, int userId) {
-		Optional<User> userWalk = userRepo.findById(userId);
-		System.out.println("walk: " + walk);
-		System.out.println("user id: " + userId);
-		User user = null;
-		if (userWalk.isPresent()) {
-			user = userWalk.get();
-			if (walk != null) {
-				walk.setUser(user);
-				walkRepo.saveAndFlush(walk);
 
-			}
-		}
-		return walk;
-	}
 
 }

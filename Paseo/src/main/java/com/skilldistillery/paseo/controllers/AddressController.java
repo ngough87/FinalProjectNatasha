@@ -30,13 +30,13 @@ public class AddressController {
 	@Autowired
 	private UserService userService;
 
-	@PostMapping("address/user/{UserId}")
-	public Address createUserAddress(Principal principal, @PathVariable int UserId, @RequestBody Address address,
+	@PostMapping("address/user/{userId}")
+	public Address createUserAddress(Principal principal, @PathVariable int userId, @RequestBody Address address,
 			HttpServletRequest req, HttpServletResponse res) {
 		Address newAddress = null;
 		try {
 
-			User user = userService.findById(UserId);
+			User user = userService.findById(userId);
 			if (user == null) {
 				res.setStatus(404);
 			} else {

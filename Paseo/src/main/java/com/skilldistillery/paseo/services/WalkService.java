@@ -6,10 +6,10 @@ import com.skilldistillery.paseo.entities.Walk;
 
 public interface WalkService {
 
-	List<Walk> show();
+	List<Walk>  showWalksThatArePublic();
 
-	List<Walk> findAllWalksByUserId(String username, int userId);
+	List<Walk> findAllWalksByUserId(int id);
 
-	Walk create(Walk walk, int userId);
+	// Walk create(Walk walk, int userId);
 
 }
