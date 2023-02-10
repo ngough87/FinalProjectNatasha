@@ -19,7 +19,7 @@ public class WalkCategoryController {
 	@Autowired
 	private WalkCategoryService walkCategoryServ;
 	
-	@GetMapping("walkCategories")
+	@GetMapping("walkCategory")
 	public List<WalkCategory>index() {
 		return walkCategoryServ.index();
 	}

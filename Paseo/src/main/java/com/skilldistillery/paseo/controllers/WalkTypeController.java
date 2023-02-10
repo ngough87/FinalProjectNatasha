@@ -19,7 +19,7 @@ public class WalkTypeController {
 	@Autowired
 	private WalkTypeService walkTypeServ;
 	
-	@GetMapping("walkTypes")
+	@GetMapping("walkType")
 	public List<WalkType>index() {
 		return walkTypeServ.index();
 	}
