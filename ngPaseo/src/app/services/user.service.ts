@@ -26,6 +26,7 @@ export class UserService {
 
 
   updateUser(user: User): Observable<User> {
+    console.log(user);
     // Create GET request to authenticate credentials
     return this.http.put<User>(this.url + 'api/users/' + user.id, user, this.getHttpOptions()).pipe(
       catchError((err: any) => {

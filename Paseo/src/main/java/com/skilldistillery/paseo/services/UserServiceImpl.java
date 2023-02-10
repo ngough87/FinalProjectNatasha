@@ -34,14 +34,17 @@ public class UserServiceImpl implements UserService {
 		User existing = userRepo.findByUsernameAndId(username, id);
 
 		if (existing != null) {
-			System.out.println(user);
 			existing.setUsername(user.getUsername());
 			existing.setPassword(user.getPassword());
 			existing.setFirstName(user.getFirstName());
 			existing.setLastName(user.getLastName());
 			existing.setBirthdate(user.getBirthdate());
 			existing.setProfileImageUrl(user.getProfileImageUrl());
+			if(user.getAddress() == null) {
+				existing.setAddress(null);
+			} else {
 			existing.setAddress(addRepo.findById(user.getAddress().getId()));
+			}
 			existing.setGender(genderRepo.findById(user.getGender().getId()));
 			existing.setDescription(user.getDescription());
 

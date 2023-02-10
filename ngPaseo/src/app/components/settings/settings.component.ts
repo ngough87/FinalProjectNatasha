@@ -17,7 +17,8 @@ import { Address } from 'src/app/models/address';
 export class SettingsComponent {
 
   user: User = new User();
-
+  address: Address = new Address;
+  userGender = new Gender();
   genders: Gender[] = [];
 
   imageUrl: string = '';
@@ -37,12 +38,17 @@ getLoggedInUser(){
     next: (data) => {
       console.log(data);
       this.user = data;
+      console.log(this.user);
       if(!this.user.address)      {
-      this.user.address = new Address();
-    }
+        this.user.address = new Address();
+      } else {
+        this.address = data.address!;
+      }
       if(!this.user.gender){
       this.user.gender = new Gender();
-    }
+      } else {
+        this.userGender = data.gender!;
+      }
       this.imageUrl = Object.assign({}, this.user.profileImageUrl);
       console.log("Logged in");
     },
@@ -67,29 +73,30 @@ updateUser(user: User){
 
 updateAddress(user: User){
   console.log(user);
+  // console.log(this.user);
   if(user.address!.id ===0) {
     this.addressService.createAddress(user.address!).subscribe({
-    next: (data) => {
-      console.log(data);
-      user.address = data;
-      this.updateUser(user);
+      next: (data) => {
+        // console.log(data);
+        user.address = data;
+        this.updateUser(user);
 
-    },
-    error: (fail) => {
-      this.router.navigateByUrl('/notFound')
-      console.error(fail);
-    }
-  })
-}
-else {
-
+      },
+      error: (fail) => {
+        this.router.navigateByUrl('/notFound')
+        console.error(fail);
+      }
+    })
+  }
+  else {
+  console.log('************' + user.address!.street);
   this.addressService.updateAddress(user.address!).subscribe({
     next: (data) => {
-      console.log(data);
-      user.address = data;
+      user.address = this.address;
       this.updateUser(user);
     },
-    error: () => {
+    error: (err) => {
+      console.error('Error updateAddress(): ' + err);
     }
   })
 }

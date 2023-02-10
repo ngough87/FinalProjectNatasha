@@ -6,7 +6,7 @@
       <tbody>
         <tr>
           <td>
-            <input [(ngModel)]="user.firstName"  class="form-control" type="text" name="firstname" id="firstname" [placeholder]="user.firstName">
+            <input [(ngModel)]="user.firstName"  class="form-control" type="text" name="firstname" id="firstname">
             <label for="firstname" class="form-label" >First Name</label>
           </td>
           <td>
@@ -17,22 +17,22 @@
         <tr>
 
           <td>
-            <input [(ngModel)]="user.address!.street" class="form-control" type="text" name="street" id="street">
+            <input [(ngModel)]="address.street" class="form-control" type="text" name="street" id="street">
             <label for="street" class="form-label">Street Address</label>
           </td>
           <td>
-            <input [(ngModel)]="user.address!.city" class="form-control" type="text" name="city" id="city">
+            <input [(ngModel)]="address.city" class="form-control" type="text" name="city" id="city">
             <label for="city" class="form-label">City</label>
           </td>
         </tr>
 
         <tr>
           <td>
-            <input [(ngModel)]="user.address!.state" class="form-control" type="text" name="state" id="state">
+            <input [(ngModel)]="address.state" class="form-control" type="text" name="state" id="state">
             <label for="state" class="form-label">State</label>
           </td>
           <td>
-            <input [(ngModel)]="user.address!.zip" class="form-control" type="text" name="zip" id="zip">
+            <input [(ngModel)]="address.zip" class="form-control" type="text" name="zip" id="zip">
             <label for="zip" class="form-label"> Zip</label>
           </td>
         </tr>

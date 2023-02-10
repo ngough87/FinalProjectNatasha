@@ -16,7 +16,7 @@ export class AddressService {
     let options = {
       headers: {
         Authorization: 'Basic ' + this.auth.getCredentials(),
-        'X-Requested-With': 'XMLHttpRequest',
+        'X-Requested-With': 'XMLHttpRequest'
       },
     };
     return options;
@@ -24,6 +24,7 @@ export class AddressService {
 
 
   updateAddress(address: Address): Observable<Address> {
+    console.log('In updateAddress()' + address.id)
     // Create GET request to authenticate credentials
     return this.http.put<Address>(this.url + 'api/address/' + address.id, address, this.getHttpOptions()).pipe(
       catchError((err: any) => {
