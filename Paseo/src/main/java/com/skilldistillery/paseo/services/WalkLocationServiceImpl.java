@@ -43,7 +43,10 @@ public class WalkLocationServiceImpl implements WalkLocationService {
 
 	@Override
 	public WalkLocation createLocation(WalkLocation createMe) {
-		Address address = addressRepo.findById(createMe.getAddress().getId());
+		Address address = null;
+		if (createMe.getAddress() != null) {
+			address = addressRepo.findById(createMe.getAddress().getId());
+		}
 		WalkLocation output = null;
 		if (address != null) {			
 			createMe.setAddress(address);
