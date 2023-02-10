@@ -6,5 +6,4 @@ import com.skilldistillery.paseo.entities.PreferredGender;
 import com.skilldistillery.paseo.entities.PreferredGenderKey;
 
 public interface PreferredGenderRepository extends JpaRepository<PreferredGender, PreferredGenderKey>{
-
 }

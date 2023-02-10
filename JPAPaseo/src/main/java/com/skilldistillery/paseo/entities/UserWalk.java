@@ -27,6 +27,13 @@ public class UserWalk {
 	
 	public UserWalk () {}
 
+	public UserWalk(UserWalkKey id, User user, Walk walk) {
+		super();
+		this.id = id;
+		this.user = user;
+		this.walk = walk;
+	}
+
 	public User getUser() {
 		return user;
 	}

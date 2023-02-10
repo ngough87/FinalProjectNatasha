@@ -25,6 +25,13 @@ public class PreferredWalkLocation {
 	
 	public PreferredWalkLocation () {}
 
+	public PreferredWalkLocation(PreferredWalkLocationKey id, User user, WalkLocation walkLocation) {
+		super();
+		this.id = id;
+		this.user = user;
+		this.walkLocation = walkLocation;
+	}
+
 	public PreferredWalkLocationKey getId() {
 		return id;
 	}
