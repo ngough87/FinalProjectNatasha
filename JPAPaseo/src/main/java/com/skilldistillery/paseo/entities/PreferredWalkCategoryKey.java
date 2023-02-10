@@ -16,7 +16,7 @@ public class PreferredWalkCategoryKey implements Serializable {
 	
 	public PreferredWalkCategoryKey () {}
 	
-	public PreferredWalkCategoryKey(int walkCategory, int user) {
+	public PreferredWalkCategoryKey(int user, int walkCategory) {
 		this.walkCategory = walkCategory;
 		this.user = user;
 	}

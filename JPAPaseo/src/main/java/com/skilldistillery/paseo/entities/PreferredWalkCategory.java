@@ -25,6 +25,13 @@ public class PreferredWalkCategory {
 	
 	public PreferredWalkCategory () {}
 
+	public PreferredWalkCategory(PreferredWalkCategoryKey id, User user, WalkCategory walkCategory) {
+		super();
+		this.id = id;
+		this.user = user;
+		this.walkCategory = walkCategory;
+	}
+
 	public PreferredWalkCategoryKey getId() {
 		return id;
 	}

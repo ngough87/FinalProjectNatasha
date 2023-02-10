@@ -25,6 +25,13 @@ public class PreferredGender {
 	
 	public PreferredGender() {}
 
+	public PreferredGender(PreferredGenderKey id, User user, Gender gender) {
+		super();
+		this.id = id;
+		this.user = user;
+		this.gender = gender;
+	}
+
 	public PreferredGenderKey getId() {
 		return id;
 	}

@@ -25,6 +25,13 @@ public class PreferredWalkType {
 	
 	public PreferredWalkType () {}
 
+	public PreferredWalkType(PreferredWalkTypeKey id, User user, WalkType walkType) {
+		super();
+		this.id = id;
+		this.user = user;
+		this.walkType = walkType;
+	}
+
 	public PreferredWalkTypeKey getId() {
 		return id;
 	}
