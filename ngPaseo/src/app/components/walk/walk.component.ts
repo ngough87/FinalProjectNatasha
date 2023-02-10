@@ -65,6 +65,14 @@ export class WalkComponent implements OnInit{
     });
   }
 
+createNewWalk(walk :Walk){
+  this.walkService.create(walk).subscribe({
+    next:(data) =>{
+      console.log(data);
+
+    }
+  })
+}
 
 loadCategories(){
 
