@@ -72,6 +72,8 @@ public class UserServiceImpl implements UserService {
 		return deleted;
 	}
 	
+	
+	//non logged in users can perform action below 
 	@Override
 	public User findById(int id) {
 		return userRepo.findById(id).get();
