@@ -1,0 +1,91 @@
+<p>walk works!</p>
+
+
+  <div class="row">
+    <div class="col-8">
+      <form>
+      <table>
+        <tbody>
+          <tr>
+            <td>
+              <input [(ngModel)]="walk.name"  class="form-control" type="text" name="walk.name" id>
+              <label for="firstname" class="form-label" >First Name</label>
+            </td>
+            <td>
+              <input  [(ngModel)]="walk.description" class="form-control" type="text" name="description" id="description">
+              <label for="lastname" class="form-label">Last Name</label>
+            </td>
+          </tr>
+
+
+          <tr>
+            <td colspan="2">
+              <textarea [(ngModel)]="walk.description" class="form-control" type="text" name="description" id="description"></textarea>
+              <label for="description" class="form-label">Description</label>
+            </td>
+            <td>
+              <input [(ngModel)="date.date" class="form-control" type="date" name="date" id="date">
+              <label for="date" class="form-label">Date</label>
+            </td>
+          </tr>
+          <tr>
+            <td >
+            <select [(ngModel)]="walk.walkCategory" name="walkCategory" id="walkCategory">
+             <option  [ngValue]="walkCategory" name="walkCategory" *ngFor="let walkCategory of walkCategories">{{walk.walkCategory}}</option>
+
+           </select>
+            <label for="Category" class="form-label">Walk Category</label>
+            <select [(ngModel)]="walk.walkType" name="walkType" id="walkType">
+              <option  [ngValue]="walkType" name="walkType" *ngFor="let walkType of walkTypes">{{walk.walkType}}</option>
+
+            </select>
+             <label for="walkType" class="form-label">Walk Typer</label>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+           <button>Update</button>
+           <br>
+           <button >Cancel</button>
+      </form>
+
+    </div>
+
+    <div *ngIf="addAddress; newAddress = new">
+<form>
+<table>
+ <tr>
+
+            <td>
+              <input [(ngModel)]="newAddress.street" class="form-control" type="text" name="street" id="street">
+              <label for="street" class="form-label">Street Address</label>
+            </td>
+            <td>
+              <input [(ngModel)]="newAddress.city" class="form-control" type="text" name="city" id="city">
+              <label for="city" class="form-label">City</label>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <input [(ngModel)]="newAddress.state" class="form-control" type="text" name="state" id="state">
+              <label for="state" class="form-label">State</label>
+            </td>
+            <td>
+              <input [(ngModel)]="newAddress.zip" class="form-control" type="text" name="zip" id="zip">
+              <label for="zip" class="form-label"> Zip</label>
+            </td>
+          </tr>
+</table>
+</form>
+
+
+
+
+    </div>
+    </div>
+
+
+
+
+

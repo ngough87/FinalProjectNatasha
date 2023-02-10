@@ -16,6 +16,7 @@ import { AdsComponent } from './components/ads/ads.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { AboutComponent } from './components/about/about.component';
 import { RegisterComponent } from './components/register/register.component';
+import { WalkComponent } from './components/walk/walk.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { RegisterComponent } from './components/register/register.component';
     AdsComponent,
     NotFoundComponent,
     AboutComponent,
-    RegisterComponent
+    RegisterComponent,
+    WalkComponent
   ],
   imports: [
     BrowserModule,
