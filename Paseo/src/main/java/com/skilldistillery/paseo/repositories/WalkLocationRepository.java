@@ -6,4 +6,5 @@ import com.skilldistillery.paseo.entities.WalkLocation;
 
 public interface WalkLocationRepository extends JpaRepository<WalkLocation, Integer>{
 	WalkLocation findById(int id);
+	WalkLocation findByUser_Id(int userId);
 }

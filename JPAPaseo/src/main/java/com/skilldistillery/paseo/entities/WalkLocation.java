@@ -56,11 +56,11 @@ public class WalkLocation {
 
 
 
-	public Address getAddressId() {
+	public Address getAddress() {
 		return address;
 	}
 
-	public void setAddressId(Address addressId) {
+	public void setAddress(Address addressId) {
 		this.address = addressId;
 	}
 
