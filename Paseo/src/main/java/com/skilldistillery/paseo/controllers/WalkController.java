@@ -24,7 +24,6 @@ import com.skilldistillery.paseo.services.WalkService;
 @RestController
 @RequestMapping("api")
 @CrossOrigin({ "*", "http://localhost/" })
-
 public class WalkController {
 
 	@Autowired
