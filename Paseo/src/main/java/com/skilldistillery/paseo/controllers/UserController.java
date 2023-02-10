@@ -40,9 +40,10 @@ public class UserController {
 	@PutMapping("users/{id}")
 	public User update(@PathVariable int id, @RequestBody User user, HttpServletRequest req, HttpServletResponse resp,
 			Principal principal) {
-		User existing = null;
+		User updated = null;
 		try {
-			existing = userService.update(principal.getName(), user, id);
+			updated = userService.update(principal.getName(), user, id);
+			System.out.println("updating controller: " + updated);
 			if (user == null) {
 				resp.setStatus(404);
 			}
@@ -55,7 +56,7 @@ public class UserController {
 			resp.setStatus(400);
 			user = null;
 		}
-		return user;
+		return updated;
 
 	}
 
