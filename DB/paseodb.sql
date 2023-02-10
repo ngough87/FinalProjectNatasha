@@ -427,6 +427,7 @@ USE `paseodb`;
 INSERT INTO `walk_type` (`id`, `name`, `description`) VALUES (1, 'stroll', NULL);
 INSERT INTO `walk_type` (`id`, `name`, `description`) VALUES (2, 'dog_walking', NULL);
 INSERT INTO `walk_type` (`id`, `name`, `description`) VALUES (3, 'speed_walking', NULL);
+INSERT INTO `walk_type` (`id`, `name`, `description`) VALUES (4, 'any', NULL);
 
 COMMIT;
 
@@ -442,6 +443,7 @@ INSERT INTO `walk_category` (`id`, `name`, `description`) VALUES (3, 'nature', N
 INSERT INTO `walk_category` (`id`, `name`, `description`) VALUES (4, 'mall walking', NULL);
 INSERT INTO `walk_category` (`id`, `name`, `description`) VALUES (5, 'tracks', NULL);
 INSERT INTO `walk_category` (`id`, `name`, `description`) VALUES (6, 'trails', NULL);
+INSERT INTO `walk_category` (`id`, `name`, `description`) VALUES (7, 'any', NULL);
 
 COMMIT;
 
