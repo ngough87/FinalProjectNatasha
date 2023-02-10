@@ -45,8 +45,10 @@ export class WalkService {
 
 
   create(walk: Walk): Observable<Walk> {
-    walk.enabled=false;
-    walk.description='';
+
+
+
+
 
     const httpOptions = {
       headers: {

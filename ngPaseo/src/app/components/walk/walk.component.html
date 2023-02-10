@@ -7,46 +7,66 @@
         <tbody>
           <tr>
             <td>
-              <input [(ngModel)]="walk.name" class="form-control" type="text" name="walk.name" id />
-              <label for="firstname" class="form-label">First Name</label>
+              <input [(ngModel)]="walk.name" class="form-control" type="text" name="walk.name" id="name" />
+              <label for="name" class="form-label">Name</label>
             </td>
+
             <td>
-              <input [(ngModel)]="walk.description" class="form-control" type="text" name="description"
-                id="description" />
-              <label for="lastname" class="form-label">Last Name</label>
+
+              <input [(ngModel)]="walk.date" class="form-control" type="date" name="date" id="date" />
+              <label for="date" class="form-label">Date</label>
             </td>
           </tr>
+<tr>
+ <td>
+   <label for="startTime">Start Time:</label>
+<input type="time" [(ngModel)]="walk.startTime" name="startTime" id="startTime"/>
+ </td>
+ <label for="endTime">End Time:</label>
+ <input type="time" [(ngModel)]="walk.endTime" name="endTime" id="endTime"/>
+ <td>
 
+
+ </td>
+</tr>
           <tr>
             <td colspan="2">
               <textarea [(ngModel)]="walk.description" class="form-control" type="text" name="description"
                 id="description"></textarea>
               <label for="description" class="form-label">Description</label>
             </td>
-            <td>
-              <input [(ngModel)]="walk.date" class="form-control" type="date" name="date" id="date" />
-              <label for="date" class="form-label">Date</label>
-            </td>
           </tr>
           <tr>
             <td>
               <select [(ngModel)]="walk.walkCategory" name="walkCategory" id="walkCategory">
                 <option [ngValue]="walkCategory" name="walkCategory" *ngFor="let walkCategory of walkCategories">
-                  {{ walk.walkCategory }}
+                  {{ walkCategory.name }}
                 </option>
               </select>
-              <label for="Category" class="form-label">Walk Category</label>
+              <label for="walkCategory" class="form-label">Walk Category</label>
+            </td>
+            <td>
               <select [(ngModel)]="walk.walkType" name="walkType" id="walkType">
                 <option [ngValue]="walkType" name="walkType" *ngFor="let walkType of walkTypes">
-                  {{ walk.walkType }}
+                  {{ walkType.name }}
                 </option>
               </select>
-              <label for="walkType" class="form-label">Walk Typer</label>
+              <label for="walkType" class="form-label">Walk Type</label>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <select [(ngModel)]="walk.walkLocation" name="walkLocation" id="walkLocation">
+                <option [ngValue]="walkLocation" name="walkLocation" *ngFor="let walkLocation of walkLocations">
+                  {{ walkLocation.name }}
+                </option>
+              </select>
+              <label for="walkType" class="form-label">Walk Location</label>
             </td>
           </tr>
         </tbody>
       </table>
-      <button>Update</button>
+      <button (click)="createNewWalk(walk)">Create</button>
       <br />
       <button>Cancel</button>
     </form>

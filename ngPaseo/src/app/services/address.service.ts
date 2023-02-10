@@ -50,10 +50,6 @@ export class AddressService {
     );
   }
 
-  generateBasicAuthCredentials(username: string | null
-    , password: string | null
-    ): string {
-    return btoa(`${username}:${password}`);
-  }
+
 
 }
