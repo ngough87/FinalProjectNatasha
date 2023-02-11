@@ -94,6 +94,16 @@ getById(id: number): Observable<Walk> {
 
   }
 
-
+getUserWalks(userId: number): Observable<Walk[]> {
+  console.log(userId);
+  return this.http.get<Walk[]>(this.url + 'api/walks/user/' + userId, this.getHttpOptions()).pipe(
+    catchError((err: any) => {
+      console.log(err);
+      return throwError(
+        () => new Error('WalkService.getById(): error retrieving walk for user: ' + err)
+      );
+    })
+  );
+}
 
 }
