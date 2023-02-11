@@ -28,25 +28,25 @@ public class WalkServiceImpl implements WalkService {
 
 	@Autowired
 	private WalkRepository walkRepo;
-	
+
 	@Autowired
 	private WalkCategoryRepository walkCatRepo;
-	
+
 	@Autowired
 	private WalkLocationRepository walkLocRepo;
-	
+
 	@Autowired
 	private WalkTypeRepository walkTypeRepo;
-	
+
 	@Autowired
 	private PreferredWalkCategoryRepository preferredWalkCatrepo;
-	
+
 	@Autowired
 	private PreferredGenderRepository preferredGenderRepo;
-	
-	@Autowired 
-	private PreferredWalkLocationRepository preferredWalkLoc;
-	
+
+	@Autowired
+	private PreferredWalkLocationRepository preferredWalkLocRepo;
+
 	@Autowired
 	private PreferredWalkTypeRepository preferredWalkTypeRepo;
 
@@ -57,8 +57,7 @@ public class WalkServiceImpl implements WalkService {
 
 	@Autowired
 	private GenderRepository genderRepo;
-	
-	
+
 	@Override
 	public Walk findById(int id) {
 		return walkRepo.findById(id);
@@ -81,6 +80,7 @@ public class WalkServiceImpl implements WalkService {
 		}
 		return null;
 	}
+
 	@Override
 	public List<Walk> findAllWalksByUserId(int userID) {
 		User user = null;
@@ -129,9 +129,9 @@ public class WalkServiceImpl implements WalkService {
 			updatedWalk.setEnabled(walk.getEnabled());
 			updatedWalk = walkRepo.saveAndFlush(updatedWalk);
 		}
-		
+
 		return updatedWalk;
-		
+
 	}
 
 	@Override
@@ -144,7 +144,7 @@ public class WalkServiceImpl implements WalkService {
 			deleted = true;
 
 		}
-		
+
 		return deleted;
 	}
 }
