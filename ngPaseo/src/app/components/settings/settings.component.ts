@@ -2,7 +2,7 @@
 import { AddressService } from './../../services/address.service';
 import { UserService } from './../../services/user.service';
 import { GenderService } from './../../services/gender.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from './../../services/auth.service';
 import { User } from './../../models/user';
 import { Component } from '@angular/core';
@@ -25,7 +25,8 @@ export class SettingsComponent {
 
 
 
-constructor(private auth: AuthService, private genService: GenderService, private router: Router, private userService: UserService, private addressService: AddressService){}
+constructor(private auth: AuthService, private genService: GenderService, private router: Router,
+  private userService: UserService, private addressService: AddressService, private route: ActivatedRoute){}
 
 ngOnInit() {
 this.getLoggedInUser();
@@ -36,6 +37,12 @@ this.getGenders();
 getLoggedInUser(){
   this.auth.getLoggedInUser().subscribe({
     next: (data) => {
+      let idString = this.route.snapshot.paramMap.get('id');
+      let id = +idString!;
+      if (!isNaN(id)) {
+
+      this.userService.findUser(id);
+      }
       console.log(data);
       this.user = data;
       console.log(this.user);
@@ -116,4 +123,6 @@ getGenders(){
 returnHome(){
   this.router.navigateByUrl('/home')
 }
+
+
 }

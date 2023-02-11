@@ -71,12 +71,18 @@
               <input type="checkbox" name="privacy" id="privacy" [(ngModel)]="walk.privacy">
             </td>
           </tr>
-          <tr>
+          <tr *ngIf="checkAuth()">
             <td>
-          <button >Create</button>
+          <button (click)="updateWalk(walk)" >Update</button>
           </td>
           <td>
-            <button>Cancel</button>
+            <button (click)="delete(walk.id)" >Delete</button>
+          </td>
+        </tr>
+        <tr>
+          <td>
+
+            <button (click)="return()">Cancel</button>
           </td>
           </tr>
 

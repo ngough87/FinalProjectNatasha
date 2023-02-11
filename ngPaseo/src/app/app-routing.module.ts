@@ -13,7 +13,7 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
   {path: "home", component: HomeComponent},
-  {path: "settings", component: SettingsComponent},
+  {path: "settings/:id", component: SettingsComponent},
   {path: "profile", component: ProfileComponent},
   {path: "messages", component: MessagesComponent},
   {path: "friends", component: FriendsComponent},
