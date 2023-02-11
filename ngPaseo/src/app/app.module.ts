@@ -1,3 +1,4 @@
+import { WalkPageComponent } from './components/walk-page/walk-page.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -31,6 +32,7 @@ import { WalkComponent } from './components/walk/walk.component';
     NotFoundComponent,
     AboutComponent,
     RegisterComponent,
+    WalkPageComponent,
     WalkComponent
   ],
   imports: [

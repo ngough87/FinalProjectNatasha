@@ -1,3 +1,4 @@
+import { WalkPageComponent } from './components/walk-page/walk-page.component';
 import { AboutComponent } from './components/about/about.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { AdsComponent } from './components/ads/ads.component';
@@ -6,7 +7,7 @@ import { MessagesComponent } from './components/messages/messages.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { HomeComponent } from './components/home/home.component';
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
@@ -18,6 +19,7 @@ const routes: Routes = [
   {path: "friends", component: FriendsComponent},
   {path: "ads", component: AdsComponent},
   {path: "about", component: AboutComponent},
+  { path: "walkPage/:id", component: WalkPageComponent},
   { path: '**', component: NotFoundComponent}
 ];
 

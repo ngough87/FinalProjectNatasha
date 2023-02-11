@@ -41,6 +41,7 @@ public class WalkController {
 	public Walk findByWalkId(@PathVariable int walkId, HttpServletResponse res) {
 		Walk output = null;
 		output = walkService.findById(walkId);
+		System.out.println(output);
 		if (output == null) {
 			res.setStatus(404);
 		}
