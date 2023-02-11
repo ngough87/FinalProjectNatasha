@@ -24,7 +24,6 @@ export class SettingsComponent {
   imageUrl: string = '';
 
 
-
 constructor(private auth: AuthService, private genService: GenderService, private router: Router, private userService: UserService, private addressService: AddressService){}
 
 ngOnInit() {

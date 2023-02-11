@@ -10,6 +10,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
     />
+
     <!-- CSS -->
     <!-- <link rel="stylesheet" href="css/style.css" /> -->
   </head>
@@ -19,10 +20,12 @@
       <div class="cols__container">
         <div class="left__col">
           <div class="img__container">
-            <img src="https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Dell Smith" />
+           <!-- <img src='https://t4.ftcdn.net/jpg/03/46/93/61/360_F_346936114_RaxE6OQogebgAWTalE1myseY1Hbb5qPM.jpg' *ngIf="!user.profileImageUrl"> -->
+            <!-- <img [src]="imageUrl" onerror="this.onerror=null; this.src='https://t4.ftcdn.net/jpg/03/46/93/61/360_F_346936114_RaxE6OQogebgAWTalE1myseY1Hbb5qPM.jpg'" *ngIf="user.profileImageUrl"> -->
+            <img [src]="user.profileImageUrl" alt="User Profile Image" />
             <span></span>
           </div>
-          <h2>Dell Smith</h2>
+          <h2>{{user.firstName}} {{user.lastName}}</h2>
           <p>UX/UI Designer</p>
           <p>dell@example.com</p>
           <p>Seattle, WA</p>
@@ -35,9 +38,7 @@
 
           <div class="content">
             <p>
-              Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam
-              erat volutpat. Morbi imperdiet, mauris ac auctor dictum, nisl
-              ligula egestas nulla.
+              {{user.description}}
             </p>
 
             <ul>
@@ -51,24 +52,53 @@
         <div class="right__col">
           <nav>
             <ul>
-              <li><a href="photos">Photos</a></li>
-              <li><a href="">Walks</a></li>
-              <li><a href="">Groups</a></li>
-              <li><a href="">Interest</a></li>
+              <li>
+                <a (click)="displayPhotos = true; displayWalks = false;">Photos</a></li>
+                <li><a (click)="displayWalks = true">Walks</a></li>
+              <!-- <li><a (click)="displayGroups =">Groups</a></li> -->
+              <!-- <li><a (click)="displayInterests">Interest</a></li> -->
             </ul>
             <button>Follow</button>
+
           </nav>
 
-          <div class="photos">
+
+
+        <div class="photos" id="photos" *ngIf="imageUrl">
             <img src="https://images.pexels.com/photos/4825760/pexels-photo-4825760.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Photo" />
             <img src="https://images.pexels.com/photos/5733432/pexels-photo-5733432.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Photo" />
             <img src="https://images.pexels.com/photos/4511122/pexels-photo-4511122.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Photo" />
             <img src="https://images.pexels.com/photos/5064903/pexels-photo-5064903.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Photo" />
             <img src="https://images.pexels.com/photos/5637806/pexels-photo-5637806.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Photo" />
             <img src="https://images.pexels.com/photos/9623763/pexels-photo-9623763.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Photo" />
-          </div>
+        </div>
+        <!-- <div class="photos" id="photos" *ngIf="imageUrl && displayPhotos == false">
+            <img src="https://images.pexels.com/photos/4825760/pexels-photo-4825760.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Photo" />
+            <img src="https://images.pexels.com/photos/5733432/pexels-photo-5733432.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Photo" />
+            <img src="https://images.pexels.com/photos/4511122/pexels-photo-4511122.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Photo" />
+            <img src="https://images.pexels.com/photos/5064903/pexels-photo-5064903.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Photo" />
+            <img src="https://images.pexels.com/photos/5637806/pexels-photo-5637806.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Photo" />
+            <img src="https://images.pexels.com/photos/9623763/pexels-photo-9623763.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Photo" />
+        </div> -->
+        <div class="walks" id="walks" *ngIf="walks && displayWalks == true">
+           <div class="walks" *ngFor="let walk of walks">
+            <div class="w3-row-padding">
+              <div class="w3-third w3-container w3-margin-bottom">
+                <img [src]="walk.imageUrl" alt="" style="width:100%" class="w3-hover-opacity">
+                <div class="w3-container w3-white">
+                  <p><b>{{walk.name}}</b></p>
+                  <p>{{walk.description}}</p>
+                </div>
+              </div>
+            <!-- <tr>{{walk.name}}</tr>
+            <tr>{{walk.description}}</tr> -->
+            </div>
+
+        </div>
+
         </div>
       </div>
+    </div>
     </div>
   </body>
 </html>
