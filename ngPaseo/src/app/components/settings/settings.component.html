@@ -1,6 +1,15 @@
+
+<div class="bg-image"
+style="background-image: url('https://cdn-prod.medicalnewstoday.com/content/images/articles/319/319785/walkers.jpg' );
+      background-size: 100%; background-repeat: no-repeat; height: 100vh">
+
+
 <div (load)="getLoggedInUser(); getGenders()">
+
   <div class="row">
-    <div class="col-8">
+
+    <div class="col-6" id="form-wrapper" >
+      <div style="max-width: 750px; margin: 100px; float: left; border: 6px solid #6C7593; padding: 40px;background-color: #D0D1D5" >
       <form>
       <table>
         <tbody>
@@ -59,13 +68,18 @@
         </tr>
         </tbody>
       </table>
-           <button (click)="updateAddress(user)">Update</button>
-           <br>
-           <button (click)="returnHome()">Cancel</button>
-      </form>
+          <div class="row just-content-evenly" >
 
+           <button  class="btn btn-primary" (click)="updateAddress(user)">Update</button>
+           <br>
+           <button  class="btn btn-danger" (click)="returnHome()">Cancel</button>
+          </div>
+
+      </form>
+</div>
     </div>
-    <div class="col-4">
+    <div class="col-4 ">
+      <div style="max-width: 750px; margin: 100px; float: left; border: 6px solid #6C7593; padding: 40px;background-color: #D0D1D5;" >
   <div class="container" >
     <img src='https://t4.ftcdn.net/jpg/03/46/93/61/360_F_346936114_RaxE6OQogebgAWTalE1myseY1Hbb5qPM.jpg' *ngIf="!user.profileImageUrl">
     <img [src]="imageUrl" onerror="this.onerror=null; this.src='https://t4.ftcdn.net/jpg/03/46/93/61/360_F_346936114_RaxE6OQogebgAWTalE1myseY1Hbb5qPM.jpg'" *ngIf="user.profileImageUrl">
@@ -73,5 +87,7 @@
     <input class="form-control" type="text" name="profileImageUrl" id="profileImageUrl" [(ngModel)]="user.profileImageUrl">
   </div>
     </div>
+    </div>
   </div>
   </div>
+</div>
