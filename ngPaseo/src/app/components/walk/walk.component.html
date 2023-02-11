@@ -64,12 +64,27 @@
               </select>
               <label for="walkType" class="form-label">Walk Location</label>
             </td>
+
           </tr>
+          <tr>
+            <td>
+              <label for="privay">Private Walk</label>
+              <input type="checkbox" name="privacy" id="privacy" [(ngModel)]="walk.privacy">
+            </td>
+          </tr>
+          <tr>
+            <td>
+          <button (click)="createNewWalk(walk)">Create</button>
+          </td>
+          <td>
+            <button>Cancel</button>
+          </td>
+          </tr>
+
         </tbody>
       </table>
-      <button (click)="createNewWalk(walk)">Create</button>
-      <br />
-      <button>Cancel</button>
+        <br />
+
     </form>
   </div>
 

@@ -14,6 +14,7 @@ import { WalkType } from 'src/app/models/walk-type';
 import { WalkLocation } from 'src/app/models/walk-location';
 import { WalkTypeService } from 'src/app/services/walk-type.service';
 import { Observable } from 'rxjs';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-walk',
@@ -66,6 +67,9 @@ export class WalkComponent implements OnInit{
   }
 
 createNewWalk(walk :Walk){
+  walk.user = new User();
+  walk.user.id = Number(localStorage.getItem("currentUserId"));
+
   this.walkService.create(walk).subscribe({
     next:(data) =>{
       console.log(data);
