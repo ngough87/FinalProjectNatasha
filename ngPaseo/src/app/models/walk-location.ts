@@ -1,10 +1,12 @@
+import { Address } from "./address";
+
 export class WalkLocation {
 
 id: number;
 name: string;
 description: string;
 imageUrl: string;
-address: string;
+address: Address;
 
 
 
@@ -13,7 +15,7 @@ constructor(
   name: string = '',
   description: string = '',
   imageUrl: string = '',
-  address: string = ''
+  address: Address = new Address()
 
 
 ){
