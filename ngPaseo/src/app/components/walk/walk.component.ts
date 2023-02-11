@@ -50,6 +50,7 @@ export class WalkComponent implements OnInit {
     this.loadCategories();
     this.loadTypes();
     this.loadLocation();
+
   }
 
   reload(): void {
@@ -102,26 +103,58 @@ export class WalkComponent implements OnInit {
   showAddLocation() {
     this.addLocation = true;
     this.newLocation = new WalkLocation();
-    this.showAddAddress();
-  }
-
-  createNewLocation(newLocation: WalkLocation): void {
-    this.walkLocationService.create(newLocation).subscribe({
-      next: (data) => {
-        this.reload();
-      },
-      error: (fail) => {
-        console.error(fail);
-      },
-    });
-  }
-
-  showAddAddress() {
-    this.addAddress = true;
     this.newAddress = new Address();
   }
 
-  // createLocation(walkLocation : string){
+  createNewLocation(newLocation: WalkLocation): void {
+
+    this.addressService.createAddress(newLocation.address).subscribe({
+
+      next: (data) => {
+        newLocation.address = data;
+
+
+
+
+        this.walkLocationService.create(newLocation).subscribe({
+          next: (data) => {
+            this.addLocation = false;
+            this.loadLocation();
+
+          },
+          error: (fail) => {
+            console.error('walk.component.ts, createNewLocation-2');
+            console.error(fail);
+          },
+        });
+
+
+
+
+
+
+
+
+
+
+
+      },
+
+        error:(fail)=> {
+        console.error('walk.component.ts, createNewLocation-1');
+        console.error(fail);
+        },
+      });
+
+
+
+
+  }
+
+
+
+
+
 
   updateWalk(walk: Walk) {
     this.walkService.update(walk).subscribe({
