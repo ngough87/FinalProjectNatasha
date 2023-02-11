@@ -30,7 +30,7 @@ export class WalkService {
 
   index(): Observable <Walk[]>{
     //return this.http.get<Todo[]>(this.url + '?sorted=true').pipe(
-      return this.http.get<Walk[]>(this.url, this.getHttpOptions()).pipe(
+      return this.http.get<Walk[]>(this.url + 'api/walks', this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError(
@@ -45,17 +45,11 @@ export class WalkService {
 
 
   create(walk: Walk): Observable<Walk> {
-
-
-
-
-
     const httpOptions = {
       headers: {
         'Content-Type': 'application/json'
       }
     };
-
     return this.http.post<Walk>(this.url + 'api/walks', walk, this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.error(err);
