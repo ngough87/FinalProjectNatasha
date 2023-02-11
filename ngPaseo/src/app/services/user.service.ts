@@ -46,4 +46,17 @@ export class UserService {
     return btoa(`${username}:${password}`);
   }
 
+  findUser(id: number): Observable<User> {
+
+
+    return this.http.get<User>(this.url + 'api/users/' + id, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('UserService.findUser(): error finding user.')
+        );
+      })
+    );
+  }
+
 }

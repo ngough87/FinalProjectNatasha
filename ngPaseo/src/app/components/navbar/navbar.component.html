@@ -18,7 +18,7 @@
               {{loggedInUser?.username}}
             </a>
             <ul class="dropdown-menu navDropdown">
-              <li><a class="dropdown-item" [routerLink]="['/settings']">Account Settings</a></li>
+              <li><a class="dropdown-item" [routerLink]="['/settings/' + user.id]">Account Settings</a></li>
               <li><a class="dropdown-item" [routerLink]="['/profile']">My Profile</a></li>
               <li><a class="dropdown-item" [routerLink]="['/messages']">Messages</a></li>
               <li><a class="dropdown-item" [routerLink]="['/friends']">Followed Users</a></li>

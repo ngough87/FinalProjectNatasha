@@ -83,7 +83,7 @@ export class ProfileComponent implements OnInit {
       }
     })
   }
-  onClickPhotos() {
+  clickPhotos() {
     this.displayPhotos = !this.displayPhotos;
   }
   onClickWalks() {

@@ -59,7 +59,7 @@ export class WalkService {
     console.log(walk);
     // Create GET request to authenticate credentials
     return this.http
-      .put<Walk>(this.url + 'api/users/' + walk.id, walk, this.getHttpOptions())
+      .put<Walk>(this.url + 'api/walks/' + walk.id, walk, this.getHttpOptions())
       .pipe(
         catchError((err: any) => {
           console.log(err);
@@ -70,8 +70,16 @@ export class WalkService {
       );
   }
 
-  destroy() {}
-
+  destroy(id: number): Observable<void>   {
+    return this.http.delete<void>(this.url + 'api/walks/' + id, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('WalkService.destroy(): error deleting walk: ' + err)
+        );
+      })
+    );
+    }
 
 getById(id: number): Observable<Walk> {
 

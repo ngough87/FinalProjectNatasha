@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { User } from 'src/app/models/user';
 import { Walk } from 'src/app/models/walk';
 import { WalkCategory } from 'src/app/models/walk-category';
 import { WalkLocation } from 'src/app/models/walk-location';
@@ -22,6 +23,7 @@ export class WalkPageComponent {
   walkTypes: WalkType[] = [];
   walkCategories: WalkCategory[] = [];
   walkLocations: WalkLocation[] = [];
+  loggedInUser: User = new User();
 
   constructor(
     private auth: AuthService,
@@ -40,6 +42,7 @@ export class WalkPageComponent {
     this.loadCategories();
     this.loadTypes();
     this.loadLocation();
+    this.getLoggedInUser();
   }
 
   reload(): void {
@@ -96,6 +99,39 @@ export class WalkPageComponent {
         console.error('WalkComponent.updateWalk: error updating');
         console.error(fail);
       },
+    });
+  }
+
+  return() {
+  this.router.navigateByUrl('/home');
+  }
+
+  getLoggedInUser() {
+    this.auth.getLoggedInUser().subscribe({
+      next: (data) => {
+        this.loggedInUser = data;
+      },
+    });
+  }
+
+  checkAuth(): boolean{
+   let allowed: boolean = false;
+  if( this.loggedInUser.role === 'ADMIN' || this.loggedInUser.username === this.walk.user.username){
+    allowed = true;
+  }
+  return allowed;
+  }
+
+  delete(id: number){
+    this.walkService.destroy(id).subscribe({
+      next:(data) =>{
+      this.router.navigateByUrl('/profile');
+
+      },
+      error: (error) =>{
+        console.error('WalkPageComponent.deleteWalk: error deleting');
+        console.error(error);
+      }
     });
   }
 }
