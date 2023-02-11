@@ -45,18 +45,12 @@ export class WalkService {
 
 
   create(walk: Walk): Observable<Walk> {
-
-
-
-
-
     const httpOptions = {
       headers: {
         'Content-Type': 'application/json'
       }
     };
-
-    return this.http.post<Walk>(this.url, walk, this.getHttpOptions()).pipe(
+    return this.http.post<Walk>(this.url + 'api/walks', walk, this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.error(err);
         return throwError(

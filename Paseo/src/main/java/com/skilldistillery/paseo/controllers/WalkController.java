@@ -36,13 +36,23 @@ public class WalkController {
 	public List<Walk> show() {
 		return walkService.showWalksThatArePublic();
 	}
-	
+
+	@GetMapping("walks/{walkId}")
+	public Walk findByWalkId(@PathVariable int walkId, HttpServletResponse res) {
+		Walk output = null;
+		output = walkService.findById(walkId);
+		if (output == null) {
+			res.setStatus(404);
+		}
+		return output;
+	}
+
 	@GetMapping("walks/user/{userId}")
 	public List<Walk> findAllByUserId(@PathVariable("userId") int id, HttpServletResponse res, HttpServletRequest req) {
-		 boolean enabled = true;  
+		boolean enabled = true;
 		if (id > 0 && enabled) {
 			List<Walk> userWalks = null;
-			
+
 			try {
 
 				userWalks = walkService.findAllWalksByUserId(id);
@@ -53,28 +63,29 @@ public class WalkController {
 				res.setStatus(405);
 				e.printStackTrace();
 			}
-			
+
 		}
 		return null;
 	}
-	
+
 	@PostMapping("walks")
 	public Walk create(@RequestBody Walk walk, HttpServletResponse resp, HttpServletRequest req) {
 		Walk newWalk = null;
-		
+
 		try {
 			newWalk = walkService.create(walk, walk.getUser().getId());
 			resp.setStatus(201);
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			resp.setStatus(400);
 		}
 		return newWalk;
-}
+	}
+
 	@PutMapping("walks/{walkId}")
-	public Walk updateWalk(Principal princial, @PathVariable int walkId, @RequestBody Walk walk,
-			HttpServletRequest req, HttpServletResponse res) {
+	public Walk updateWalk(Principal princial, @PathVariable int walkId, @RequestBody Walk walk, HttpServletRequest req,
+			HttpServletResponse res) {
 
 		Walk updatedWalk = null;
 
@@ -97,17 +108,16 @@ public class WalkController {
 	}
 
 	@DeleteMapping("walks/{walkId}")
-	public void delete(@PathVariable int walkId, HttpServletResponse res) { 
-		 boolean deleted = walkService.disableWalk(walkId);
+	public void delete(@PathVariable int walkId, HttpServletResponse res) {
+		boolean deleted = walkService.disableWalk(walkId);
 		try {
-			if(deleted == true) {
-				res.setStatus(200); 
+			if (deleted == true) {
+				res.setStatus(200);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			res.setStatus(404);
 		}
-		
-		
+
 	}
 }
