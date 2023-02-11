@@ -1,117 +1,239 @@
-<p>walk works!</p>
+
 
 <div class="row">
   <div class="col-8">
     <form>
+      <h2>Walk Form </h2>
       <table>
         <tbody>
           <tr>
             <td>
-              <input [(ngModel)]="walk.name" class="form-control" type="text" name="walk.name" id="name" />
+              <input
+                [(ngModel)]="walk.name"
+                class="form-control"
+                type="text"
+                name="walk.name"
+                id="name"
+              />
               <label for="name" class="form-label">Name</label>
             </td>
 
             <td>
-
-              <input [(ngModel)]="walk.date" class="form-control" type="date" name="date" id="date" />
+              <input
+                [(ngModel)]="walk.date"
+                class="form-control"
+                type="date"
+                name="date"
+                id="date"
+              />
               <label for="date" class="form-label">Date</label>
             </td>
           </tr>
-<tr>
- <td>
-   <label for="startTime">Start Time:</label>
-<input type="time" [(ngModel)]="walk.startTime" name="startTime" id="startTime"/>
- </td>
- <label for="endTime">End Time:</label>
- <input type="time" [(ngModel)]="walk.endTime" name="endTime" id="endTime"/>
- <td>
-
-
- </td>
-</tr>
+          <tr>
+            <td>
+              <label for="startTime">Start Time:</label>
+              <input
+                type="time"
+                [(ngModel)]="walk.startTime"
+                name="startTime"
+                id="startTime"
+              />
+            </td>
+            <label for="endTime">End Time:</label>
+            <input
+              type="time"
+              [(ngModel)]="walk.endTime"
+              name="endTime"
+              id="endTime"
+            />
+            <td></td>
+          </tr>
           <tr>
             <td colspan="2">
-              <textarea [(ngModel)]="walk.description" class="form-control" type="text" name="description"
-                id="description"></textarea>
+              <textarea
+                [(ngModel)]="walk.description"
+                class="form-control"
+                type="text"
+                name="description"
+                id="description"
+              ></textarea>
               <label for="description" class="form-label">Description</label>
             </td>
           </tr>
           <tr>
             <td>
-              <select [(ngModel)]="walk.walkCategory" name="walkCategory" id="walkCategory">
-                <option [ngValue]="walkCategory" name="walkCategory" *ngFor="let walkCategory of walkCategories">
+              <label for="walkCategory" class="form-label">Walk Category</label>
+              <select
+                [(ngModel)]="walk.walkCategory"
+                name="walkCategory"
+                id="walkCategory"
+              >
+                <option
+                  [ngValue]="walkCategory"
+                  name="walkCategory"
+                  *ngFor="let walkCategory of walkCategories"
+                >
                   {{ walkCategory.name }}
                 </option>
               </select>
-              <label for="walkCategory" class="form-label">Walk Category</label>
             </td>
             <td>
+              <label for="walkType" class="form-label">Walk Type</label>
               <select [(ngModel)]="walk.walkType" name="walkType" id="walkType">
-                <option [ngValue]="walkType" name="walkType" *ngFor="let walkType of walkTypes">
+                <option
+                  [ngValue]="walkType"
+                  name="walkType"
+                  *ngFor="let walkType of walkTypes"
+                >
                   {{ walkType.name }}
                 </option>
               </select>
-              <label for="walkType" class="form-label">Walk Type</label>
             </td>
           </tr>
           <tr>
             <td>
-              <select [(ngModel)]="walk.walkLocation" name="walkLocation" id="walkLocation">
-                <option [ngValue]="walkLocation" name="walkLocation" *ngFor="let walkLocation of walkLocations">
+              <label for="walkType" class="form-label">Walk Location</label>
+              <select
+                [(ngModel)]="walk.walkLocation"
+                name="walkLocation"
+                id="walkLocation"
+              >
+                <option
+                  [ngValue]="walkLocation"
+                  name="walkLocation"
+                  *ngFor="let walkLocation of walkLocations"
+                >
                   {{ walkLocation.name }}
                 </option>
               </select>
-              <label for="walkType" class="form-label">Walk Location</label>
-            </td>
 
+            </td>
+            <td>
+              <button (click)="showAddLocation()">Add New Location</button>
+            </td>
           </tr>
           <tr>
             <td>
               <label for="privay">Private Walk</label>
-              <input type="checkbox" name="privacy" id="privacy" [(ngModel)]="walk.privacy">
+              <input
+                type="checkbox"
+                name="privacy"
+                id="privacy"
+                [(ngModel)]="walk.privacy"
+              />
             </td>
           </tr>
           <tr>
             <td>
-          <button (click)="createNewWalk(walk)">Create</button>
-          </td>
-          <td>
-            <button>Cancel</button>
-          </td>
+              <button (click)="createNewWalk(walk)">Create</button>
+            </td>
+            <td>
+              <button>Cancel</button>
+            </td>
           </tr>
-
         </tbody>
       </table>
-        <br />
-
+      <br />
     </form>
   </div>
 
-  <!-- <div *ngIf="addAddress">
+  <div *ngIf="addLocation && newLocation && newAddress">
     <form>
       <table>
         <tr>
           <td>
-            <input [(ngModel)]="newAddress.street" class="form-control" type="text" name="street" id="street" />
+            <input
+              [(ngModel)]="newLocation.name"
+              class="form-control"
+              type="text"
+              name="name"
+              id="name"
+            />
+            <label for="name" class="form-label">Location Name</label>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <textarea
+              [(ngModel)]="newLocation.description"
+              class="form-control"
+              name="description"
+              id="description"
+            ></textarea>
+            <label for="location" class="form-label">Location Description</label>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <input
+              hidden
+              [(ngModel)]="newLocation.address"
+              value="newAddress"
+              class="form-control"
+              type="Address"
+              name="address"
+              id="address"
+            />
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <input
+              [(ngModel)]="newAddress.street"
+              class="form-control"
+              type="text"
+              name="street"
+              id="street"
+            />
             <label for="street" class="form-label">Street Address</label>
           </td>
           <td>
-            <input [(ngModel)]="newAddress.city" class="form-control" type="text" name="city" id="city" />
+            <input
+              [(ngModel)]="newAddress.city"
+              class="form-control"
+              type="text"
+              name="city"
+              id="city"
+            />
             <label for="city" class="form-label">City</label>
           </td>
         </tr>
 
         <tr>
           <td>
-            <input [(ngModel)]="newAddress.state" class="form-control" type="text" name="state" id="state" />
+            <input
+              [(ngModel)]="newAddress.state"
+              class="form-control"
+              type="text"
+              name="state"
+              id="state"
+            />
             <label for="state" class="form-label">State</label>
           </td>
           <td>
-            <input [(ngModel)]="newAddress.zip" class="form-control" type="text" name="zip" id="zip" />
+            <input
+              [(ngModel)]="newAddress.zip"
+              class="form-control"
+              type="text"
+              name="zip"
+              id="zip"
+            />
             <label for="zip" class="form-label"> Zip</label>
+          </td>
+        </tr>
+        <tr></tr>
+
+        <tr>
+          <td colspan="2">
+            <button (click)="createNewLocation(newLocation)">
+              create Location
+            </button>
+            <button (click) ="addLocation = false"> Cancel</button>
           </td>
         </tr>
       </table>
     </form>
-  </div> -->
+  </div>
 </div>

@@ -49,7 +49,7 @@ public class WalkLocationController {
 		try {
 			output = walkLocationServ.createLocation(createMe);
 			resp.setStatus(201);
-			resp.setHeader("Location", "http://localhost:8090/api/walkLocation/" + output.getId());
+			//resp.setHeader("Location", "http://localhost:8090/api/walkLocation/" + output.getId());
 		} catch (Exception e) {
 			e.printStackTrace();
 			resp.setStatus(400);
