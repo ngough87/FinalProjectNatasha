@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.skilldistillery.paseo.entities.User;
 import com.skilldistillery.paseo.entities.Walk;
+import com.skilldistillery.paseo.services.AuthService;
 import com.skilldistillery.paseo.services.UserService;
 import com.skilldistillery.paseo.services.WalkService;
 
@@ -31,6 +33,9 @@ public class WalkController {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private AuthService auth;
 
 	@GetMapping("walks")
 	public List<Walk> show() {
@@ -85,9 +90,9 @@ public class WalkController {
 	}
 
 	@PutMapping("walks/{walkId}")
-	public Walk updateWalk(Principal princial, @PathVariable int walkId, @RequestBody Walk walk, HttpServletRequest req,
+	public Walk updateWalk(Principal principal, @PathVariable int walkId, @RequestBody Walk walk, HttpServletRequest req,
 			HttpServletResponse res) {
-
+		
 		Walk updatedWalk = null;
 
 		try {
@@ -95,9 +100,14 @@ public class WalkController {
 			if (updatedWalk == null) {
 				res.setStatus(404);
 			} else {
+				User loggedInUser = auth.getUserByUsername(principal.getName());
+				if (loggedInUser.getUsername() == updatedWalk.getUser().getUsername() || 
+						loggedInUser.getRole().equals("ADMIN")) {
 				updatedWalk = walkService.update(walk, walkId);
 				res.setStatus(202);
-
+				} else {
+					res.setStatus(401);
+				}
 			}
 		} catch (Exception e) {
 			res.setStatus(400);
@@ -109,8 +119,13 @@ public class WalkController {
 	}
 
 	@DeleteMapping("walks/{walkId}")
-	public void delete(@PathVariable int walkId, HttpServletResponse res) {
-		boolean deleted = walkService.disableWalk(walkId);
+	public void delete(Principal principal, @PathVariable int walkId, HttpServletResponse res) {
+		Walk deleteMe = walkService.findById(walkId);
+		User loggedInUser = auth.getUserByUsername(principal.getName());
+		
+		if (loggedInUser.getUsername() == deleteMe.getUser().getUsername() || 
+				loggedInUser.getRole().equals("ADMIN")) {
+			boolean deleted = walkService.disableWalk(walkId);
 		try {
 			if (deleted == true) {
 				res.setStatus(200);
@@ -118,6 +133,9 @@ public class WalkController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			res.setStatus(404);
+		}
+		} else {
+			res.setStatus(401);
 		}
 
 	}
