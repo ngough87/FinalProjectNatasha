@@ -6,3 +6,11 @@ table, th, td {
 
   padding: 15px;
 }
+
+bg-img {
+
+  max-width: 100%;
+
+  height: auto;
+
+  }
