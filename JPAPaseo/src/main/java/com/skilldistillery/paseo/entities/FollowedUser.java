@@ -29,6 +29,13 @@ public class FollowedUser {
 		super();
 	}
 
+	public FollowedUser(FollowedUserKey id, User user, User followedUser) {
+		super();
+		this.id = id;
+		this.user = user;
+		this.followedUser = followedUser;
+	}
+
 	public FollowedUserKey getId() {
 		return id;
 	}

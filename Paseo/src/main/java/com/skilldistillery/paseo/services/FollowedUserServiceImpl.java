@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.skilldistillery.paseo.entities.FollowedUser;
+import com.skilldistillery.paseo.entities.FollowedUserKey;
 import com.skilldistillery.paseo.entities.User;
 import com.skilldistillery.paseo.repositories.FollowedUserRepository;
 import com.skilldistillery.paseo.repositories.UserRepository;
@@ -23,14 +24,20 @@ public class FollowedUserServiceImpl implements FollowedUserService {
 	}
 
 	@Override
-	public FollowedUser create(FollowedUser newFollowedUser, int id) {
-		User follower = userRepo.findById(id);
-		if(newFollowedUser != null && follower != null) {
-			newFollowedUser.setUser(follower);
-			followedUserRepo.saveAndFlush(newFollowedUser);
+	public FollowedUser create(int followedUserId, User loggedInUser) {
+		User followedUser = userRepo.findById(followedUserId);
+		FollowedUser output = null;
+		
+		if(followedUser != null && loggedInUser != null) {
+			FollowedUserKey key = new FollowedUserKey(followedUser.getId(), loggedInUser.getId());
+			FollowedUser followed = new FollowedUser(key, loggedInUser, followedUser);
+			
+			
+			output = followedUserRepo.saveAndFlush(followed);
+			loggedInUser.addFollower(followedUser);
 		}
 	
-		return null;
+		return output;
 	}
 
 	

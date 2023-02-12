@@ -1,6 +1,6 @@
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user';
 
 @Component({
@@ -8,7 +8,7 @@ import { User } from 'src/app/models/user';
   templateUrl: './friends.component.html',
   styleUrls: ['./friends.component.css']
 })
-export class FriendsComponent {
+export class FriendsComponent implements OnInit{
 
   friends : User[] = [];
 
@@ -24,20 +24,20 @@ export class FriendsComponent {
     // let idString = this.route.snapshot.paramMap.get('id');
     // let id = +idString!;
     // if (!isNaN(id)) {
+      console.log('Loading Friends');
     let id = localStorage.getItem("currentUserId");
-    if(!id && !isNaN(+id!)){
-    this.userService.findFriends(+id!).subscribe ({
-      next: (data) => {
-        this.friends = data;
+    if(id && !isNaN(+id!)){
+      this.userService.findFriends(+id!).subscribe ({
+        next: (data) => {
+          console.log('Friends loaded');
+          this.friends = data;
+        },
+        error: (error) => {
+          console.error('friendComponent.loadFriends: error loading friends');
 
-      },
-      error: (error) => {
-        console.error('friendComponent.loadFriends: error loading friends');
-
-        console.error(error);
-
-      }
-      })
+          console.error(error);
+        }
+        })
     } else  {
       this.router.navigateByUrl('/IdNotANumber');
   }

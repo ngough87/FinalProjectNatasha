@@ -34,13 +34,18 @@ public class FollowedUserController {
 	
 	
 	
-	@PostMapping("followedUsers")
-	public FollowedUser create(@RequestBody FollowedUser followedUser, HttpServletResponse resp, HttpServletRequest req) {
+	@PostMapping("followedUsers/{id}")
+	public FollowedUser create(@PathVariable int id,Principal principal, HttpServletResponse resp, HttpServletRequest req) {
 		FollowedUser newFollowedUser = null;
+		User loggedInUser = auth.getUserByUsername(principal.getName());
 
 		try {
-			newFollowedUser = followedUserService.create(followedUser, followedUser.getUser().getId());
+			newFollowedUser = followedUserService.create(id, loggedInUser);
+			if (newFollowedUser == null) {
+				resp.setStatus(404);
+			} else {
 			resp.setStatus(201);
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
