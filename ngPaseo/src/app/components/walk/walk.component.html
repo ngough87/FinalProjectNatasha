@@ -1,5 +1,5 @@
 <div class="form">
-
+  <div class="bg-success text-dark bg-opacity-10"style="max-width: 750px; margin: 100px; float: left;  padding: 40px; background-color: #FBFCF9;">
   <h2>Walk Form </h2>
   <form>
 
@@ -25,6 +25,7 @@
         <input type="time" [(ngModel)]="walk.endTime" name="endTime" id="endTime" />
         <td></td>
       </div>
+      <br>
       <div class="form-group">
 
         <textarea [(ngModel)]="walk.description" class="form-control" type="text" name="description"
@@ -34,8 +35,8 @@
       </div>
       <div class="input-group mb-3">
 
-        <label class="input-group-text" for="walkCategory" class="form-label">Walk Category </label>
-        <select [(ngModel)]="walk.walkCategory" name="walkCategory" id="walkCategory">
+        <label class="input-group-text form-label" for="walkCategory" >Walk Category </label>
+        <select [(ngModel)]="walk.walkCategory" class="form-control form-select"name="walkCategory" id="walkCategory">
           <option [ngValue]="walkCategory" name="walkCategory" *ngFor="let walkCategory of walkCategories">
             {{ walkCategory.name }}
           </option>
@@ -46,8 +47,8 @@
 
 
       <div class="input-group mb-3">
-        <label class="input-group-text" for="walkType" class="form-label">Walk Type  </label>
-        <select class="custom-select" [(ngModel)]="walk.walkType" name="walkType" id="walkType">
+        <label for="walkType" class=" input-group-text form-label">Walk Type  </label>
+        <select class="form-control form-select"[(ngModel)]="walk.walkType" name="walkType" id="walkType">
           <option class="" [ngValue]="walkType" name="walkType" *ngFor="let walkType of walkTypes">
             {{ walkType.name }}
           </option>
@@ -57,8 +58,8 @@
 
 
       <div class="input-group mb-3">
-        <label for="walkLocation" class="form-label">Walk Location</label>
-          <select class="custom-select" [(ngModel)]="walk.walkLocation" name="walkLocation" id="walkLocation">
+        <label for="walkLocation" class="input-group-text  form-label">Walk Location</label>
+          <select  class="form-control form-select"[(ngModel)]="walk.walkLocation" name="walkLocation" id="walkLocation">
             <option [ngValue]="walkLocation" name="walkLocation" *ngFor="let walkLocation of walkLocations">
               {{ walkLocation.name }}
 
@@ -69,9 +70,10 @@
           </select>
 
         </div>
-
-        <button (click)="showAddLocation()">Add New Location</button>
-
+        <hr>
+        <div class="d-flex justify-content-center">
+        <button class="btn btn-outline-info"  (click)="showAddLocation()">Add New Location</button>
+      </div>
 
 
 
@@ -115,32 +117,38 @@
 
                 <input [(ngModel)]="newAddress.zip" class="form-control" type="text" name="zip" id="zip" />
                 <label for="zip" class="form-label"> Zip</label>
-
-
-                <button class="btn btn-danger" (click)="addLocation = false"> Cancel</button>
-
-                <button class="btn btn-primary" (click)="createNewLocation(newLocation)">
+                <br>
+              <div class="row justify-content-around">
+                <div class="col-4">
+                <button class="btn btn-danger btn-lg" (click)="addLocation = false"> Cancel</button>
+              </div>
+              <div class="col-4">
+                <button class="btn btn-primary btn-lg" (click)="createNewLocation(newLocation)">
                   Create Location
                 </button>
+              </div>
+              </div>
 
+              </form>
+            </div>
 
+            <hr>
 
-        </form>
-      </div>
-
-
-
-
-
-
-
+      <div class="d-flex justify-content-center">
       <div class="form-group">
       <label for="privay">Private Walk</label>
       <input type="checkbox" name="privacy" id="privacy" [(ngModel)]="walk.privacy" />
       </div>
-
-      <button>Cancel</button>
-      <button (click)="createNewWalk(walk)">Create</button>
-
+</div>
+<br>
+<div class="row justify-content-around">
+  <div class="col-4">
+    <button class="btn btn-success btn-lg"  (click)="createNewWalk(walk)">Create</button>
+  </div>
+  <div class="col-4">
+      <button  class="btn btn-danger btn-lg">Cancel</button>
+    </div>
+</div>
     </form>
+</div>
 </div>
