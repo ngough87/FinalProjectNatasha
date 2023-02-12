@@ -24,18 +24,15 @@ import com.skilldistillery.paseo.services.FollowedUserService;
 @RequestMapping("api")
 @CrossOrigin({ "*", "http://localhost/" })
 public class FollowedUserController {
-	
-	
+
 	@Autowired
 	private FollowedUserService followedUserService;
-	
+
 	@Autowired
 	private AuthService auth;
-	
-	
-	
+
 	@PostMapping("followedUsers/{id}")
-	public FollowedUser create(@PathVariable int id,Principal principal, HttpServletResponse resp, HttpServletRequest req) {
+	public void create(@PathVariable int id, Principal principal, HttpServletResponse resp, HttpServletRequest req) {
 		FollowedUser newFollowedUser = null;
 		User loggedInUser = auth.getUserByUsername(principal.getName());
 
@@ -44,39 +41,32 @@ public class FollowedUserController {
 			if (newFollowedUser == null) {
 				resp.setStatus(404);
 			} else {
-			resp.setStatus(201);
+				resp.setStatus(201);
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
 			resp.setStatus(400);
 		}
-		return newFollowedUser;
+//		return newFollowedUser;
 	}
-	
-	
-	
+
 	@DeleteMapping("followedUsers/{id}")
 	public void delete(Principal principal, @PathVariable int id, HttpServletResponse res) {
-		FollowedUser deleteMe = followedUserService.findById(id);
+
 		User loggedInUser = auth.getUserByUsername(principal.getName());
-		
-		if (loggedInUser.getUsername() == deleteMe.getUser().getUsername() || 
-				loggedInUser.getRole().equals("ADMIN")) {
-			boolean deleted = followedUserService.disabledFollowedUser(id);
+
+		boolean deleted = followedUserService.disabledFollowedUser(id, loggedInUser);
+
 		try {
 			if (deleted == true) {
-				res.setStatus(200);
+				res.setStatus(204);
+			} else {
+				res.setStatus(404);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			res.setStatus(404);
 		}
-		} else {
-			res.setStatus(401);
-		}
-
 	}
-	
 
 }

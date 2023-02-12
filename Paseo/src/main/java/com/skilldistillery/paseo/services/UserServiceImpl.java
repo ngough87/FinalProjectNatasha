@@ -33,7 +33,6 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User update(String username, User user, int id) {
 		User existing = userRepo.findByUsernameAndId(username, id);
-		System.out.println("existing service: " + existing);
 		if (existing != null) {
 			existing.setUsername(user.getUsername());
 			existing.setPassword(user.getPassword());

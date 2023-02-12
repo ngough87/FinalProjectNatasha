@@ -9,8 +9,8 @@ public interface FollowedUserService {
 	
 	
 	
-	FollowedUser findById(int id);
-	boolean disabledFollowedUser (int id);
+	List<User> findByUserId(int id);
 	FollowedUser create(int followedUserId, User loggedInUser);
+	boolean disabledFollowedUser(int id, User loggedInUser);
 
 }

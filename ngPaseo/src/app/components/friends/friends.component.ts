@@ -49,5 +49,16 @@ export class FriendsComponent implements OnInit{
 
 
 
-  deleteFriend(user: User){}
+  deleteFriend(user: User){
+    this.userService.unfollowUser(user.id).subscribe ({
+      next: (data) => {
+        console.log('unfollowed ' + user.username);
+        this.loadFriends();
+      },
+      error: (error) => {
+        console.error('friendComponent.deleteFriend: error deleting friend');
+        console.error(error);
+      }
+      })
+  }
 }

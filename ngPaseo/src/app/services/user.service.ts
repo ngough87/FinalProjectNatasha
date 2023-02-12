@@ -80,11 +80,22 @@ export class UserService {
   }
 
   followUser(id:number):Observable<void> {
-    return this.http.post<void>(this.url + "followedUsers/" + id, this.getHttpOptions()).pipe(
+    return this.http.post<void>(this.url + "api/followedUsers/" + id, "",this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError(
           () => new Error('UserService.followUser(): error following user.')
+        );
+      })
+    );
+  }
+
+  unfollowUser(id:number):Observable<void> {
+    return this.http.delete<void>(this.url + "api/followedUsers/" + id, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('UserService.followUser(): error unfollowing user.')
         );
       })
     );
