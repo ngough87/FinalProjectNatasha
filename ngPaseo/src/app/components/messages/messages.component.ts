@@ -1,63 +1,65 @@
-import { Component } from '@angular/core';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { MessageService } from './../../services/message.service';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
+import { UserService } from 'src/app/services/user.service';
+import { Message } from 'src/app/models/message';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-messages',
   templateUrl: './messages.component.html',
-  styleUrls: ['./messages.component.css']
+  styleUrls: ['./messages.component.css'],
 })
-export class MessagesComponent {
-  messages = [
-    {"id":1,"from":"Gary Lewis","fromAddress":"test@foofoo.com","subject":"Posting on board","dtSent":"Today, 9:18AM","read":false,"body":"Hey Mark,<br><br>I saw your post on the message board and I was wondering if you still had that item available. Can you call me if you still do?<br><br>Thanks,<br><b>Gary Lewis</b>"},
-    {"id":2,"from":"Bob Sutton","fromAddress":"test@testdomain.com","subject":"In Late Today","dtSent":"Today, 8:54AM","read":false,"body":"Mark,<br>I will be in late today due to an appt.<br>v/r Bob","attachment":false},
-    {"id":3,"from":"Will Adivo","fromAddress":"test@testbar.com","subject":"New developer","dtSent":"Yesterday, 4:48PM","read":true,"body":"Here is the last resume for the developer position we posted on SO. Please review and let me know your thoughts!","attachment":true},
-    {"id":4,"from":"Al Kowalski","fromAddress":"test@domain.com","subject":"RE: New developer","dtSent":"Yesterday, 4:40PM","read":false,"body":"I looked at the resume, but the guy looks like a moron.","priority":1},
-    {"id":4,"from":"Beth Maloney","fromAddress":"test@mail.com","subject":"July Reports","dtSent":"3 Days Ago","read":true,"body":"PYC Staff-<br> Our weekly meeting is canceled due to the holiday. Please review and submit your PID report before next week's meeting.<br>Thanks,<br>Beth"},
-    {"id":6,"from":"Jason Furgano","fromAddress":"test@domain.com","subject":"New developer","dtSent":"3 Days Ago","read":true,"body":"All,<br>I'd like to introduce Joe Canfigliata our new S/W developer. If you see him in the office introduce yourself and make him feel welcome."},
-    {"id":7,"from":"Bob Sutton","fromAddress":"test@test.com","subject":"Tasking request","dtSent":"3 Days Ago","read":true,"body":"Ovi lipsu doir. The message body goes here..."},
-    {"id":8,"from":"Will Adivo","fromAddress":"test@test.com","subject":"Proposal for Avid Consulting","dtSent":"3 Days Ago","read":true,"body":"Mark, I reviewed your proposal with Beth and we have a few questions. Let me know when you time to meet."},
-    {"id":9,"from":"Philip Corrigan","fromAddress":"test@testdomain.com","subject":"Follow-up Appt.","dtSent":"4 Days Ago","read":true,"body":"Hi,<br>Can you please confirm the expense report I submitted for my last trip to SD?<br>Thanks,<br>Tom Grey"},
-  ]
-  unread: Object[] = []
-  selected:Object = {}
-  closeResult = '';
+export class MessagesComponent implements OnInit {
+  messages: Message[] = [];
+  sender: User = new User();
+  receiver: User = new User();
 
-  constructor(private modalService: NgbModal) {}
+  constructor(
+    private auth: AuthService,
+    private router: Router,
+    private messageService: MessageService,
+    private userService: UserService
+  ) {}
 
-      selectItem(idx:number){
-          this.messages[idx].read = true;
-          this.selected = this.messages[idx];
-        this.getUnreadMessages();
-        }
-
-  getUnreadMessages() {
-    this.unread = [];
-    for (let message of this.messages) {
-      if (message.read === false) {
-        this.unread.push(message);
-      }
-    }
+  ngOnInit(): void {
+    this.reload();
   }
 
-  open(content:any) {
-		this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
-			(result) => {
-				this.closeResult = `Closed with: ${result}`;
-			},
-			(reason) => {
-				this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-			},
-		);
-	}
+  reload(): void {
+    this.messageService.index().subscribe({
+      next: (data) => {
+        this.messages = data;
+      },
+      error: (err) => {
+        console.error('Message.reload(): error loading message');
+        console.error(err);
+      },
+    });
+  }
 
-  private getDismissReason(reason: any): string {
-		if (reason === ModalDismissReasons.ESC) {
-			return 'by pressing ESC';
-		} else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-			return 'by clicking on a backdrop';
-		} else {
-			return `with: ${reason}`;
-		}
-	}
+  createNewMessage(message: Message, receiverId: number) {
+    message.sender = new User();
 
+    message.sender.id = Number(localStorage.getItem('currentUserId'));
+
+    this.messageService.create(message).subscribe({
+      next: (data) => {
+        console.log(data);
+      },
+    });
+  }
+
+  delete(id: number) {
+    this.messageService.destroy(id).subscribe({
+      next: () => {
+        this.router.navigateByUrl('/messages');
+      },
+      error: (error) => {
+        console.error('MessageComponent.delete message: error deleting');
+        console.error(error);
+      },
+    });
+  }
 }
