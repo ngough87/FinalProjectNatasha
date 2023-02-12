@@ -76,4 +76,21 @@ public class UserController {
 		}
 
 	}
+	
+	@GetMapping("users/{id}/friends")
+	
+	public List<User> findFriendsByUserId(@PathVariable int id, HttpServletResponse resp){
+		
+		User user = userService.findById(id);
+		
+		if(user == null) {
+			resp.setStatus(404);
+		} else {
+			return user.getFollowedUsers();
+		}
+		
+		return null;
+} 
+	
+
 }

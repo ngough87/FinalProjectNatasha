@@ -15,6 +15,7 @@ const routes: Routes = [
   {path: "home", component: HomeComponent},
   {path: "settings/:id", component: SettingsComponent},
   {path: "profile", component: ProfileComponent},
+  {path: "profile/:id", component: ProfileComponent},
   {path: "messages", component: MessagesComponent},
   {path: "friends", component: FriendsComponent},
   {path: "ads", component: AdsComponent},

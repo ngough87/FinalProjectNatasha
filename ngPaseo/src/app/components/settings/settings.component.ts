@@ -123,6 +123,18 @@ getGenders(){
 returnHome(){
   this.router.navigateByUrl('/home')
 }
+delete(id: number){
+  this.userService.delete(id).subscribe({
+    next:() =>{
+    this.auth.logout();
+    this.router.navigateByUrl('/home');
 
+    },
+    error: (error) =>{
+      console.error('WalkPageComponent.delete profile: error deleting');
+      console.error(error);
+    }
+  });
+}
 
 }

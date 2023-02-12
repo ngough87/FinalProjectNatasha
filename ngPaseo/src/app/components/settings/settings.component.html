@@ -70,9 +70,11 @@ style="background-image: url('https://cdn-prod.medicalnewstoday.com/content/imag
       </table>
           <div class="row just-content-evenly" >
 
-           <button  class="btn btn-primary" (click)="updateAddress(user)">Update</button>
+           <button  class="btn btn-success" (click)="updateAddress(user)">Update</button>
            <br>
-           <button  class="btn btn-danger" (click)="returnHome()">Cancel</button>
+           <button  class="btn btn-primary" (click)="returnHome()">Cancel</button>
+            <hr>
+           <button  class="btn btn-danger" (click)="delete(user.id)">Delete Account</button>
           </div>
 
       </form>
