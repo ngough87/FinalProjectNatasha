@@ -38,7 +38,16 @@ export class UserService {
     );
   }
 
-  deleteUser(){}
+  delete(id: number): Observable<void>   {
+    return this.http.delete<void>(this.url + 'api/users/' + id, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('userService.delete(): error deleting user profile: ' + err)
+        );
+      })
+    );
+    }
 
   generateBasicAuthCredentials(username: string | null
     , password: string | null
@@ -58,5 +67,19 @@ export class UserService {
       })
     );
   }
+
+  findFriends(id: number): Observable<User[]> {
+
+
+    return this.http.get<User[]>(this.url + 'api/users/' + id + '/friends', this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('UserService.findFriend(): error finding friend.')
+        );
+      })
+    );
+  }
+
 
 }
