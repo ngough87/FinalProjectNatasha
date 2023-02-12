@@ -6,8 +6,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Walk } from 'src/app/models/walk';
 
+
 import { AuthService } from 'src/app/services/auth.service';
-import { WalkLocationService } from 'src/app/services/walk-location.service'
+import { WalkLocationService } from 'src/app/services/walk-location.service';
 import { UserService } from 'src/app/services/user.service';
 import { WalkService } from 'src/app/services/walk.service';
 import { WalkType } from 'src/app/models/walk-type';
@@ -21,20 +22,18 @@ import { User } from 'src/app/models/user';
   templateUrl: './walk.component.html',
   styleUrls: ['./walk.component.css'],
 })
-export class WalkComponent implements OnInit{
+export class WalkComponent implements OnInit {
   walk: Walk = new Walk();
   walks: Walk[] = [];
   newWalk: Walk = new Walk();
 
-  walkTypes: WalkType[] =  []
-  walkCategories : WalkCategory[] = [];
-  walkLocations : WalkLocation [] = [];
+  walkTypes: WalkType[] = [];
+  walkCategories: WalkCategory[] = [];
+  walkLocations: WalkLocation[] = [];
   addLocation: boolean = false;
   addAddress: boolean = false;
 
-
-
-  newLocation : WalkLocation | null = null;
+  newLocation: WalkLocation | null = null;
   newAddress: Address | null = null;
   constructor(
     private auth: AuthService,
@@ -43,15 +42,15 @@ export class WalkComponent implements OnInit{
     private addressService: AddressService,
     private walkService: WalkService,
     private walkLocationService: WalkLocationService,
-    private walkCatService : WalkCategoryService,
-    private walkTypeService : WalkTypeService
-
+    private walkCatService: WalkCategoryService,
+    private walkTypeService: WalkTypeService
   ) {}
   ngOnInit(): void {
     this.reload();
     this.loadCategories();
     this.loadTypes();
     this.loadLocation();
+
   }
 
   reload(): void {
@@ -66,85 +65,75 @@ export class WalkComponent implements OnInit{
     });
   }
 
-createNewWalk(walk :Walk){
-  walk.user = new User();
-  walk.user.id = Number(localStorage.getItem("currentUserId"));
+  createNewWalk(walk: Walk) {
+    walk.user = new User();
+    walk.user.id = Number(localStorage.getItem('currentUserId'));
 
-  this.walkService.create(walk).subscribe({
-    next:(data) =>{
-      console.log(data);
+    this.walkService.create(walk).subscribe({
+      next: (data) => {
+        console.log(data);
+      },
+    });
+  }
 
-    }
-  })
-}
+  loadCategories() {
+    this.walkCatService.index().subscribe({
+      next: (data) => {
+        this.walkCategories = data;
+      },
+    });
+  }
 
-loadCategories(){
+  loadLocation() {
+    this.walkLocationService.index().subscribe({
+      next: (data) => {
+        this.walkLocations = data;
+      },
+    });
+  }
 
-  this.walkCatService.index().subscribe({
+  loadTypes() {
+    this.walkTypeService.index().subscribe({
+      next: (data: WalkType[]) => {
+        this.walkTypes = data;
+      },
+    });
+  }
 
-next: (data) =>{
-  this.walkCategories = data;
-}
-
-  })
-
-
-}
-
-loadLocation(){
-
-  this.walkLocationService.index().subscribe({
-
-next: (data) =>{
-  this.walkLocations = data;
-}
-
-  })
-
-
-}
-
-
-loadTypes(){
-
-  this.walkTypeService.index().subscribe({
-
-next: (data:WalkType[]) =>{
-  this.walkTypes = data;
-}
-
-  });
-
-
-}
-
-
-  showAddLocation(){
+  showAddLocation() {
     this.addLocation = true;
     this.newLocation = new WalkLocation();
+    this.newAddress = new Address();
   }
 
-  createNewLocation(newLocation : WalkLocation):void{
-    this.walkLocationService.create(newLocation).subscribe({
+  createNewLocation(newLocation: WalkLocation): void {
+
+    this.addressService.createAddress(newLocation.address).subscribe({
+
       next: (data) => {
-        this.reload();
+        newLocation.address = data;
+
+        this.walkLocationService.create(newLocation).subscribe({
+          next: (data) => {
+            this.addLocation = false;
+            this.loadLocation();
+
+          },
+          error: (fail) => {
+            console.error('walk.component.ts, createNewLocation-2');
+            console.error(fail);
+          },
+        });
+
       },
-      error: (fail) => {
+
+        error:(fail)=> {
+        console.error('walk.component.ts, createNewLocation-1');
         console.error(fail);
-
-    },
-  });
-  }
-
-  showAddAddress() {
-
-  this.addAddress=true;
-  this.newAddress= new Address;
-
+        },
+      });
 
   }
-
-  // createLocation(walkLocation : string){
 
   updateWalk(walk: Walk) {
     this.walkService.update(walk).subscribe({
@@ -170,6 +159,4 @@ next: (data:WalkType[]) =>{
       },
     });
   }
-
-
 }
