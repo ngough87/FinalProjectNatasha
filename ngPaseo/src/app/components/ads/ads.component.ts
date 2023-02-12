@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-ads',
@@ -7,4 +8,10 @@ import { Component } from '@angular/core';
 })
 export class AdsComponent {
 
+  users:User[] = []
+
+  constructor(){}
+
+  reload( ){
+    this.users = []}
 }
