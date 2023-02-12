@@ -1,1 +1,169 @@
-<p>messages works!</p>
+<div class="container" ng-app="app" ng-controller="ctrl">
+  <div class="row min-vh-100 flex-column py-4">
+      <div class="col-12">
+          <div class="row">
+              <div class="col-md-4 bg-secondary text-white text-truncate">
+                  <img src="https://robohash.org/4H1.png?set=set1&size=64x64"><span class="h3 align-middle" title="Inbox">Joe Bot</span>
+              </div>
+              <div class="col-md-8 bg-secondary text-muted d-flex align-items-center justify-content-between">
+                  <a href="#" class="ml-auto d-none d-md-inline" title="Refresh messages"><i class="mb-1 material-icons">refresh</i></a>
+              </div>
+          </div>
+      </div>
+      <div class="col-12 d-flex flex-column flex-grow-1">
+          <div class="row flex-fill">
+              <div class="col-md-3 bg-light py-3 rounded mr-md-1 mb-2">
+                  <ul class="list-group sticky-top sticky-offset">
+                      <button class="btn btn-block btn-outline-secondary my-1 text-uppercase" data-target="#composeModal" data-toggle="modal">Compose <i class="align-middle mb-1 text-muted material-icons">edit</i></button>
+                      <div class="nav py-2 flex-md-column justify-content-center">
+                          <a href="#" class="nav-link text-muted px-md-1" title="Messages">
+                              <span class="fa fa-envelope-o fa-fw mr-md-1"></span>
+                              <span class="d-none d-md-inline">Messages</span> <span class="badge badge-pill badge-primary" title="Unread" ng-show="unread.length>0" ng-bind="unread.length"></span>
+                          </a>
+                          <a href="#" class="nav-link text-muted px-md-1" title="Deleted">
+                              <span class="fa fa-trash fa-fw mr-md-1"></span>
+                              <span class="d-none d-md-inline">Deleted</span>
+                          </a>
+                          <a href="#" class="nav-link text-muted px-md-1" title="Drafts">
+                              <span class="fa fa-edit fa-fw mr-md-1"></span>
+                              <span class="d-none d-md-inline">Drafts</span>
+                          </a>
+                          <a href="#" class="nav-link text-muted px-md-1" title="Calendar">
+                              <span class="fa fa-calendar fa-fw mr-md-1"></span>
+                              <span class="d-none d-md-inline">Calendar</span>
+                          </a>
+                      </div>
+                  </ul>
+              </div>
+              <div class="col-md py-3 rounded shadow bg-white ml-md-n1 mb-2">
+                  <div class="d-flex flex-sm-row flex-column py-1 mb-1">
+                      <button type="button" class="btn btn-outline-secondary text-uppercase mr-sm-1 mr-none">
+                          <div class="custom-control custom-checkbox">
+                              <input type="checkbox" class="custom-control-input" id="checkAll">
+                              <label class="custom-control-label text-nowrap" for="checkAll">All</label>
+                          </div>
+                      </button>
+                      <button type="button" class="btn btn-outline-secondary text-uppercase mr-sm-auto mr-none">Move...</button>
+                      <button type="button" class="btn btn-outline-secondary mr-sm-1 mr-none" data-target="#composeModal" data-toggle="modal"><i class="align-middle mb-1 material-icons">edit</i></button>
+                      <button type="button" class="btn btn-outline-secondary text-uppercase dropdown-toggle" data-toggle="dropdown">More</button>
+                      <div class="dropdown-menu dropdown-menu-right">
+                          <a href="#" class="dropdown-item px-3">Trash</a>
+                          <a href="#" class="dropdown-item px-3">Drafts</a>
+                          <a href="#" class="dropdown-item px-3">Favorites</a>
+                          <div class="dropdown-divider"></div>
+                          <a href="#" class="dropdown-item px-3">New folder..</a>
+                      </div>
+                  </div>
+
+                  <!-- messages list -->
+                  <ul class="list-group py-2">
+                      <!-- single message (repeated) -->
+                      <li data-ng-repeat="(idx,item) in messages" class="list-group-item d-block py-1">
+                          <div class="row">
+                              <div class="col-lg-3 p-2">
+                                  <div class="custom-control custom-checkbox">
+                                      <input type="checkbox" class="custom-control-input" id="">
+                                      <label class="custom-control-label text-nowrap" for=""><a href=""></a></label>
+                                  </div>
+                              </div>
+                              <div class="col-lg py-2">
+                                  <div class="float-right text-right">
+                                      <span data-ng-class="{'font-weight-bold font-italic':!item.read}"></span>
+                                  </div>
+                                  <p class="lead mb-0">
+                                      <a href="#messageModal" data-ng-click="selectItem(idx)" data-target="#messageModal" data-toggle="modal" data-ng-title="!item.read?'This is a new message':'View this message'" data-ng-class="{'font-weight-bold':!item.read}"></a>
+                                      <i class="align-middle ion-android-attach md_18 material-icons" data-ng-if="item.attachment">attach_file</i>
+                                  </p>
+                              </div>
+                          </div>
+                      </li>
+                  </ul>
+
+                  <!-- view message modal -->
+                  <div id="messageModal" class="modal fade mt-0 mt-md-5" tabindex="-1" role="dialog" aria-hidden="true">
+                      <div class="modal-dialog modal-lg">
+                          <div class="modal-content">
+                              <div class="modal-header">
+                                  <div>
+                                      <small class="text-uppercase text-muted">Subject</small>
+                                      <h4 class="modal-title"></h4>
+                                  </div>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">×</span>
+                                      <span class="sr-only">Close</span>
+                                  </button>
+                              </div>
+                              <div class="modal-body">
+                                  <div class="row">
+                                      <div class="col-sm-8">
+                                          <small class="text-uppercase text-muted">From</small>
+                                          <h4>
+                                      <a :href="'mailto:'+selected.fromAddress"></a>
+                                  </h4>
+                                      </div>
+                                      <div class="col-sm-4">
+                                          <small class="text-uppercase text-muted">Sent</small>
+                                          <h6>
+
+                                  </h6>
+                                      </div>
+                                  </div>
+                                  <p class="my-3" data-ng-bind-html="selected.body | html"></p>
+                                  <button class="btn btn-primary float-right ml-2" data-dismiss="modal" aria-hidden="true">Close</button>
+                                  <button class="btn btn-outline-primary float-right" data-dismiss="modal">Reply</button>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <!-- /modal -->
+
+                  <!-- compose modal-->
+                  <div id="composeModal" class="modal fade mt-0 mt-md-5" tabindex="-1" role="dialog" aria-hidden="true">
+                      <div class="modal-dialog modal-lg">
+                          <div class="modal-content">
+                              <div class="modal-header">
+                                  <h5 class="text-uppercase text-muted">Compose</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">×</span>
+                                      <span class="sr-only">Close</span>
+                                  </button>
+                              </div>
+                              <div class="modal-body">
+                                  <form class="form" role="form" autocomplete="off">
+                                      <div class="form-row py-2">
+                                          <label for="name2" class="col-sm-2 mb-0">To</label>
+                                          <div class="col">
+                                              <input type="text" name="name2" id="name2" class="form-control" required="">
+                                          </div>
+                                      </div>
+                                      <div class="form-row py-2">
+                                          <label for="subject" class="col-sm-2 mb-0">Subject</label>
+                                          <div class="col">
+                                              <input type="text" name="subject" id="subject" class="form-control" required="">
+                                          </div>
+                                      </div>
+                                      <div class="form-row py-2">
+                                          <label for="message2" class="col-sm-2 mb-0">Message</label>
+                                          <div class="col">
+                                              <textarea rows="6" name="message2" id="message2" class="form-control" required=""></textarea>
+                                          </div>
+                                      </div>
+                                      <div class="form-row py-2">
+                                          <div class="col offset-2">
+                                              <button type="submit" class="btn btn-outline-secondary btn-lg">Attachments <i class="align-middle mb-1 material-icons">attach_file</i></button>
+                                          </div>
+                                          <div class="col">
+                                              <button type="submit" class="btn btn-secondary btn-lg float-right ml-2">Send Message</button>
+                                              <button type="submit" class="btn btn-outline-secondary btn-lg float-right">Save Draft</button>
+                                          </div>
+                                      </div>
+                                  </form>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
