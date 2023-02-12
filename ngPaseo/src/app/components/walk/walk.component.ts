@@ -113,9 +113,6 @@ export class WalkComponent implements OnInit {
       next: (data) => {
         newLocation.address = data;
 
-
-
-
         this.walkLocationService.create(newLocation).subscribe({
           next: (data) => {
             this.addLocation = false;
@@ -128,16 +125,6 @@ export class WalkComponent implements OnInit {
           },
         });
 
-
-
-
-
-
-
-
-
-
-
       },
 
         error:(fail)=> {
@@ -146,15 +133,7 @@ export class WalkComponent implements OnInit {
         },
       });
 
-
-
-
   }
-
-
-
-
-
 
   updateWalk(walk: Walk) {
     this.walkService.update(walk).subscribe({
