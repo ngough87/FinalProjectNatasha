@@ -82,6 +82,7 @@ updateAddress(user: User){
   console.log(user);
   // console.log(this.user);
   if(user.address!.id ===0) {
+    user.address = this.address;
     this.addressService.createAddress(user.address!).subscribe({
       next: (data) => {
         // console.log(data);

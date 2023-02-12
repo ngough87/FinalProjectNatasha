@@ -69,13 +69,22 @@ export class UserService {
   }
 
   findFriends(id: number): Observable<User[]> {
-
-
     return this.http.get<User[]>(this.url + 'api/users/' + id + '/friends', this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError(
           () => new Error('UserService.findFriend(): error finding friend.')
+        );
+      })
+    );
+  }
+
+  followUser(id:number):Observable<void> {
+    return this.http.post<void>(this.url + "followedUsers/" + id, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('UserService.followUser(): error following user.')
         );
       })
     );
