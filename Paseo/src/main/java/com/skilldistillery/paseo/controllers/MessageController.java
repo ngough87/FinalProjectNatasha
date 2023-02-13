@@ -47,11 +47,10 @@ public class MessageController {
 	}
 
 	@GetMapping("messages/received")
-	public List<Message> findAllReceived(Principal principal,
+	public List<Message> findAllReceived(Principal principal, @PathVariable("receiverId") int receiverId,
 			HttpServletResponse res) {
-		User loggedInUser = authService.getUserByUsername(principal.getName());
-		
-		return messageService.findAllMessagesReceived(loggedInUser.getId());
+
+		return messageService.findAllMessagesReceived(receiverId);
 
 	}
 
@@ -65,9 +64,6 @@ public class MessageController {
 		if (receiver != null) {
 			message.setSender(sender);
 			message.setReceiver(receiver);
-			message.setEnabled(true);
-			message.getDateSent();
-			
 
 			try {
 				output = messageService.create(message);
