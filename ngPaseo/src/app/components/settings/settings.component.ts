@@ -82,6 +82,7 @@ updateAddress(user: User){
   console.log(user);
   // console.log(this.user);
   if(user.address!.id ===0) {
+    user.address = this.address;
     this.addressService.createAddress(user.address!).subscribe({
       next: (data) => {
         // console.log(data);
@@ -123,6 +124,18 @@ getGenders(){
 returnHome(){
   this.router.navigateByUrl('/home')
 }
+delete(id: number){
+  this.userService.delete(id).subscribe({
+    next:() =>{
+    this.auth.logout();
+    this.router.navigateByUrl('/home');
 
+    },
+    error: (error) =>{
+      console.error('WalkPageComponent.delete profile: error deleting');
+      console.error(error);
+    }
+  });
+}
 
 }

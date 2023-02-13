@@ -28,14 +28,36 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	
 	@GetMapping("users")
-	public List <User> show( HttpServletRequest req, HttpServletResponse resp) {
-			
-	
+	public List<User> show(HttpServletRequest req, HttpServletResponse resp) {
+
 		return userService.show();
 
-	} 
+	}
+	
+	@GetMapping("users/{id}")
+	public User findUser(@PathVariable int id, HttpServletResponse resp) {
+		User input = userService.findById(id);
+		User output = new User();
+		
+		if (input == null) {
+			resp.setStatus(404);
+		} else {
+			output.setAddress(input.getAddress());
+			output.setBirthdate(input.getBirthdate());
+			output.setDescription(input.getDescription());
+			output.setEnabled(input.getEnabled());
+			output.setFirstName(input.getFirstName());
+			output.setLastName(input.getLastName());
+			output.setGender(input.getGender());
+			output.setId(input.getId());
+			output.setProfileImageUrl(input.getProfileImageUrl());
+			output.setRole(input.getRole());
+			output.setUsername(input.getUsername());
+		}
+		
+		return output;
+	}
 
 	@PutMapping("users/{id}")
 	public User update(@PathVariable int id, @RequestBody User user, HttpServletRequest req, HttpServletResponse resp,
@@ -46,17 +68,17 @@ public class UserController {
 			if (existing == null) {
 				resp.setStatus(404);
 			}
-			
+
 			else {
-			resp.setStatus(202);}
-			
+				resp.setStatus(202);
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			resp.setStatus(400);
 		}
 
 		return existing;
-
 
 	}
 
@@ -76,4 +98,19 @@ public class UserController {
 		}
 
 	}
+
+	@GetMapping("users/{id}/friends")
+	public List<User> findFriendsByUserId(@PathVariable int id, HttpServletResponse resp) {
+
+		User user = userService.findById(id);
+
+		if (user == null) {
+			resp.setStatus(404);
+		} else {
+			return user.getFollowedUsers();
+		}
+
+		return null;
+	}
+
 }

@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.skilldistillery.paseo.entities.Address;
 import com.skilldistillery.paseo.entities.User;
 import com.skilldistillery.paseo.repositories.AddressRepository;
 import com.skilldistillery.paseo.repositories.GenderRepository;
@@ -33,7 +32,6 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User update(String username, User user, int id) {
 		User existing = userRepo.findByUsernameAndId(username, id);
-		System.out.println("existing service: " + existing);
 		if (existing != null) {
 			existing.setUsername(user.getUsername());
 			existing.setPassword(user.getPassword());
@@ -78,5 +76,7 @@ public class UserServiceImpl implements UserService {
 	public User findById(int id) {
 		return userRepo.findById(id);
 	}
+	
+	
 
 }

@@ -20,8 +20,9 @@
 </ngb-carousel>
 <hr/>
 <h3>Lorem Ipsum</h3>
-
-<app-register></app-register>
+<div *ngIf="!checkLogin()">
+  <app-register></app-register>
+</div>
 
 <div *ngIf="checkLogin()">
 <app-walk></app-walk>

@@ -1,0 +1,16 @@
+table {
+  border-spacing: 30px;
+}
+
+table, th, td {
+
+  padding: 15px;
+}
+
+bg-img {
+
+  max-width: 100%;
+
+  height: auto;
+
+  }

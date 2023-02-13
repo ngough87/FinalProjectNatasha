@@ -1,17 +1,18 @@
 
-<div class="bg-image"
-style="background-image: url('https://cdn-prod.medicalnewstoday.com/content/images/articles/319/319785/walkers.jpg' );
-      background-size: 100%; background-repeat: no-repeat; height: 100vh">
+<div class="bg-image "
+style="background-image: url('https://c1.wallpaperflare.com/preview/670/395/688/walk-path-feet-trail.jpg' );
+      background-size: 100%; background-repeat: no-repeat; height: 100vh;">
 
 
 <div (load)="getLoggedInUser(); getGenders()">
 
   <div class="row">
 
-    <div class="col-6" id="form-wrapper" >
-      <div style="max-width: 750px; margin: 100px; float: left; border: 6px solid #6C7593; padding: 40px;background-color: #D0D1D5" >
+    <div class="col-6 " id="form-wrapper" >
+
+      <div class="bg-success text-dark bg-opacity-10"style="max-width: 750px; margin: 100px; float: left;  padding: 40px; background-color: #FBFCF9;">
       <form>
-      <table>
+      <table >
         <tbody>
           <tr>
             <td>
@@ -24,12 +25,16 @@ style="background-image: url('https://cdn-prod.medicalnewstoday.com/content/imag
             </td>
           </tr>
           <tr>
-
-            <td>
+            <td colspan="2">
               <input [(ngModel)]="address.street" class="form-control" type="text" name="street" id="street">
               <label for="street" class="form-label">Street Address</label>
             </td>
-            <td>
+
+          </tr>
+          <tr>
+
+
+            <td colspan="2">
               <input [(ngModel)]="address.city" class="form-control" type="text" name="city" id="city">
               <label for="city" class="form-label">City</label>
             </td>
@@ -59,7 +64,7 @@ style="background-image: url('https://cdn-prod.medicalnewstoday.com/content/imag
             <label for="birthday" class="form-label">Birthday</label>
           </td>
           <td >
-            <select [(ngModel)]="user.gender" name="genders" id="genders">
+            <select class="form-control form-select"[(ngModel)]="user.gender" name="genders" id="genders">
              <option  [ngValue]="gender" name="gender" *ngFor="let gender of genders">{{gender.sex}}</option>
 
            </select>
@@ -68,26 +73,35 @@ style="background-image: url('https://cdn-prod.medicalnewstoday.com/content/imag
         </tr>
         </tbody>
       </table>
-          <div class="row just-content-evenly" >
+          <div class="row " >
+            <div class="col-md-4">
 
-           <button  class="btn btn-primary" (click)="updateAddress(user)">Update</button>
-           <br>
-           <button  class="btn btn-danger" (click)="returnHome()">Cancel</button>
+           <button  class="btn btn-success" (click)="updateAddress(user)">Update</button>
+           </div>
+           <div class="col-md-4">
+           <button  class="btn btn-primary" (click)="returnHome()">Cancel</button>
+</div>
+           <div class="col-md-4">
+           <button  class="btn btn-danger" (click)="delete(user.id)">Delete Account</button>
+           </div>
           </div>
 
       </form>
 </div>
+
     </div>
+
     <div class="col-4 ">
-      <div style="max-width: 750px; margin: 100px; float: left; border: 6px solid #6C7593; padding: 40px;background-color: #D0D1D5;" >
+      <div  class="bg-success text-dark bg-opacity-10" style="max-width: 750px; margin: 100px; float: left;  padding: 40px;background-color: #FBFCF9" >
   <div class="container" >
     <img src='https://t4.ftcdn.net/jpg/03/46/93/61/360_F_346936114_RaxE6OQogebgAWTalE1myseY1Hbb5qPM.jpg' *ngIf="!user.profileImageUrl">
     <img [src]="imageUrl" onerror="this.onerror=null; this.src='https://t4.ftcdn.net/jpg/03/46/93/61/360_F_346936114_RaxE6OQogebgAWTalE1myseY1Hbb5qPM.jpg'" *ngIf="user.profileImageUrl">
     <label for="profileImageUrl" class="form-label">Profile Image</label>
-    <input class="form-control" type="text" name="profileImageUrl" id="profileImageUrl" [(ngModel)]="user.profileImageUrl">
+    <input class="form-control" type="text" placeholder="enter image url"name="profileImageUrl" id="profileImageUrl" [(ngModel)]="user.profileImageUrl">
   </div>
     </div>
     </div>
+
   </div>
   </div>
 </div>

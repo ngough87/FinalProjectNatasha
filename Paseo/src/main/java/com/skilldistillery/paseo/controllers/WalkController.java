@@ -117,6 +117,7 @@ public class WalkController {
 
 		return updatedWalk;
 	}
+	
 
 	@DeleteMapping("walks/{walkId}")
 	public void delete(Principal principal, @PathVariable int walkId, HttpServletResponse res) {
