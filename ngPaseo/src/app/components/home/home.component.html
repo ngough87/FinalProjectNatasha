@@ -1,5 +1,6 @@
 
 
+<div *ngIf="!checkLogin()">
 <ngb-carousel *ngIf="images">
 	<ng-template ngbSlide>
 		<div class="picsum-img-wrapper">
@@ -24,10 +25,90 @@
 <hr/>
 
 <h3>Lorem Ipsum</h3>
-<div *ngIf="!checkLogin()">
   <app-register></app-register>
 </div>
 
+
+
+
+
 <div *ngIf="checkLogin()">
-<app-walk></app-walk>
+
+<div>
+    <div class="form-group">
+        <input [(ngModel)]="searchWalk.date" class="form-control" type="date" name="date" id="date" />
+        <label for="date" class="form-label">Date</label>
+      </div>
+      <div class="form-group">
+
+        <label for="startTime">Start Time:</label>
+        <input type="time" [(ngModel)]="searchWalk.startTime" name="startTime" id="startTime" />
+
+        <label for="endTime">End Time:</label>
+        <input type="time" [(ngModel)]="searchWalk.endTime" name="endTime" id="endTime" />
+        <td></td>
+      </div>
+      <br>
+      <div class="form-group">
+
+        <input [(ngModel)]="searchWalk.description" class="form-control" type="text" name="description"
+          id="description">
+        <label for="description" class="form-label">Keyword Search</label>
+
+      </div>
+
+
+
+
+      <div class="input-group mb-3">
+
+        <label class="input-group-text form-label" for="walkCategory">Walk Category </label>
+        <select [(ngModel)]="searchWalk.walkCategory" class="form-control form-select" name="walkCategory"
+          id="walkCategory">
+          <option [ngValue]="walkCategory" name="walkCategory" *ngFor="let walkCategory of walkCategories">
+            {{ walkCategory.name }}
+          </option>
+
+        </select>
+      </div>
+
+
+
+      <div class="input-group mb-3">
+        <label for="walkType" class=" input-group-text form-label">Walk Type </label>
+        <select class="form-control form-select" [(ngModel)]="searchWalk.walkType" name="walkType" id="walkType">
+          <option class="" [ngValue]="walkType" name="walkType" *ngFor="let walkType of walkTypes">
+            {{ walkType.name }}
+          </option>
+        </select>
+
+      </div>
+
+
+      <div class="input-group mb-3">
+        <label for="walkLocation" class="input-group-text  form-label">Walk Location</label>
+        <select class="form-control form-select" [(ngModel)]="searchWalk.walkLocation" name="walkLocation"
+          id="walkLocation">
+          <option [ngValue]="walkLocation" name="walkLocation" *ngFor="let walkLocation of walkLocations">
+            {{ walkLocation.name }}
+
+
+
+
+          </option>
+        </select>
+<button (click)="search(searchWalk)">
+    Search
+</button>
+
+</div>
+
+<div *ngFor = "let result of results">
+
+{{result.name}}
+{{result.user}}
+</div>
+
+
+    <app-walk></app-walk>
 </div>
