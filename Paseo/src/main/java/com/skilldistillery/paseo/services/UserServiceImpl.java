@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.skilldistillery.paseo.entities.Address;
 import com.skilldistillery.paseo.entities.User;
 import com.skilldistillery.paseo.repositories.AddressRepository;
 import com.skilldistillery.paseo.repositories.GenderRepository;
