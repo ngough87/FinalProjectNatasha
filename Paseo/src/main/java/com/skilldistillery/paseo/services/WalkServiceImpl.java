@@ -1,5 +1,7 @@
 package com.skilldistillery.paseo.services;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -147,4 +149,49 @@ public class WalkServiceImpl implements WalkService {
 
 		return deleted;
 	}
+	@Override
+	public List <Walk> searchByWalk(Walk searchWalk){
+	List<Walk> walks = walkRepo.findAll();
+	List<Walk> results = new ArrayList<Walk>();
+	
+	for(Walk walk:walks){
+		LocalDate afterDate = walk.getDate().plusWeeks(1);
+		LocalDate beforeDate = walk.getDate().minusWeeks(1);
+		
+if(walk.getPrivacy() == false) {
+
+		if (walk.getDescription().contains("%" +searchWalk.getDescription() + "%")){
+			if(!results.contains(walk)) {
+			results.add(walk);
+				
+		}}
+		if(searchWalk.getDate().isAfter(beforeDate) && searchWalk.getDate().isBefore(afterDate)){
+			if (!results.contains(walk)) {
+				results.add(walk);
+			}
+		}
+		if (walk.getWalkCategory() == searchWalk.getWalkCategory () || searchWalk.getWalkCategory().getId() == 99) {
+			if (!results.contains(walk)) {
+				results.add(walk);
+		}
+			}
+		if (walk.getWalkLocation() == searchWalk.getWalkLocation() ||  searchWalk.getWalkType().getId() == 99){
+			if (!results.contains(walk)) {
+				results.add(walk);
+		}
+		}
+		if (walk.getWalkType() == searchWalk.getWalkType() || searchWalk.getWalkType().getId() == 99) {
+		
+		
+			if (!results.contains(walk)) {
+				results.add(walk);
+	}
+	
+		}
+		
+		
+		} }
+	return results;
+}
+
 }
