@@ -71,8 +71,8 @@ export class WalkService {
   }
 
   search(walk : Walk): Observable<Walk[]> {
-    //return this.http.get<Todo[]>(this.url + '?sorted=true').pipe(
-    return this.http.post<Walk[]>(this.url + 'api/search ', this.getHttpOptions()).pipe(
+
+    return this.http.post<Walk[]>(this.url + 'api/walks/search ', walk,  this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError(

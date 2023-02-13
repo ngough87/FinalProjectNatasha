@@ -71,16 +71,16 @@ public class WalkServiceImpl implements WalkService {
 
 		List<Walk> walks = walkRepo.findAll();
 
-		List<Walk> copyWalkList = walks;
+		List<Walk> copyWalkList = new ArrayList<>();
 
-		for (Walk walk : copyWalkList) {
+		for (Walk walk : walks) {
 
-			if (walk.getPrivacy() == true) {
-				return copyWalkList;
+			if (walk.getPrivacy() == false) {
+				copyWalkList.add(walk);
 			}
 
 		}
-		return null;
+		return copyWalkList;
 	}
 
 	@Override
@@ -152,20 +152,20 @@ public class WalkServiceImpl implements WalkService {
 	@Override
 	public List <Walk> searchByWalk(Walk searchWalk){
 	List<Walk> walks = walkRepo.findAll();
-	List<Walk> results = new ArrayList<Walk>();
+	List<Walk> results = new ArrayList<>();
 	
 	for(Walk walk:walks){
 		LocalDate afterDate = walk.getDate().plusWeeks(1);
 		LocalDate beforeDate = walk.getDate().minusWeeks(1);
 		
-if(walk.getPrivacy() == false) {
+		if(walk.getPrivacy() == false) {
 
-		if (walk.getDescription().contains("%" +searchWalk.getDescription() + "%")){
+		if (walk.getDescription().contains(searchWalk.getDescription())){
 			if(!results.contains(walk)) {
 			results.add(walk);
 				
 		}}
-		if(searchWalk.getDate().isAfter(beforeDate) && searchWalk.getDate().isBefore(afterDate)){
+		if(searchWalk.getDate().isAfter(beforeDate) && searchWalk.getDate().isBefore(afterDate) && searchWalk.getDate().isAfter(LocalDate.now())) {
 			if (!results.contains(walk)) {
 				results.add(walk);
 			}
@@ -175,7 +175,7 @@ if(walk.getPrivacy() == false) {
 				results.add(walk);
 		}
 			}
-		if (walk.getWalkLocation() == searchWalk.getWalkLocation() ||  searchWalk.getWalkType().getId() == 99){
+		if (walk.getWalkLocation() == searchWalk.getWalkLocation() ||  searchWalk.getWalkLocation().getId() == 99){
 			if (!results.contains(walk)) {
 				results.add(walk);
 		}

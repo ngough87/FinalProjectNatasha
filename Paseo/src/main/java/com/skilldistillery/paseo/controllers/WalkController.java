@@ -46,10 +46,13 @@ public class WalkController {
 
 	@PostMapping("walks/search")
 	public List<Walk> findWalksBySearch(@RequestBody Walk searchWalk, HttpServletResponse res, Principal princal){
-		List<Walk> results= null;
+		List<Walk> results = null;
+		System.out.println(searchWalk);
 		try {
 			results = walkService.searchByWalk(searchWalk);
-			res.setStatus(204);
+			if (results.isEmpty() ) {
+				res.setStatus(404);
+			}
 		} catch (Exception e) {
 			res.setStatus(400);
 			e.printStackTrace();
