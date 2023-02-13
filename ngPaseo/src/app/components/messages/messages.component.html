@@ -14,7 +14,7 @@
           <div class="row flex-fill">
               <div class="col-md-3 bg-light py-3 rounded mr-md-1 mb-2">
                   <ul class="list-group sticky-top sticky-offset">
-                      <button class="btn btn-block btn-outline-secondary my-1 text-uppercase" data-target="#composeModal" data-toggle="modal">Compose <i class="align-middle mb-1 text-muted material-icons">edit</i></button>
+                      <button class="btn btn-block btn-outline-secondary my-1 text-uppercase" (click)="compose(composecontent)">Compose</button>
                       <div class="nav py-2 flex-md-column justify-content-center">
                           <a href="#" class="nav-link text-muted px-md-1" title="Messages">
                               <span class="fa fa-envelope-o fa-fw mr-md-1"></span>
@@ -63,7 +63,7 @@
                               <div class="col-lg-3 p-2">
                                   <div class="custom-control custom-checkbox">
                                       <input type="checkbox" class="custom-control-input" id="">
-                                      <label class="custom-control-label text-nowrap" for=""><a href="">{{message.from}}</a>{{message.subject}}</label>
+                                      <label class="custom-control-label text-nowrap" for=""><a href="">{{message.dateSent}}</a>{{message.sender.firstName + ' ' + message.sender.lastName}}</label>
                                   </div>
                               </div>
                               <div class="col-lg py-2">
@@ -71,38 +71,82 @@
                                       <span data-ng-class="{'font-weight-bold font-italic':!item.read}"></span>
                                   </div>
                                   <p class="lead mb-0">
-                                      <button [routerLink]="['#messageModal']" (click)="open(content)" data-target="#messageModal" data-toggle="modal" data-ng-title="!item.read?'This is a new message':'View this message'" data-ng-class="{'font-weight-bold':!item.read}">Click Me</button>
+                                    <button class="btn btn-lg btn-outline-primary" (click)="open(content, message)">Reply</button>
                                   </p>
                               </div>
                           </div>
                       </li>
                   </ul>
 
+                  <!-- Reply Modal -->
                   <ng-template #content let-modal>
                     <div class="modal-header">
-                      <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+                      <h4 class="modal-title" id="modal-basic-title">From: {{viewedMessage.sender.username}}</h4>
                       <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
                     </div>
+                    <div class="modal-header">
+                      <small class="text-uppercase text-muted">Sent: {{viewedMessage.dateSent}}</small>
+                      <div>
+                          <h4 class="modal-title"></h4>
+                      </div>
+                  </div>
                     <div class="modal-body">
+                      <table>
+                        <thead></thead>
+                        <tbody>
+                          <tr>
+                            <td>
+                              <p>{{viewedMessage.contents}}</p>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
                       <form>
                         <div class="mb-3">
-                          <label for="dateOfBirth">Date of birth</label>
+                          <label for="reply">Reply</label>
                           <div class="input-group">
-                            <input
-                              id="dateOfBirth"
+                            <textarea
+                              id="reply"
                               class="form-control"
-                              placeholder="yyyy-mm-dd"
-                              name="dp"
-                              ngbDatepicker
-                              #dp="ngbDatepicker"
-                            />
-                            <button class="btn btn-outline-secondary bi bi-calendar3" (click)="dp.toggle()" type="button"></button>
+                              name="reply"
+                            ></textarea>
                           </div>
                         </div>
                       </form>
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+                      <app-create-message [receiverId]="receiverId"></app-create-message>
+                    </div>
+                  </ng-template>
+
+                  <!-- Compose Modal -->
+                  <ng-template #composecontent let-modal>
+                    <div class="modal-header">
+                      <h4 class="modal-title" id="modal-basic-content" aria-label="modal-basic-content">Compose New Message</h4>
+                      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+                    </div>
+                    <div class="modal-header">
+                      <small class="text-uppercase text-muted">Send To: XXXXXXXXXXX</small>
+                      <div>
+                          <h4 class="modal-title"></h4>
+                      </div>
+                  </div>
+                    <div class="modal-body">
+                      <form>
+                        <div class="mb-3">
+                          <label for="compose">Compose</label>
+                          <div class="input-group">
+                            <textarea
+                              id="compose"
+                              class="form-control"
+                              name="compose"
+                            ></textarea>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="modal-footer">
+                      <app-create-message [receiverId]="receiverId"></app-create-message>
                     </div>
                   </ng-template>
 

@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
 import { Message } from 'src/app/models/message';
 import { User } from 'src/app/models/user';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-messages',
@@ -15,16 +16,21 @@ export class MessagesComponent implements OnInit {
   messages: Message[] = [];
   sender: User = new User();
   receiver: User = new User();
+  closeResult = '';
+  receiverId:number = 0;
+  viewedMessage:Message = new Message();
 
   constructor(
     private auth: AuthService,
     private router: Router,
     private messageService: MessageService,
-    private userService: UserService
+    private userService: UserService,
+    private modalService: NgbModal
   ) {}
 
   ngOnInit(): void {
     this.reload();
+    this.messages = [new Message(1, 'Hello there','2023-12-05', new User(1,'','','John','Cena'), new User(), false, true)]
   }
 
   reload(): void {
@@ -62,4 +68,40 @@ export class MessagesComponent implements OnInit {
       },
     });
   }
+
+  //Open reply modal
+  open(content:any, message:Message) {
+		this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
+			(result) => {
+				this.closeResult = `Closed with: ${result}`;
+			},
+			(reason) => {
+				this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+			},
+		);
+    this.receiverId = message.receiver.id;
+    this.viewedMessage = message;
+	}
+
+  //Open reply modal
+  compose(content:any) {
+		this.modalService.open(content, { ariaLabelledBy: 'modal-basic-content' }).result.then(
+			(result) => {
+				this.closeResult = `Closed with: ${result}`;
+			},
+			(reason) => {
+				this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+			},
+		);
+	}
+
+	private getDismissReason(reason: any): string {
+		if (reason === ModalDismissReasons.ESC) {
+			return 'by pressing ESC';
+		} else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+			return 'by clicking on a backdrop';
+		} else {
+			return `with: ${reason}`;
+		}
+	}
 }
