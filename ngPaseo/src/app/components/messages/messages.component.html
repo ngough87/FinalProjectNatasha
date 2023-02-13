@@ -16,14 +16,14 @@
                   <ul class="list-group sticky-top sticky-offset">
                       <button class="btn btn-block btn-outline-secondary my-1 text-uppercase" (click)="compose(composecontent)">Compose</button>
                       <div class="nav py-2 flex-md-column justify-content-center">
-                          <a href="#" class="nav-link text-muted px-md-1" title="Messages">
+                          <h1 (click)="showInbox()" class="nav-link text-muted px-md-1" title="Messages">
                               <span class="fa fa-envelope-o fa-fw mr-md-1"></span>
                               <span class="d-none d-md-inline">Messages</span> <span class="badge badge-pill badge-primary" title="Unread" ng-show="unread.length>0" ng-bind="unread.length"></span>
-                          </a>
-                          <a href="#" class="nav-link text-muted px-md-1" title="Deleted">
+                          </h1>
+                          <h1 (click)="showDeleted()" class="nav-link text-muted px-md-1" title="Deleted">
                               <span class="fa fa-trash fa-fw mr-md-1"></span>
                               <span class="d-none d-md-inline">Deleted</span>
-                          </a>
+                          </h1>
                           <!-- <a href="#" class="nav-link text-muted px-md-1" title="Drafts">
                               <span class="fa fa-edit fa-fw mr-md-1"></span>
                               <span class="d-none d-md-inline">Drafts</span>
@@ -105,17 +105,14 @@
                         <div class="mb-3">
                           <label for="reply">Reply</label>
                           <div class="input-group">
-                            <textarea
-                              id="reply"
-                              class="form-control"
-                              name="reply"
+                            <textarea id="reply" class="form-control" name="reply" [(ngModel)]="createdMessage.contents"
                             ></textarea>
                           </div>
                         </div>
                       </form>
                     </div>
                     <div class="modal-footer">
-                      <app-create-message [receiverId]="receiverId"></app-create-message>
+                      <app-create-message [receiverId]="receiverId" [message]="createdMessage"></app-create-message>
                     </div>
                   </ng-template>
 
@@ -136,17 +133,13 @@
                         <div class="mb-3">
                           <label for="compose">Compose</label>
                           <div class="input-group">
-                            <textarea
-                              id="compose"
-                              class="form-control"
-                              name="compose"
-                            ></textarea>
+                            <textarea id="compose" class="form-control" name="compose"[(ngModel)]="createdMessage.contents" ></textarea>
                           </div>
                         </div>
                       </form>
                     </div>
                     <div class="modal-footer">
-                      <app-create-message [receiverId]="receiverId"></app-create-message>
+                      <app-create-message [receiverId]="receiverId" [message]="createdMessage"></app-create-message>
                     </div>
                   </ng-template>
 

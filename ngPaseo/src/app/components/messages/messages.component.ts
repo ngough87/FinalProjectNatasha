@@ -19,6 +19,7 @@ export class MessagesComponent implements OnInit {
   closeResult = '';
   receiverId:number = 0;
   viewedMessage:Message = new Message();
+  createdMessage:Message = new Message();
 
   constructor(
     private auth: AuthService,
@@ -67,6 +68,24 @@ export class MessagesComponent implements OnInit {
         console.error(error);
       },
     });
+  }
+
+  showInbox() {
+    this.reload();
+    for (let idx in this.messages) {
+      if (this.messages[idx].enabled === false) {
+        this.messages.slice(+idx, +idx + 1);
+      }
+    }
+  }
+
+  showDeleted() {
+    this.reload();
+    for (let idx in this.messages) {
+      if (this.messages[idx].enabled === true) {
+        this.messages.slice(+idx, +idx + 1);
+      }
+    }
   }
 
   //Open reply modal

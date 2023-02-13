@@ -12,6 +12,7 @@ import { MessageService } from 'src/app/services/message.service';
 })
 export class CreateMessageComponent {
   @Input() receiverId:number = 0;
+  @Input() message:Message = new Message();
 
   constructor(
     private auth: AuthService,
@@ -29,6 +30,10 @@ export class CreateMessageComponent {
       next: (data) => {
         console.log(data);
       },
+      error: (err) => {
+        console.error('Failed to send message');
+        console.error(err);
+      }
     });
   }
 }
