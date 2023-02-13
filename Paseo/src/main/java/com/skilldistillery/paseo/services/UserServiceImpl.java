@@ -1,11 +1,16 @@
 package com.skilldistillery.paseo.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.skilldistillery.paseo.entities.Gender;
 import com.skilldistillery.paseo.entities.User;
+import com.skilldistillery.paseo.entities.WalkCategory;
+import com.skilldistillery.paseo.entities.WalkLocation;
+import com.skilldistillery.paseo.entities.WalkType;
 import com.skilldistillery.paseo.repositories.AddressRepository;
 import com.skilldistillery.paseo.repositories.GenderRepository;
 import com.skilldistillery.paseo.repositories.UserRepository;
@@ -75,6 +80,53 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User findById(int id) {
 		return userRepo.findById(id);
+	}
+
+	@Override
+	public List<User> findUsersByMatchingPreferences(User loggedInUser) {
+		List<User> output = new ArrayList<>();
+		List<User> source = userRepo.findByEnabled(true);
+		
+		for (User query : source) {
+			if (query.getPreferredGenders().size() > 0 && query.getId() != loggedInUser.getId()) {
+				List<Gender> prefGenders = query.getPreferredGenders();
+				List<Gender> userPrefGenders = loggedInUser.getPreferredGenders();
+				for (Gender g: prefGenders) {
+					if (userPrefGenders.contains(g) && !output.contains(query)) {
+						output.add(query);
+					}
+				}
+			}
+			if (query.getPreferredWalkTypes().size() > 0 && query.getId() != loggedInUser.getId()) {
+				List<WalkType> prefWalkTypes = query.getPreferredWalkTypes();
+				List<WalkType> userPrefWalkTypes = loggedInUser.getPreferredWalkTypes();
+				for (WalkType wt: prefWalkTypes) {
+					if (userPrefWalkTypes.contains(wt) && !output.contains(query)) {
+						output.add(query);
+					}
+				}
+			}
+			if (query.getPreferredWalkCats().size() > 0 && query.getId() != loggedInUser.getId()) {
+				List<WalkCategory> prefCats = query.getPreferredWalkCats();
+				List<WalkCategory> userPrefCats = loggedInUser.getPreferredWalkCats();
+				for (WalkCategory cat: prefCats) {
+					if (userPrefCats.contains(cat) && !output.contains(query)) {
+						output.add(query);
+					}
+				}
+			}
+			if (query.getPreferredWalkLocations().size() > 0 && query.getId() != loggedInUser.getId()) {
+				List<WalkLocation> prefLocations = query.getPreferredWalkLocations();
+				List<WalkLocation> userPrefLocations = loggedInUser.getPreferredWalkLocations();
+				for (WalkLocation location: prefLocations) {
+					if (userPrefLocations.contains(location) && !output.contains(query)) {
+						output.add(query);
+					}
+				}
+			}
+		}
+		
+		return output;
 	}
 	
 	

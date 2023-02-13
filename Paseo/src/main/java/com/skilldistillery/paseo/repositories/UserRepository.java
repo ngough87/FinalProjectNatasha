@@ -1,5 +1,7 @@
 package com.skilldistillery.paseo.repositories;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.skilldistillery.paseo.entities.User;
@@ -11,6 +13,8 @@ User findByUsername(String username);
 User findByUsernameAndId(String username, int id);
 
 User findById(int id);
+
+List<User> findByEnabled(boolean b);
 
 
 

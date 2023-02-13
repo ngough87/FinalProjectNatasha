@@ -125,5 +125,15 @@ public class UserController {
 
 		return null;
 	}
+	
+	@GetMapping("users/matches")
+	public List<User> findUsersByMatchingPreferences(Principal principal, HttpServletResponse resp) {
+		List<User> output = null;
+		User loggedInUser = authService.getUserByUsername(principal.getName());
+		
+		output = userService.findUsersByMatchingPreferences(loggedInUser);
+		
+		return output;
+	}
 
 }

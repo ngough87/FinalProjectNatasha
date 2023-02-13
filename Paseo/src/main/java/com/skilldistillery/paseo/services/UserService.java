@@ -13,4 +13,6 @@ public boolean destroy(String username, int id);
 
 User findById(int id);
 
+public List<User> findUsersByMatchingPreferences(User loggedInUser);
+
 }
