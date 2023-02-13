@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.paseo.entities.Message;
+import com.skilldistillery.paseo.entities.User;
+import com.skilldistillery.paseo.services.AuthService;
 import com.skilldistillery.paseo.services.MessageService;
 import com.skilldistillery.paseo.services.UserService;
 
@@ -26,15 +28,20 @@ public class MessageController {
 	@Autowired
 	private MessageService messageService;
 	
-	@GetMapping("user/messages/sent/{senderId}")
+	@Autowired
+	private AuthService authService;
+	
+	@GetMapping("messages")
 	public List<Message> findAllSent(Principal principal,
-			@PathVariable("senderId") int senderId,
 			HttpServletResponse res) {
+		
+		User loggedInUser = authService.getUserByUsername(principal.getName());
 			 
-		return messageService.findAllMessagesBySender(senderId);
+		return messageService.findAllMessagesBySender(loggedInUser.getId());
 
 	}
-	@GetMapping("user/messages/received/{receiverId}")
+	
+	@GetMapping("messages/received")
 	public List<Message> findAllReceived(Principal principal,
 			@PathVariable("receiverId") int receiverId,
 			HttpServletResponse res) {

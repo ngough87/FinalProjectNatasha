@@ -1,15 +1,5 @@
 <div class="container" ng-app="app" ng-controller="ctrl">
   <div class="row min-vh-100 flex-column py-4">
-      <!-- <div class="col-12">
-          <div class="row">
-              <div class="col-md-4 bg-secondary text-white text-truncate">
-                  <img src="https://robohash.org/4H1.png?set=set1&size=64x64"><span class="h3 align-middle" title="Inbox">Joe Bot</span>
-              </div>
-              <div class="col-md-8 bg-secondary text-muted d-flex align-items-center justify-content-between">
-                  <a href="#" class="ml-auto d-none d-md-inline" title="Refresh messages"><i class="mb-1 material-icons">refresh</i></a>
-              </div>
-          </div>
-      </div> -->
       <div class="col-12 d-flex flex-column flex-grow-1">
           <div class="row flex-fill">
               <div class="col-md-3 bg-light py-3 rounded mr-md-1 mb-2">
@@ -24,19 +14,11 @@
                               <span class="fa fa-trash fa-fw mr-md-1"></span>
                               <span class="d-none d-md-inline">Deleted</span>
                           </h1>
-                          <!-- <a href="#" class="nav-link text-muted px-md-1" title="Drafts">
-                              <span class="fa fa-edit fa-fw mr-md-1"></span>
-                              <span class="d-none d-md-inline">Drafts</span>
-                          </a>
-                          <a href="#" class="nav-link text-muted px-md-1" title="Calendar">
-                              <span class="fa fa-calendar fa-fw mr-md-1"></span>
-                              <span class="d-none d-md-inline">Calendar</span>
-                          </a> -->
                       </div>
                   </ul>
               </div>
               <div class="col-md py-3 rounded shadow bg-white ml-md-n1 mb-2">
-                  <div class="d-flex flex-sm-row flex-column py-1 mb-1">
+                  <!-- <div class="d-flex flex-sm-row flex-column py-1 mb-1">
                       <button type="button" class="btn btn-outline-secondary text-uppercase mr-sm-1 mr-none">
                           <div class="custom-control custom-checkbox">
                               <input type="checkbox" class="custom-control-input" id="checkAll">
@@ -53,29 +35,50 @@
                           <div class="dropdown-divider"></div>
                           <a href="#" class="dropdown-item px-3">New folder..</a>
                       </div>
-                  </div>
-
+                  </div> -->
                   <!-- messages list -->
                   <ul class="list-group py-2">
                       <!-- single message (repeated) -->
-                      <li *ngFor="let message of messages" class="list-group-item d-block py-1">
-                          <div class="row">
-                              <div class="col-lg-3 p-2">
-                                  <div class="custom-control custom-checkbox">
-                                      <input type="checkbox" class="custom-control-input" id="">
-                                      <label class="custom-control-label text-nowrap" for=""><a href="">{{message.dateSent}}</a>{{message.sender.firstName + ' ' + message.sender.lastName}}</label>
-                                  </div>
-                              </div>
-                              <div class="col-lg py-2">
-                                  <div class="float-right text-right">
-                                      <span data-ng-class="{'font-weight-bold font-italic':!item.read}"></span>
-                                  </div>
-                                  <p class="lead mb-0">
-                                    <button class="btn btn-lg btn-outline-primary" (click)="open(content, message)">Reply</button>
-                                  </p>
-                              </div>
+                      <li *ngFor="let message of inbox" class="list-group-item d-block py-1">
+                        <div class="row">
+                          <div class="col-lg-3 p-2">
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" class="custom-control-input" id="">
+                              <label class="custom-control-label text-nowrap" for=""><a
+                                  href="">{{message.dateSent}}</a>{{message.sender.firstName + ' ' + message.sender.lastName}}</label>
+                            </div>
                           </div>
+                          <div class="col-lg py-2">
+                            <div class="float-right text-right">
+                              <span data-ng-class="{'font-weight-bold font-italic':!item.read}"></span>
+                            </div>
+                            <p class="lead mb-0">
+                              <button class="btn btn-lg btn-outline-primary" (click)="open(content, message)">Reply</button>
+                            </p>
+                          </div>
+                        </div>
                       </li>
+                      <!-- single message (repeated) -->
+                      <li *ngFor="let message of deletedMessages" class="list-group-item d-block py-1">
+                        <div class="row">
+                          <div class="col-lg-3 p-2">
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" class="custom-control-input" id="">
+                              <label class="custom-control-label text-nowrap" for=""><a
+                                  href="">{{message.dateSent}}</a>{{message.sender.firstName + ' ' + message.sender.lastName}}</label>
+                            </div>
+                          </div>
+                          <div class="col-lg py-2">
+                            <div class="float-right text-right">
+                              <span data-ng-class="{'font-weight-bold font-italic':!item.read}"></span>
+                            </div>
+                            <p class="lead mb-0">
+                              <button class="btn btn-lg btn-outline-primary" (click)="open(content, message)">Reply</button>
+                            </p>
+                          </div>
+                        </div>
+                      </li>
+
                   </ul>
 
                   <!-- Reply Modal -->
@@ -123,7 +126,8 @@
                       <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
                     </div>
                     <div class="modal-header">
-                      <small class="text-uppercase text-muted">Send To: XXXXXXXXXXX</small>
+                      <small class="text-uppercase text-muted">Send To: </small>
+                      <input type="text" />
                       <div>
                           <h4 class="modal-title"></h4>
                       </div>

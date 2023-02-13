@@ -14,6 +14,8 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 })
 export class MessagesComponent implements OnInit {
   messages: Message[] = [];
+  inbox:Message[] = [];
+  deletedMessages: Message[] = [];
   sender: User = new User();
   receiver: User = new User();
   closeResult = '';
@@ -31,13 +33,13 @@ export class MessagesComponent implements OnInit {
 
   ngOnInit(): void {
     this.reload();
-    this.messages = [new Message(1, 'Hello there','2023-12-05', new User(1,'','','John','Cena'), new User(), false, true)]
   }
 
   reload(): void {
     this.messageService.index().subscribe({
       next: (data) => {
         this.messages = data;
+        this.showInbox();
       },
       error: (err) => {
         console.error('Message.reload(): error loading message');
@@ -71,19 +73,21 @@ export class MessagesComponent implements OnInit {
   }
 
   showInbox() {
-    this.reload();
-    for (let idx in this.messages) {
-      if (this.messages[idx].enabled === false) {
-        this.messages.slice(+idx, +idx + 1);
+    this.deletedMessages = [];
+    console.log('in inbox');
+    for (let message of this.messages) {
+      console.log(message);
+      if (message.enabled) {
+        this.inbox.push(message);
       }
     }
   }
 
   showDeleted() {
-    this.reload();
-    for (let idx in this.messages) {
-      if (this.messages[idx].enabled === true) {
-        this.messages.slice(+idx, +idx + 1);
+    this.inbox = [];
+    for (let message of this.messages) {
+      if (!message.enabled) {
+        this.deletedMessages.push();
       }
     }
   }
