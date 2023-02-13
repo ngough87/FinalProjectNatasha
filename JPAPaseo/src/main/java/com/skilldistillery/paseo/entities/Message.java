@@ -17,6 +17,9 @@ public class Message {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	private boolean seen;
+	private boolean enabled;
+	
 	private String contents;
 	@Column(name="date_sent")
 	private LocalDate dateSent;
@@ -26,8 +29,6 @@ public class Message {
 	@ManyToOne
 	@JoinColumn(name="receiver")
 	private User receiver;
-	private boolean seen;
-	private boolean enabled;
 	
 	public Message() {
 		super();
