@@ -11,7 +11,7 @@ import { MessageService } from 'src/app/services/message.service';
   styleUrls: ['./create-message.component.css'],
 })
 export class CreateMessageComponent {
-  @Input() receiver: User = new User();
+  @Input() receiverId:number = 0;
 
   constructor(
     private auth: AuthService,
@@ -20,9 +20,8 @@ export class CreateMessageComponent {
   ) {}
 
   createNewMessage(message: Message) {
-    let receiverId = this.receiver.id;
     message.receiver = new User();
-    message.receiver.id = receiverId;
+    message.receiver.id = this.receiverId;
     message.sender = new User();
     message.sender.id = Number(localStorage.getItem('currentUserId'));
 

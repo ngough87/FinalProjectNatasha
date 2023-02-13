@@ -1,6 +1,6 @@
 <div class="container" ng-app="app" ng-controller="ctrl">
   <div class="row min-vh-100 flex-column py-4">
-      <div class="col-12">
+      <!-- <div class="col-12">
           <div class="row">
               <div class="col-md-4 bg-secondary text-white text-truncate">
                   <img src="https://robohash.org/4H1.png?set=set1&size=64x64"><span class="h3 align-middle" title="Inbox">Joe Bot</span>
@@ -9,12 +9,12 @@
                   <a href="#" class="ml-auto d-none d-md-inline" title="Refresh messages"><i class="mb-1 material-icons">refresh</i></a>
               </div>
           </div>
-      </div>
+      </div> -->
       <div class="col-12 d-flex flex-column flex-grow-1">
           <div class="row flex-fill">
               <div class="col-md-3 bg-light py-3 rounded mr-md-1 mb-2">
                   <ul class="list-group sticky-top sticky-offset">
-                      <button class="btn btn-block btn-outline-secondary my-1 text-uppercase" data-target="#composeModal" data-toggle="modal">Compose <i class="align-middle mb-1 text-muted material-icons">edit</i></button>
+                      <button class="btn btn-block btn-outline-secondary my-1 text-uppercase" (click)="compose(composecontent)">Compose</button>
                       <div class="nav py-2 flex-md-column justify-content-center">
                           <a href="#" class="nav-link text-muted px-md-1" title="Messages">
                               <span class="fa fa-envelope-o fa-fw mr-md-1"></span>
@@ -24,14 +24,14 @@
                               <span class="fa fa-trash fa-fw mr-md-1"></span>
                               <span class="d-none d-md-inline">Deleted</span>
                           </a>
-                          <a href="#" class="nav-link text-muted px-md-1" title="Drafts">
+                          <!-- <a href="#" class="nav-link text-muted px-md-1" title="Drafts">
                               <span class="fa fa-edit fa-fw mr-md-1"></span>
                               <span class="d-none d-md-inline">Drafts</span>
                           </a>
                           <a href="#" class="nav-link text-muted px-md-1" title="Calendar">
                               <span class="fa fa-calendar fa-fw mr-md-1"></span>
                               <span class="d-none d-md-inline">Calendar</span>
-                          </a>
+                          </a> -->
                       </div>
                   </ul>
               </div>
@@ -58,12 +58,12 @@
                   <!-- messages list -->
                   <ul class="list-group py-2">
                       <!-- single message (repeated) -->
-                      <li data-ng-repeat="(idx,item) in messages" class="list-group-item d-block py-1">
+                      <li *ngFor="let message of messages" class="list-group-item d-block py-1">
                           <div class="row">
                               <div class="col-lg-3 p-2">
                                   <div class="custom-control custom-checkbox">
                                       <input type="checkbox" class="custom-control-input" id="">
-                                      <label class="custom-control-label text-nowrap" for=""><a href=""></a></label>
+                                      <label class="custom-control-label text-nowrap" for=""><a href="">{{message.dateSent}}</a>{{message.sender.firstName + ' ' + message.sender.lastName}}</label>
                                   </div>
                               </div>
                               <div class="col-lg py-2">
@@ -71,13 +71,84 @@
                                       <span data-ng-class="{'font-weight-bold font-italic':!item.read}"></span>
                                   </div>
                                   <p class="lead mb-0">
-                                      <a href="#messageModal" data-ng-click="selectItem(idx)" data-target="#messageModal" data-toggle="modal" data-ng-title="!item.read?'This is a new message':'View this message'" data-ng-class="{'font-weight-bold':!item.read}"></a>
-                                      <i class="align-middle ion-android-attach md_18 material-icons" data-ng-if="item.attachment">attach_file</i>
+                                    <button class="btn btn-lg btn-outline-primary" (click)="open(content, message)">Reply</button>
                                   </p>
                               </div>
                           </div>
                       </li>
                   </ul>
+
+                  <!-- Reply Modal -->
+                  <ng-template #content let-modal>
+                    <div class="modal-header">
+                      <h4 class="modal-title" id="modal-basic-title">From: {{viewedMessage.sender.username}}</h4>
+                      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+                    </div>
+                    <div class="modal-header">
+                      <small class="text-uppercase text-muted">Sent: {{viewedMessage.dateSent}}</small>
+                      <div>
+                          <h4 class="modal-title"></h4>
+                      </div>
+                  </div>
+                    <div class="modal-body">
+                      <table>
+                        <thead></thead>
+                        <tbody>
+                          <tr>
+                            <td>
+                              <p>{{viewedMessage.contents}}</p>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <form>
+                        <div class="mb-3">
+                          <label for="reply">Reply</label>
+                          <div class="input-group">
+                            <textarea
+                              id="reply"
+                              class="form-control"
+                              name="reply"
+                            ></textarea>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="modal-footer">
+                      <app-create-message [receiverId]="receiverId"></app-create-message>
+                    </div>
+                  </ng-template>
+
+                  <!-- Compose Modal -->
+                  <ng-template #composecontent let-modal>
+                    <div class="modal-header">
+                      <h4 class="modal-title" id="modal-basic-content" aria-label="modal-basic-content">Compose New Message</h4>
+                      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+                    </div>
+                    <div class="modal-header">
+                      <small class="text-uppercase text-muted">Send To: XXXXXXXXXXX</small>
+                      <div>
+                          <h4 class="modal-title"></h4>
+                      </div>
+                  </div>
+                    <div class="modal-body">
+                      <form>
+                        <div class="mb-3">
+                          <label for="compose">Compose</label>
+                          <div class="input-group">
+                            <textarea
+                              id="compose"
+                              class="form-control"
+                              name="compose"
+                            ></textarea>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="modal-footer">
+                      <app-create-message [receiverId]="receiverId"></app-create-message>
+                    </div>
+                  </ng-template>
 
                   <!-- view message modal -->
                   <div id="messageModal" class="modal fade mt-0 mt-md-5" tabindex="-1" role="dialog" aria-hidden="true">
