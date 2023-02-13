@@ -23,7 +23,14 @@ public class FollowedUserServiceImpl implements FollowedUserService {
 
 	@Override
 	public List<User> findByUserId(int id) {
-		return followedUserRepo.findByUser_Id(id);
+		List<FollowedUser> users = followedUserRepo.findByUser_Id(id);
+		List<User> output = new ArrayList<>();
+		for (FollowedUser user : users) {
+			if (!output.contains(user.getUser())) {
+				output.add(user.getUser());
+			}
+		}
+		return output;
 	}
 
 	@Override
@@ -50,10 +57,9 @@ public class FollowedUserServiceImpl implements FollowedUserService {
 		boolean deleted = false;
 		
 		User follower = userRepo.findById(id);
-		System.out.println(follower);
-		FollowedUserKey key = new FollowedUserKey(id, loggedInUser.getId());
+		
+//		FollowedUserKey key = new FollowedUserKey(id, loggedInUser.getId());
 		FollowedUser followedUser = followedUserRepo.findByUserIdAndFollowedUserId(loggedInUser.getId(), follower.getId());
-		System.out.println(followedUser);
 		if (followedUser != null && follower != null) {
 			followedUserRepo.delete(followedUser);
 			loggedInUser.removeFollower(loggedInUser);

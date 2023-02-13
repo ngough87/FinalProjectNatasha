@@ -20,6 +20,7 @@ export class ProfileComponent implements OnInit {
   walks: Walk[] = [];
   user: User = new User();
   followedUsers:User[] = [];
+  currentUserFollowedUsers: User[] = [];
   followingUsers:User[] = [];
   address: Address = new Address();
   userGender = new Gender();
@@ -57,6 +58,7 @@ export class ProfileComponent implements OnInit {
           this.getFollowed();
           this.getFollowers();
           this.getUserWalks();
+          this.getCurrentUserFollowed();
           if (!this.user.address) {
             this.user.address = new Address();
           } else {
@@ -86,6 +88,7 @@ export class ProfileComponent implements OnInit {
           this.getFollowed();
           this.getFollowers();
           this.getUserWalks();
+          this.getCurrentUserFollowed();
           if (!this.user.address) {
             this.user.address = new Address();
           } else {
@@ -138,8 +141,23 @@ getFollowed(){
     next: (data) => {
       let id = localStorage.getItem('currentUserId');
       this.followedUsers = data;
-      for (let u of this.followedUsers) {
-        if (u.id === +id!) {
+
+    },
+    error: (err) => {
+      console.error('Failed to get followed users');
+      console.error(err);
+    }
+  })
+}
+
+getCurrentUserFollowed() {
+  let id:string = localStorage.getItem('currentUserId')!;
+  this.userService.findFriends(+id).subscribe({
+    next: (data) => {
+      let id = localStorage.getItem('currentUserId');
+      this.currentUserFollowedUsers = data;
+      for (let u of this.currentUserFollowedUsers) {
+        if (u.id === +this.user.id!) {
           this.followed = true;
           break;
         }
@@ -175,7 +193,11 @@ getFollowed(){
   }
 
   unfollowUser() {
-    this.userService.unfollowUser(this.user.id).subscribe({
+    let id: string = this.route.snapshot.paramMap.get('id')!;
+    if (id === null) {
+      id = localStorage.getItem('currentUserId')!;
+    }
+    this.userService.unfollowUser(+id).subscribe({
       next: (data) => {
         this.followed = false;
         this.getUser();

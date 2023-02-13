@@ -119,15 +119,18 @@ public class UserController {
 	@GetMapping("users/{id}/friends")
 	public List<User> findFriendsByUserId(@PathVariable int id, HttpServletResponse resp) {
 
+		List<User> output = null;
 		User user = userService.findById(id);
+		
 
 		if (user == null) {
 			resp.setStatus(404);
 		} else {
+			output = followedUserService.findByUserId(id);
 			return user.getFollowedUsers();
 		}
 
-		return null;
+		return output;
 	}
 	
 	@GetMapping("users/{id}/following")
