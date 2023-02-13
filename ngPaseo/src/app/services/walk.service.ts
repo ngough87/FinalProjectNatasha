@@ -70,6 +70,19 @@ export class WalkService {
       );
   }
 
+  search(walk : Walk): Observable<Walk[]> {
+    //return this.http.get<Todo[]>(this.url + '?sorted=true').pipe(
+    return this.http.post<Walk[]>(this.url + 'api/search ', this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('WalkService.search(): error retrieving walks: ' + err)
+        );
+      })
+    );
+  }
+
+
   destroy(id: number): Observable<void>   {
     return this.http.delete<void>(this.url + 'api/walks/' + id, this.getHttpOptions()).pipe(
       catchError((err: any) => {

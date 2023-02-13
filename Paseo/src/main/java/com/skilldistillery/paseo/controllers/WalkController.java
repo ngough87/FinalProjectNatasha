@@ -1,6 +1,8 @@
 package com.skilldistillery.paseo.controllers;
 
 import java.security.Principal;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,13 +35,28 @@ public class WalkController {
 
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private AuthService auth;
 
 	@GetMapping("walks")
 	public List<Walk> show() {
 		return walkService.showWalksThatArePublic();
+	}
+
+	@PostMapping("walks/search")
+	public List<Walk> findWalksBySearch(@RequestBody Walk searchWalk, HttpServletResponse res, Principal princal){
+		List<Walk> results= null;
+		try {
+			results = walkService.searchByWalk(searchWalk);
+			res.setStatus(204);
+		} catch (Exception e) {
+			res.setStatus(400);
+			e.printStackTrace();
+		}
+		
+		return results;
+	
 	}
 
 	@GetMapping("walks/{walkId}")
@@ -90,9 +107,9 @@ public class WalkController {
 	}
 
 	@PutMapping("walks/{walkId}")
-	public Walk updateWalk(Principal principal, @PathVariable int walkId, @RequestBody Walk walk, HttpServletRequest req,
-			HttpServletResponse res) {
-		
+	public Walk updateWalk(Principal principal, @PathVariable int walkId, @RequestBody Walk walk,
+			HttpServletRequest req, HttpServletResponse res) {
+
 		Walk updatedWalk = null;
 
 		try {
@@ -101,10 +118,10 @@ public class WalkController {
 				res.setStatus(404);
 			} else {
 				User loggedInUser = auth.getUserByUsername(principal.getName());
-				if (loggedInUser.getUsername() == updatedWalk.getUser().getUsername() || 
-						loggedInUser.getRole().equals("ADMIN")) {
-				updatedWalk = walkService.update(walk, walkId);
-				res.setStatus(202);
+				if (loggedInUser.getUsername() == updatedWalk.getUser().getUsername()
+						|| loggedInUser.getRole().equals("ADMIN")) {
+					updatedWalk = walkService.update(walk, walkId);
+					res.setStatus(202);
 				} else {
 					res.setStatus(401);
 				}
@@ -117,24 +134,22 @@ public class WalkController {
 
 		return updatedWalk;
 	}
-	
 
 	@DeleteMapping("walks/{walkId}")
 	public void delete(Principal principal, @PathVariable int walkId, HttpServletResponse res) {
 		Walk deleteMe = walkService.findById(walkId);
 		User loggedInUser = auth.getUserByUsername(principal.getName());
-		
-		if (loggedInUser.getUsername() == deleteMe.getUser().getUsername() || 
-				loggedInUser.getRole().equals("ADMIN")) {
+
+		if (loggedInUser.getUsername() == deleteMe.getUser().getUsername() || loggedInUser.getRole().equals("ADMIN")) {
 			boolean deleted = walkService.disableWalk(walkId);
-		try {
-			if (deleted == true) {
-				res.setStatus(200);
+			try {
+				if (deleted == true) {
+					res.setStatus(200);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				res.setStatus(404);
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			res.setStatus(404);
-		}
 		} else {
 			res.setStatus(401);
 		}
