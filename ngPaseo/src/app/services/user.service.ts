@@ -56,9 +56,18 @@ export class UserService {
   }
 
   findUser(id: number): Observable<User> {
-
-
     return this.http.get<User>(this.url + 'api/users/' + id, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('UserService.findUser(): error finding user.')
+        );
+      })
+    );
+  }
+
+  findUserByUsername(username: string): Observable<User> {
+    return this.http.get<User>(this.url + 'api/users/find/' + username, this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError(

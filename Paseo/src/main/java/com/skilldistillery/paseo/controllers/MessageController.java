@@ -44,10 +44,11 @@ public class MessageController {
 	}
 
 	@GetMapping("messages/received")
-	public List<Message> findAllReceived(Principal principal, @PathVariable("receiverId") int receiverId,
+	public List<Message> findAllReceived(Principal principal,
 			HttpServletResponse res) {
-
-		return messageService.findAllMessagesReceived(receiverId);
+		User loggedInUser = authService.getUserByUsername(principal.getName());
+		
+		return messageService.findAllMessagesReceived(loggedInUser.getId());
 
 	}
 
