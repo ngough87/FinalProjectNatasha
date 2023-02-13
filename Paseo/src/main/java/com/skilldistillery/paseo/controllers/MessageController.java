@@ -3,6 +3,7 @@ package com.skilldistillery.paseo.controllers;
 import java.security.Principal;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +12,12 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.skilldistillery.paseo.entities.Address;
 import com.skilldistillery.paseo.entities.Message;
 import com.skilldistillery.paseo.entities.User;
 import com.skilldistillery.paseo.services.AuthService;
@@ -62,6 +65,9 @@ public class MessageController {
 		if (receiver != null) {
 			message.setSender(sender);
 			message.setReceiver(receiver);
+			message.setEnabled(true);
+			message.getDateSent();
+			
 
 			try {
 				output = messageService.create(message);
@@ -73,7 +79,24 @@ public class MessageController {
 		} else {
 			res.setStatus(404);
 		}
-		return output;
+		return output; 
+	}
+
+	@PutMapping("messages/{messageId}")
+	public Message updateMessage(Principal princial, @PathVariable int messageId, @RequestBody Message message,
+			HttpServletRequest req, HttpServletResponse res) {
+		Message currentMessage = null;
+
+		if (message != null) {
+			currentMessage = messageService.findById(messageId);
+			if (currentMessage != null) {
+				currentMessage = messageService.update(currentMessage, messageId);
+				res.setStatus(202);
+			}
+		}
+		
+		return currentMessage;
+
 	}
 
 	@DeleteMapping("messages/{messageId}")

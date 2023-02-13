@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.skilldistillery.paseo.entities.Message;
-import com.skilldistillery.paseo.entities.User;
 import com.skilldistillery.paseo.repositories.MessageRepository;
 import com.skilldistillery.paseo.repositories.UserRepository;
 
@@ -35,6 +34,7 @@ public class MessageServiceImpl implements MessageService {
 	public Message create(Message message) {
 		if(message != null) {
 			message.setEnabled(true);
+			message.getDateSent();
 			messageRepo.saveAndFlush(message);
 		}
 		return message;
@@ -50,6 +50,25 @@ public class MessageServiceImpl implements MessageService {
 			success = true;
 		}
 		return success;
+	}
+
+	@Override
+	public Message update(Message message, int id) {
+		
+		Message currentMessage = findById(id);
+		if( message != null && currentMessage != null) {
+			currentMessage.setSeen(message.isSeen());
+			currentMessage = messageRepo.saveAndFlush(currentMessage);
+
+		}
+		
+		return currentMessage;
+	}
+
+	@Override
+	public Message findById(int messageId) {
+		
+		return messageRepo.findById(messageId);
 	}
 
 	
