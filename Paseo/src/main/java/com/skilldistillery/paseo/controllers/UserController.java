@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.paseo.entities.User;
+import com.skilldistillery.paseo.services.AuthService;
 import com.skilldistillery.paseo.services.UserService;
 
 @RestController
@@ -27,6 +28,9 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private AuthService authService;
 
 	@GetMapping("users")
 	public List<User> show(HttpServletRequest req, HttpServletResponse resp) {
@@ -56,6 +60,15 @@ public class UserController {
 			output.setUsername(input.getUsername());
 		}
 		
+		return output;
+	}
+	
+	@GetMapping("users/find/{username}")
+	public User findUserByUsername(@PathVariable String username, HttpServletResponse resp ) {
+		User output = authService.getUserByUsername(username);
+		if (output == null) {
+			resp.setStatus(404);
+		}
 		return output;
 	}
 
