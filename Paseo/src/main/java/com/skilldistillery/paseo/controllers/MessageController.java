@@ -36,6 +36,7 @@ public class MessageController {
 		return messageService.findAllMessagesBySender(senderId);
 
 	}
+	
 	@GetMapping("user/messages/received/{receiverId}")
 	public List<Message> findAllReceived(Principal principal,
 			@PathVariable("receiverId") int receiverId,
@@ -45,10 +46,5 @@ public class MessageController {
 		
 	}
 	
-	@PostMapping("user/messages/create/{senderId}")
-	public Message createMessage(Principal principal,
-			@PathVariable("senderId") int senderId,
-			@RequestBody Message message, HttpServletResponse res) {
-		return messageService.create(message, senderId);
-	}
+
 }
