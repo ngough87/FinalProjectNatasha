@@ -23,6 +23,7 @@ export class MessagesComponent implements OnInit {
   viewedMessage:Message = new Message();
   createdMessage:Message = new Message();
   selected:number = 1;
+  receiverUsername:string = '';
 
   constructor(
     private auth: AuthService,
@@ -50,6 +51,9 @@ export class MessagesComponent implements OnInit {
             this.deletedMessages.push(message);
           }
         }
+        this.receiverUsername = '';
+        this.createdMessage = new Message();
+        this.viewedMessage = new Message();
       },
       error: (err) => {
         console.error('Message.reload(): error loading message');
