@@ -122,4 +122,16 @@ export class UserService {
   }
 
 
+  // userPreferences(id:number):Observable<void> {
+  //   return this.http.put<void>(this.url + "api/users/matches/" + id, "",this.getHttpOptions()).pipe(
+  //     catchError((err: any) => {
+  //       console.log(err);
+  //       return throwError(
+  //         () => new Error('UserService.pref(): error updating preferences.')
+  //       );
+  //     })
+  //   );
+  // }
+
+
 }

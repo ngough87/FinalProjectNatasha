@@ -1,5 +1,8 @@
+import { WalkCategory } from './walk-category';
+import { WalkType } from './walk-type';
 import { Address } from "./address";
 import { Gender } from "./gender";
+import { WalkLocation } from './walk-location';
 
 export class User {
   id: number;
@@ -14,7 +17,11 @@ export class User {
   role: string;
   profileImageUrl: string;
   enabled: boolean;
-
+  preferredGender: Gender | null;
+  preferredWalkType: WalkType | null;
+  preferredWalkLocation: WalkLocation | null;
+  preferredWalkCategory: WalkCategory | null ;
+  walkType: WalkType | null;
   constructor(
 
     id: number = 0,
@@ -28,7 +35,12 @@ export class User {
     gender: Gender = new Gender(),
     role: string = "standard",
     profileImageUrl: string ='',
-    enabled: boolean = false
+    enabled: boolean = false,
+    preferredGender: Gender = new Gender(),
+    preferredWalkType: WalkType = new WalkType(),
+  preferredWalkLocation: WalkLocation = new WalkLocation(),
+  preferredWalkCategory: WalkCategory = new WalkCategory(),
+  walkType: WalkType = new WalkType()
 
    ) {
     this.id = id;
@@ -43,5 +55,10 @@ export class User {
     this.profileImageUrl = profileImageUrl;
     this.role =role;
     this.enabled=enabled;
+    this.preferredGender = preferredGender;
+    this.preferredWalkType = preferredWalkType;
+    this.preferredWalkLocation = preferredWalkLocation;
+    this.preferredWalkCategory = preferredWalkCategory;
+    this.walkType = walkType;
    }
 }

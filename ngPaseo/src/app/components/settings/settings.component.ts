@@ -1,3 +1,5 @@
+import { WalkCategory } from './../../models/walk-category';
+import { WalkTypeService } from './../../services/walk-type.service';
 
 import { AddressService } from './../../services/address.service';
 import { UserService } from './../../services/user.service';
@@ -8,6 +10,11 @@ import { User } from './../../models/user';
 import { Component } from '@angular/core';
 import { Gender } from 'src/app/models/gender';
 import { Address } from 'src/app/models/address';
+import { WalkType } from 'src/app/models/walk-type';
+import { WalkLocation } from 'src/app/models/walk-location';
+import { WalkLocationService } from 'src/app/services/walk-location.service';
+
+import { WalkCategoryService } from 'src/app/services/walk-category.service';
 
 @Component({
   selector: 'app-settings',
@@ -20,17 +27,29 @@ export class SettingsComponent {
   address: Address = new Address;
   userGender = new Gender();
   genders: Gender[] = [];
-
   imageUrl: string = '';
+  walkType: WalkType = new WalkType();
+  walkTypes: WalkType[]= [];
+  preferredWalkType = new WalkType();
+  walkLocation: WalkLocation = new WalkLocation();
+  walkLocations: WalkLocation[]= [];
+  preferredwalkLocation = new WalkLocation();
+  walkCategory: WalkCategory = new WalkCategory();
+  walkCategories: WalkCategory[]= [];
+  preferredwalkCategory = new WalkCategory();
 
 
 
 constructor(private auth: AuthService, private genService: GenderService, private router: Router,
-  private userService: UserService, private addressService: AddressService, private route: ActivatedRoute){}
+  private userService: UserService, private addressService: AddressService, private route: ActivatedRoute,
+  private walkTypeServ: WalkTypeService, private walkLocationServ: WalkLocationService, private walkCategoryServ: WalkCategoryService){}
 
 ngOnInit() {
 this.getLoggedInUser();
 this.getGenders();
+this.getWalkTypes();
+
+this.getWalkCategories();
 
 }
 
@@ -56,6 +75,11 @@ getLoggedInUser(){
       } else {
         this.userGender = data.gender!;
       }
+      // if(!this.user.walkType){
+      //   this.user.walkType = new WalkType();
+      //   } else {
+      //     this.preferredWalkType = data.walkType!;
+      //   }
       this.imageUrl = Object.assign({}, this.user.profileImageUrl);
       console.log("Logged in");
     },
@@ -114,6 +138,11 @@ getGenders(){
   this.genService.index().subscribe({
     next: (data) => {
       this.genders = data;
+      this.getWalkTypes();
+      this.getWalkLocations();
+      this.getWalkCategories();
+
+
     },
     error: (fail) => {
       this.router.navigateByUrl('/notFound')
@@ -121,6 +150,45 @@ getGenders(){
     }
   })
 }
+
+getWalkLocations(){
+  this.walkLocationServ.index().subscribe({
+    next: (data) => {
+      this.walkLocations = data;
+
+    },
+    error: (fail) => {
+      this.router.navigateByUrl('/notFound')
+      console.error(fail);
+    }
+  })
+}
+
+getWalkTypes(){
+  this.walkTypeServ.index().subscribe({
+    next: (data) => {
+      this.walkTypes = data;
+
+    },
+    error: (fail) => {
+      this.router.navigateByUrl('/notFound')
+      console.error(fail);
+    }
+  })
+}
+
+getWalkCategories(){
+  this.walkCategoryServ.index().subscribe({
+    next: (data) => {
+      this.walkCategories = data;
+    },
+    error: (fail) => {
+      this.router.navigateByUrl('/notFound')
+      console.error(fail);
+    }
+  })
+}
+
 returnHome(){
   this.router.navigateByUrl('/home')
 }
@@ -137,5 +205,8 @@ delete(id: number){
     }
   });
 }
+
+
+
 
 }

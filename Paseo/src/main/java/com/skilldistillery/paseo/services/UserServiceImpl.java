@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
 		User existing = userRepo.findByUsernameAndId(username, id);
 		if (existing != null) {
 			existing.setUsername(user.getUsername());
-			existing.setPassword(user.getPassword());
+			//existing.setPassword(user.getPassword());
 			existing.setFirstName(user.getFirstName());
 			existing.setLastName(user.getLastName());
 			existing.setBirthdate(user.getBirthdate());
@@ -53,9 +53,13 @@ public class UserServiceImpl implements UserService {
 
 			existing.setGender(genderRepo.findById(user.getGender().getId()));
 			existing.setDescription(user.getDescription());
-
+			existing.setPreferredGenders(user.getPreferredGenders());
+			existing.setPreferredWalkCats(user.getPreferredWalkCats());
+			existing.setPreferredWalkLocations(user.getPreferredWalkLocations());
+			existing.setPreferredWalkTypes(user.getPreferredWalkTypes());
+			
+			System.out.println(existing);
 			return userRepo.saveAndFlush(existing);
-
 		}
 
 		return null;

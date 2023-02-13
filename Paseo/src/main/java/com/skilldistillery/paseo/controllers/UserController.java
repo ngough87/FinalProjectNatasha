@@ -76,6 +76,7 @@ public class UserController {
 	public User update(@PathVariable int id, @RequestBody User user, HttpServletRequest req, HttpServletResponse resp,
 			Principal principal) {
 		User existing = null;
+		System.out.println(user);
 		try {
 			existing = userService.update(principal.getName(), user, id);
 			if (existing == null) {
@@ -135,5 +136,7 @@ public class UserController {
 		
 		return output;
 	}
+	
+	
 
 }

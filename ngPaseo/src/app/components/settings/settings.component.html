@@ -71,6 +71,42 @@ style="background-image: url('https://c1.wallpaperflare.com/preview/670/395/688/
             <label for="genders" class="form-label">Gender</label>
           </td>
         </tr>
+        <tr>
+          <td>
+            <select class="form-control form-select"[(ngModel)]="user.preferredGender" name="genders" id="genders">
+              <option  [ngValue]="gender" name="gender" *ngFor="let gender of genders">{{gender.sex}}</option>
+
+            </select>
+             <label for="genders" class="form-label">Preferred Gender</label>
+
+          </td>
+          <>
+            <select class="form-control form-select"[(ngModel)]="user.preferredWalkType" name="walkTypes" id="walkTypes">
+              <option  [ngValue]="walkType" name="walkType" *ngFor="let walkType of walkTypes">{{walkType.name}}</option>
+
+            </select>
+             <label for="walkTypes" class="form-label">Preferred Walk Type</label>
+
+
+        </tr>
+        <tr>
+          <td>
+            <select class="form-control form-select"[(ngModel)]="user.preferredWalkLocation" name="walkLocations" id="walkLocations">
+              <option  [ngValue]="walkLocation" name="walkLocation" *ngFor="let walkLocation of walkLocations">{{walkLocation.name}}</option>
+
+            </select>
+             <label for="genders" class="form-label">Preferred Location</label>
+
+          </td>
+          <td>
+            <select class="form-control form-select"[(ngModel)]="user.preferredWalkCategory" name="walkCategories" id="walkCategories">
+              <option  [ngValue]="walkCategory" name="gender" *ngFor="let walkCategory of walkCategories">{{walkCategory.name}}</option>
+
+            </select>
+             <label for="genders" class="form-label">Preferred Walk Category</label>
+
+          </td>
+        </tr>
         </tbody>
       </table>
           <div class="row " >
@@ -101,6 +137,8 @@ style="background-image: url('https://c1.wallpaperflare.com/preview/670/395/688/
   </div>
     </div>
     </div>
+
+
 
   </div>
   </div>
