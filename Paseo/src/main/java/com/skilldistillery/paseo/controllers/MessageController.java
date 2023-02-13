@@ -52,10 +52,28 @@ public class MessageController {
 		
 	}
 	
-	@PostMapping("user/messages/create/{senderId}")
+	@PostMapping("messages/create")
 	public Message createMessage(Principal principal,
-			@PathVariable("senderId") int senderId,
 			@RequestBody Message message, HttpServletResponse res) {
-		return messageService.create(message, senderId);
+		Message output = null;
+		
+		User sender = authService.getUserByUsername(principal.getName());
+		User receiver = userService.findById(message.getReceiver().getId());
+		
+		if (receiver != null) {
+			message.setSender(sender);
+			message.setReceiver(receiver);
+	
+			try {
+			output = messageService.create(message);
+			res.setStatus(201);
+			} catch (Exception e) {
+				e.printStackTrace();
+				res.setStatus(400);
+			}
+		} else {
+			res.setStatus(404);
+		}
+		return output;
 	}
 }
