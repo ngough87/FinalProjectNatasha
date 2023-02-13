@@ -32,7 +32,7 @@ public class MessageServiceImpl implements MessageService {
 	}
 
 	@Override
-	public Message create(Message message, int senderId) {
+	public Message create(Message message) {
 		User user = userRepo.findById(senderId);
 		
 		if(message != null && user != null) {
@@ -44,10 +44,10 @@ public class MessageServiceImpl implements MessageService {
 		return message;
 	}
 
-	@Override
-	public Message delete(Message message, int userId) {
-		return null;
-	}
+//	@Override
+//	public Message delete(Message message, int userId) {
+//		return null;
+//	}
 
 	
 	
