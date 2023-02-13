@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -41,5 +43,12 @@ public class MessageController {
 		
 		return messageService.findAllMessagesReceived(receiverId);
 		
+	}
+	
+	@PostMapping("user/messages/create/{senderId}")
+	public Message createMessage(Principal principal,
+			@PathVariable("senderId") int senderId,
+			@RequestBody Message message, HttpServletResponse res) {
+		return messageService.create(message, senderId);
 	}
 }
