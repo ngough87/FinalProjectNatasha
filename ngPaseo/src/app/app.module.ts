@@ -19,6 +19,7 @@ import { AboutComponent } from './components/about/about.component';
 import { RegisterComponent } from './components/register/register.component';
 import { WalkComponent } from './components/walk/walk.component';
 import { CreateMessageComponent } from './components/create-message/create-message.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { CreateMessageComponent } from './components/create-message/create-messa
     RegisterComponent,
     WalkPageComponent,
     WalkComponent,
-    CreateMessageComponent
+    CreateMessageComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
