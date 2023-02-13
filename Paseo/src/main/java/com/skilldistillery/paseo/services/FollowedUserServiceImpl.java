@@ -1,5 +1,6 @@
 package com.skilldistillery.paseo.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,14 @@ public class FollowedUserServiceImpl implements FollowedUserService {
 
 	@Override
 	public List<User> findByUserId(int id) {
-		return followedUserRepo.findByUser_Id(id);
+		List<FollowedUser> users = followedUserRepo.findByUser_Id(id);
+		List<User> output = new ArrayList<>();
+		for (FollowedUser user : users) {
+			if (!output.contains(user.getUser())) {
+				output.add(user.getUser());
+			}
+		}
+		return output;
 	}
 
 	@Override
@@ -49,9 +57,9 @@ public class FollowedUserServiceImpl implements FollowedUserService {
 		boolean deleted = false;
 		
 		User follower = userRepo.findById(id);
-		FollowedUserKey key = new FollowedUserKey(id, loggedInUser.getId());
-		FollowedUser followedUser = followedUserRepo.findById(key);
 		
+//		FollowedUserKey key = new FollowedUserKey(id, loggedInUser.getId());
+		FollowedUser followedUser = followedUserRepo.findByUserIdAndFollowedUserId(loggedInUser.getId(), follower.getId());
 		if (followedUser != null && follower != null) {
 			followedUserRepo.delete(followedUser);
 			loggedInUser.removeFollower(loggedInUser);
@@ -60,6 +68,19 @@ public class FollowedUserServiceImpl implements FollowedUserService {
 
 		return deleted;
 	}
+	
+	@Override
+	public List<User> findByFollowedUserId(User query) {
+		List<FollowedUser> users = followedUserRepo.findByFollowedUserId(query.getId());
+		List<User> output = new ArrayList<>();
+		for (FollowedUser user : users) {
+			if (!output.contains(user.getUser())) {
+				output.add(user.getUser());
+			}
+		}
+		return output;
+	}
+	
 	}
 
 

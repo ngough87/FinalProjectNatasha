@@ -22,31 +22,25 @@
           <div class="img__container">
            <!-- <img src='https://t4.ftcdn.net/jpg/03/46/93/61/360_F_346936114_RaxE6OQogebgAWTalE1myseY1Hbb5qPM.jpg' *ngIf="!user.profileImageUrl"> -->
             <!-- <img [src]="imageUrl" onerror="this.onerror=null; this.src='https://t4.ftcdn.net/jpg/03/46/93/61/360_F_346936114_RaxE6OQogebgAWTalE1myseY1Hbb5qPM.jpg'" *ngIf="user.profileImageUrl"> -->
-            <img [src]="user.profileImageUrl" alt="User Profile Image" />
+            <img [src]="user.profileImageUrl" alt="User Profile Image" onerror="this.src='https://t4.ftcdn.net/jpg/03/46/93/61/360_F_346936114_RaxE6OQogebgAWTalE1myseY1Hbb5qPM.jpg'"/>
             <span></span>
           </div>
           <h2>{{user.firstName}} {{user.lastName}}</h2>
-          <p>UX/UI Designer</p>
-          <p>dell@example.com</p>
-          <p>Seattle, WA</p>
+          <p>{{user.username}}</p>
+          <div *ngIf="user.address && user.address.city != ''">
+            <p>{{user.address!.city + ', ' + user.address!.state}}</p>
+          </div>
 
           <ul class="about">
-            <li><span>473</span>Followers</li>
-            <li><span>322</span>Following</li>
-            <li><span>45</span>Walks</li>
+            <li><span>{{followingUsers.length}}</span>Followers</li>
+            <li><span>{{followedUsers.length}}</span>Following</li>
+            <li><span>{{walks.length}}</span>Walks</li>
           </ul>
 
           <div class="content">
             <p>
               {{user.description}}
             </p>
-
-            <ul>
-              <li><i class="fab fa-twitter"></i></li>
-              <i class="fab fa-pinterest"></i>
-              <i class="fab fa-facebook"></i>
-              <i class="fab fa-dribbble"></i>
-            </ul>
           </div>
         </div>
         <div class="right__col">
@@ -54,17 +48,22 @@
             <ul>
               <li>
                 <a (click)="displayPhotos = true; displayWalks = false;">Photos</a></li>
-                <li><a (click)="displayWalks = true">Walks</a></li>
+                <li><a (click)="displayWalks = true; displayPhotos = false">Walks</a></li>
               <!-- <li><a (click)="displayGroups =">Groups</a></li> -->
               <!-- <li><a (click)="displayInterests">Interest</a></li> -->
             </ul>
-            <button name="followUser" (click)="followUser()">Follow</button>
+            <div *ngIf="!followed">
+              <button name="followUser" (click)="followUser()">Follow</button>
+            </div>
+            <div *ngIf="followed">
+              <button name="unfollowUser" (click)="unfollowUser()">Unfollow</button>
+            </div>
 
           </nav>
 
 
 
-        <div class="photos" id="photos" *ngIf="imageUrl">
+        <div class="photos" id="photos" *ngIf="displayPhotos">
             <img src="https://images.pexels.com/photos/4825760/pexels-photo-4825760.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Photo" />
             <img src="https://images.pexels.com/photos/5733432/pexels-photo-5733432.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Photo" />
             <img src="https://images.pexels.com/photos/4511122/pexels-photo-4511122.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Photo" />
@@ -80,14 +79,22 @@
             <img src="https://images.pexels.com/photos/5637806/pexels-photo-5637806.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Photo" />
             <img src="https://images.pexels.com/photos/9623763/pexels-photo-9623763.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Photo" />
         </div> -->
-        <div class="walks" id="walks" *ngIf="walks">
+        <div class="walks" id="walks" *ngIf="displayWalks">
            <div class="walks" *ngFor="let walk of walks">
             <div class="w3-row-padding">
-              <div class="w3-third w3-container w3-margin-bottom">
-                <img [src]="walk.imageUrl" alt="" style="width:100%" class="w3-hover-opacity">
-                <div class="w3-container w3-white">
-                  <p><b>{{walk.name}}</b></p>
-                  <p>{{walk.description}}</p>
+              <div class="w3-third w3-container w3-margin-bottom col-4">
+                <div class="card">
+                  <div class="card-header">
+                    <div class="img-fluid">
+                      <img [src]="walk.imageUrl" alt="" style="width:100%" class="w3-hover-opacity"
+                      onerror="this.onerror=null; this.src='https://t4.ftcdn.net/jpg/03/46/93/61/360_F_346936114_RaxE6OQogebgAWTalE1myseY1Hbb5qPM.jpg'">
+                    </div>
+                  </div>
+                  <div class="card-body">
+                  <div class="w3-container w3-white">
+                    <p><b>{{walk.name}}</b></p>
+                  </div>
+                </div>
                 </div>
               </div>
             <!-- <tr>{{walk.name}}</tr>

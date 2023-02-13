@@ -77,12 +77,34 @@ export class UserService {
     );
   }
 
+  findUsersByPreferences() : Observable<User[]> {
+    return this.http.get<User[]>(this.url + 'api/users/matches', this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('UserService.findUsersByPreferences(): error finding user.')
+        );
+      })
+    );
+  }
+
   findFriends(id: number): Observable<User[]> {
     return this.http.get<User[]>(this.url + 'api/users/' + id + '/friends', this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError(
           () => new Error('UserService.findFriend(): error finding friend.')
+        );
+      })
+    );
+  }
+
+  findFollowers(id:number): Observable<User[]> {
+    return this.http.get<User[]>(this.url + 'api/users/' + id + '/following', this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('UserService.findFollowers(): error finding friend.')
         );
       })
     );

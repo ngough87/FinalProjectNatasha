@@ -39,7 +39,6 @@ public class UserServiceImpl implements UserService {
 		User existing = userRepo.findByUsernameAndId(username, id);
 		if (existing != null) {
 			existing.setUsername(user.getUsername());
-			existing.setPassword(user.getPassword());
 			existing.setFirstName(user.getFirstName());
 			existing.setLastName(user.getLastName());
 			existing.setBirthdate(user.getBirthdate());

@@ -34,7 +34,6 @@ public class MessageServiceImpl implements MessageService {
 	public Message create(Message message) {
 		if(message != null) {
 			message.setEnabled(true);
-			message.getDateSent();
 			messageRepo.saveAndFlush(message);
 		}
 		return message;
