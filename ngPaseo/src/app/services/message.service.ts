@@ -25,7 +25,7 @@ export class MessageService {
 
   index(): Observable<Message[]> {
     return this.http
-      .get<Message[]>(this.url + 'api/messages ', this.getHttpOptions())
+      .get<Message[]>(this.url + 'api/messages/received', this.getHttpOptions())
       .pipe(
         catchError((err: any) => {
           console.log(err);
@@ -41,7 +41,7 @@ export class MessageService {
 
   create(message: Message): Observable<Message> {
     return this.http
-      .post<Message>(this.url + 'api/messages', message, this.getHttpOptions())
+      .post<Message>(this.url + 'api/messages/create', message, this.getHttpOptions())
       .pipe(
         catchError((err: any) => {
           console.error(err);
