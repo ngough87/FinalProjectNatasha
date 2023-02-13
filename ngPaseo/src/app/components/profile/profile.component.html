@@ -83,7 +83,7 @@
            <div class="walks" *ngFor="let walk of walks">
             <div class="w3-row-padding">
               <div class="w3-third w3-container w3-margin-bottom col-4">
-                <div class="card">
+                <div class="card" (click)="open(content, walk)">
                   <div class="card-header">
                     <div class="img-fluid">
                       <img [src]="walk.imageUrl" alt="" style="width:100%" class="w3-hover-opacity"
@@ -102,6 +102,47 @@
             </div>
 
         </div>
+
+         <!-- Walk Modal -->
+         <ng-template #content let-modal>
+          <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">{{viewedWalk.name}}</h4>
+            <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+          </div>
+          <div class="modal-header">
+            <small class="text-uppercase text-muted">Date Planned: {{viewedWalk.date}}</small>
+            <small class="text-uppercase text-muted" *ngIf="viewedWalk.startTime && viewedWalk.endTime">Time: {{viewedWalk.startTime + ' - ' + viewedWalk.endTime}}</small>
+            <div>
+                <h4 class="modal-title"></h4>
+            </div>
+        </div>
+          <div class="modal-body">
+            <table>
+              <thead></thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <p>{{viewedWalk.description}}</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            </div>
+            <!-- <form>
+              <div class="mb-3">
+                <label for="reply">Reply</label>
+                <div class="input-group">
+                  <textarea id="reply" class="form-control" name="reply" [(ngModel)]="createdMessage.contents"
+                  ></textarea>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <app-create-message [receiverId]="viewedMessage.sender.id" [message]="createdMessage"
+            (click)="createdMessage.contents = ''"></app-create-message>
+          </div> -->
+        </ng-template>
 
         </div>
       </div>

@@ -10,6 +10,8 @@ import { UserService } from 'src/app/services/user.service';
 import { Address } from 'src/app/models/address';
 import { Gender } from 'src/app/models/gender';
 import { User } from 'src/app/models/user';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+
 
 @Component({
   selector: 'app-profile',
@@ -30,6 +32,8 @@ export class ProfileComponent implements OnInit {
   displayGroups = false;
   displayInterests = false;
   followed:boolean = false;
+  closeResult = '';
+  viewedWalk: Walk = new Walk();
 
   imageUrl: string = this.user.profileImageUrl;
   constructor(
@@ -39,7 +43,8 @@ export class ProfileComponent implements OnInit {
     private addressService: AddressService,
     private gender: GenderService,
     private walkService: WalkService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private modalService: NgbModal
   ) {}
 
   ngOnInit() {
@@ -59,6 +64,7 @@ export class ProfileComponent implements OnInit {
           this.getFollowers();
           this.getUserWalks();
           this.getCurrentUserFollowed();
+          this.viewedWalk = new Walk();
           if (!this.user.address) {
             this.user.address = new Address();
           } else {
@@ -207,4 +213,17 @@ getCurrentUserFollowed() {
       }
     });
   }
+
+    //Open reply modal
+    open(content:any, walk:Walk) {
+      this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
+        (result) => {
+          this.closeResult = `Closed with: ${result}`;
+        },
+        (reason) => {
+          this.closeResult = `Dismissed with ${reason}`;
+        },
+      );
+      this.viewedWalk = walk;
+    }
 }
