@@ -6,11 +6,11 @@
                   <ul class="list-group sticky-top sticky-offset">
                       <button class="btn btn-block btn-outline-secondary my-1 text-uppercase" (click)="compose(composecontent)">Compose</button>
                       <div class="nav py-2 flex-md-column justify-content-center">
-                          <h1 (click)="showInbox()" class="nav-link text-muted px-md-1" title="Messages">
+                          <h1 (click)="selected = 1" class="nav-link text-muted px-md-1" title="Messages">
                               <span class="fa fa-envelope-o fa-fw mr-md-1"></span>
                               <span class="d-none d-md-inline">Messages</span> <span class="badge badge-pill badge-primary" title="Unread" ng-show="unread.length>0" ng-bind="unread.length"></span>
                           </h1>
-                          <h1 (click)="showDeleted()" class="nav-link text-muted px-md-1" title="Deleted">
+                          <h1 (click)="selected = 2" class="nav-link text-muted px-md-1" title="Deleted">
                               <span class="fa fa-trash fa-fw mr-md-1"></span>
                               <span class="d-none d-md-inline">Deleted</span>
                           </h1>
@@ -38,6 +38,8 @@
                   </div> -->
                   <!-- messages list -->
                   <ul class="list-group py-2">
+                    <div *ngIf="selected === 1">
+
                       <!-- single message (repeated) -->
                       <li *ngFor="let message of inbox" class="list-group-item d-block py-1">
                         <div class="row">
@@ -45,43 +47,49 @@
                             <div class="custom-control custom-checkbox">
                               <input type="checkbox" class="custom-control-input" id="">
                               <label class="custom-control-label text-nowrap" for=""><a
-                                  href="">{{message.dateSent}}</a>{{message.sender.firstName + ' ' + message.sender.lastName}}</label>
+                                href="">{{message.dateSent}}</a>{{message.sender.firstName + ' ' + message.sender.lastName}}</label>
+                              </div>
+                            </div>
+                            <div class="col-lg py-2">
+                              <div class="float-right text-right">
+                                <span data-ng-class="{'font-weight-bold font-italic':!item.read}"></span>
+                              </div>
+                              <p class="lead mb-0">
+                                <button class="btn btn-lg btn-outline-primary" (click)="open(content, message)">Reply</button>
+                                <button class="btn btn-lg btn-outline-danger" (click)="delete(message.id)">Delete</button>
+                              </p>
                             </div>
                           </div>
-                          <div class="col-lg py-2">
-                            <div class="float-right text-right">
-                              <span data-ng-class="{'font-weight-bold font-italic':!item.read}"></span>
-                            </div>
-                            <p class="lead mb-0">
-                              <button class="btn btn-lg btn-outline-primary" (click)="open(content, message)">Reply</button>
-                            </p>
-                          </div>
-                        </div>
-                      </li>
-                      <!-- single message (repeated) -->
-                      <li *ngFor="let message of deletedMessages" class="list-group-item d-block py-1">
-                        <div class="row">
-                          <div class="col-lg-3 p-2">
-                            <div class="custom-control custom-checkbox">
-                              <input type="checkbox" class="custom-control-input" id="">
-                              <label class="custom-control-label text-nowrap" for=""><a
-                                  href="">{{message.dateSent}}</a>{{message.sender.firstName + ' ' + message.sender.lastName}}</label>
-                            </div>
-                          </div>
-                          <div class="col-lg py-2">
-                            <div class="float-right text-right">
-                              <span data-ng-class="{'font-weight-bold font-italic':!item.read}"></span>
-                            </div>
-                            <p class="lead mb-0">
-                              <button class="btn btn-lg btn-outline-primary" (click)="open(content, message)">Reply</button>
-                            </p>
-                          </div>
-                        </div>
-                      </li>
+                        </li>
+                      </div>
+                      <div *ngIf="selected === 2">
 
-                  </ul>
+                        <!-- single message (repeated) -->
+                        <li *ngFor="let message of deletedMessages" class="list-group-item d-block py-1">
+                          <div class="row">
+                            <div class="col-lg-3 p-2">
+                              <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="">
+                                <label class="custom-control-label text-nowrap" for=""><a
+                                  href="">{{message.dateSent}}</a>{{message.sender.firstName + ' ' + message.sender.lastName}}</label>
+                                </div>
+                              </div>
+                              <div class="col-lg py-2">
+                                <div class="float-right text-right">
+                                  <span data-ng-class="{'font-weight-bold font-italic':!item.read}"></span>
+                                </div>
+                                <p class="lead mb-0">
+                                  <button class="btn btn-lg btn-outline-primary" (click)="open(content, message)">Reply</button>
+                                  <button class="btn btn-lg btn-outline-danger" (click)="delete(message.id)">Delete</button>
+                                </p>
+                              </div>
+                            </div>
+                          </li>
 
-                  <!-- Reply Modal -->
+                        </div>
+                        </ul>
+
+                        <!-- Reply Modal -->
                   <ng-template #content let-modal>
                     <div class="modal-header">
                       <h4 class="modal-title" id="modal-basic-title">From: {{viewedMessage.sender.username}}</h4>

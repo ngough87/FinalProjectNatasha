@@ -33,21 +33,24 @@ public class MessageServiceImpl implements MessageService {
 
 	@Override
 	public Message create(Message message) {
-		User user = userRepo.findById(senderId);
-		
-		if(message != null && user != null) {
-			message.setSender(user);
+		if(message != null) {
 			message.setEnabled(true);
 			messageRepo.saveAndFlush(message);
-			
 		}
 		return message;
 	}
 
-//	@Override
-//	public Message delete(Message message, int userId) {
-//		return null;
-//	}
+	@Override
+	public boolean delete(int messageId) {
+		boolean success = false;
+		Message deleteMe = messageRepo.findById(messageId);
+		if (deleteMe != null) {
+			deleteMe.setEnabled(false);
+			messageRepo.saveAndFlush(deleteMe);
+			success = true;
+		}
+		return success;
+	}
 
 	
 	

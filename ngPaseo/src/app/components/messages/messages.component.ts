@@ -22,6 +22,7 @@ export class MessagesComponent implements OnInit {
   receiverId:number = 0;
   viewedMessage:Message = new Message();
   createdMessage:Message = new Message();
+  selected:number = 1;
 
   constructor(
     private auth: AuthService,
@@ -38,8 +39,17 @@ export class MessagesComponent implements OnInit {
   reload(): void {
     this.messageService.index().subscribe({
       next: (data) => {
+        this.inbox = [];
+        this.deletedMessages = [];
         this.messages = data;
-        this.showInbox();
+        for (let message of this.messages) {
+          console.log(message);
+          if (message.enabled) {
+            this.inbox.push(message);
+          } else {
+            this.deletedMessages.push(message);
+          }
+        }
       },
       error: (err) => {
         console.error('Message.reload(): error loading message');
@@ -63,7 +73,7 @@ export class MessagesComponent implements OnInit {
   delete(id: number) {
     this.messageService.destroy(id).subscribe({
       next: () => {
-        this.router.navigateByUrl('/messages');
+        this.reload();
       },
       error: (error) => {
         console.error('MessageComponent.delete message: error deleting');
@@ -72,25 +82,6 @@ export class MessagesComponent implements OnInit {
     });
   }
 
-  showInbox() {
-    this.deletedMessages = [];
-    console.log('in inbox');
-    for (let message of this.messages) {
-      console.log(message);
-      if (message.enabled) {
-        this.inbox.push(message);
-      }
-    }
-  }
-
-  showDeleted() {
-    this.inbox = [];
-    for (let message of this.messages) {
-      if (!message.enabled) {
-        this.deletedMessages.push();
-      }
-    }
-  }
 
   //Open reply modal
   open(content:any, message:Message) {

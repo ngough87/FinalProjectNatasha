@@ -9,7 +9,7 @@ public interface MessageService {
 	List<Message> findAllMessagesBySender(int senderId);
 	List<Message> findAllMessagesReceived(int recieverId);
 	public Message create(Message message);
-	//public Message delete(Message message, int userId);
+	boolean delete(int messageId);
 	
 
 }
