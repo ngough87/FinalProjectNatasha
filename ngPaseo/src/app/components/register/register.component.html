@@ -1,6 +1,21 @@
 
-<form name="RegisterForm">
-  <input type="text" name="username" [(ngModel)]="newUser.username" placeholder="Username"/>
-            <input type="password" name="password" [(ngModel)]="newUser.password" placeholder="Password"/>
-  <button name="RegisterButton" (click)="register(newUser)">Register</button>
-  </form>
+<div class="col-4" id="form-wrapper">
+  <div style="max-width: 750px; margin: 100px; float: center;  padding: 40px; background-color: #FBFCF9;" >
+<div class="container">
+  <form>
+  <h1>Register here!</h1>
+  <div class="form-group">
+    <label for="userName">Username</label>
+    <input type="text" name="username" class="form-control" [(ngModel)]="newUser.username" placeholder="Username"/>
+    <small  class="form-text text-muted">Create username</small>
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" name="password" class="form-control" [(ngModel)]="newUser.password" placeholder="Password"/>
+  </div>
+<br>
+  <button class="btn btn-primary" name="RegisterButton" (click)="register(newUser)">Register</button>
+</form>
+</div>
+</div>
+</div>
