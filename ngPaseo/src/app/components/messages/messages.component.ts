@@ -101,6 +101,11 @@ export class MessagesComponent implements OnInit {
     this.viewedMessage = message;
 	}
 
+  close() {
+    this.modalService.dismissAll();
+    this.createdMessage = new Message();
+  }
+
   //Open reply modal
   compose(content:any) {
 		this.modalService.open(content, { ariaLabelledBy: 'modal-basic-content' }).result.then(
