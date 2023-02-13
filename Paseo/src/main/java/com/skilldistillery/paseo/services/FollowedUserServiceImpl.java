@@ -1,5 +1,6 @@
 package com.skilldistillery.paseo.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,9 +50,10 @@ public class FollowedUserServiceImpl implements FollowedUserService {
 		boolean deleted = false;
 		
 		User follower = userRepo.findById(id);
+		System.out.println(follower);
 		FollowedUserKey key = new FollowedUserKey(id, loggedInUser.getId());
-		FollowedUser followedUser = followedUserRepo.findById(key);
-		
+		FollowedUser followedUser = followedUserRepo.findByUserIdAndFollowedUserId(loggedInUser.getId(), follower.getId());
+		System.out.println(followedUser);
 		if (followedUser != null && follower != null) {
 			followedUserRepo.delete(followedUser);
 			loggedInUser.removeFollower(loggedInUser);
@@ -60,6 +62,19 @@ public class FollowedUserServiceImpl implements FollowedUserService {
 
 		return deleted;
 	}
+	
+	@Override
+	public List<User> findByFollowedUserId(User query) {
+		List<FollowedUser> users = followedUserRepo.findByFollowedUserId(query.getId());
+		List<User> output = new ArrayList<>();
+		for (FollowedUser user : users) {
+			if (!output.contains(user.getUser())) {
+				output.add(user.getUser());
+			}
+		}
+		return output;
+	}
+	
 	}
 
 

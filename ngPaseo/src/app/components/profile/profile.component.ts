@@ -19,13 +19,16 @@ import { User } from 'src/app/models/user';
 export class ProfileComponent implements OnInit {
   walks: Walk[] = [];
   user: User = new User();
+  followedUsers:User[] = [];
+  followingUsers:User[] = [];
   address: Address = new Address();
   userGender = new Gender();
   genders: Gender[] = [];
   displayPhotos = true;
-  displayWalks = true;
+  displayWalks = false;
   displayGroups = false;
   displayInterests = false;
+  followed:boolean = false;
 
   imageUrl: string = this.user.profileImageUrl;
   constructor(
@@ -51,6 +54,8 @@ export class ProfileComponent implements OnInit {
           console.log(data);
           this.user = data;
           console.log(this.user);
+          this.getFollowed();
+          this.getFollowers();
           this.getUserWalks();
           if (!this.user.address) {
             this.user.address = new Address();
@@ -78,6 +83,8 @@ export class ProfileComponent implements OnInit {
           console.log(data);
           this.user = data;
           console.log(this.user);
+          this.getFollowed();
+          this.getFollowers();
           this.getUserWalks();
           if (!this.user.address) {
             this.user.address = new Address();
@@ -113,6 +120,38 @@ export class ProfileComponent implements OnInit {
       },
     });
   }
+
+getFollowers(){
+  this.userService.findFollowers(+this.user.id).subscribe({
+    next: (data) => {
+      this.followingUsers = data;
+    },
+    error: (err) => {
+      console.error('Failed to get following users');
+      console.error(err);
+    }
+  })
+}
+
+getFollowed(){
+  this.userService.findFriends(+this.user.id).subscribe({
+    next: (data) => {
+      let id = localStorage.getItem('currentUserId');
+      this.followedUsers = data;
+      for (let u of this.followedUsers) {
+        if (u.id === +id!) {
+          this.followed = true;
+          break;
+        }
+      }
+    },
+    error: (err) => {
+      console.error('Failed to get followed users');
+      console.error(err);
+    }
+  })
+}
+
   clickPhotos() {
     this.displayPhotos = !this.displayPhotos;
   }
@@ -122,6 +161,9 @@ export class ProfileComponent implements OnInit {
 
   followUser() {
     let id: string = this.route.snapshot.paramMap.get('id')!;
+    if (id === null) {
+      id = localStorage.getItem('currentUserId')!;
+    }
     this.userService.followUser(+id).subscribe({
       next: () => {
         this.getUser();
@@ -129,6 +171,18 @@ export class ProfileComponent implements OnInit {
       error: (err) => {
         console.error(err);
       },
+    });
+  }
+
+  unfollowUser() {
+    this.userService.unfollowUser(this.user.id).subscribe({
+      next: (data) => {
+        this.followed = false;
+        this.getUser();
+      },
+      error: (err) => {
+        console.error(err);
+      }
     });
   }
 }

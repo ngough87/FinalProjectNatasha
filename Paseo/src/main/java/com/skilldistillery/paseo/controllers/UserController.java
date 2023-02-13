@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.paseo.entities.User;
 import com.skilldistillery.paseo.services.AuthService;
+import com.skilldistillery.paseo.services.FollowedUserService;
 import com.skilldistillery.paseo.services.UserService;
 
 @RestController
@@ -31,6 +32,9 @@ public class UserController {
 	
 	@Autowired
 	private AuthService authService;
+	
+	@Autowired
+	private FollowedUserService followedUserService;
 
 	@GetMapping("users")
 	public List<User> show(HttpServletRequest req, HttpServletResponse resp) {
@@ -124,6 +128,20 @@ public class UserController {
 		}
 
 		return null;
+	}
+	
+	@GetMapping("users/{id}/following")
+	public List<User> findFollowingByUserId(@PathVariable int id, HttpServletResponse resp) {
+		User user = userService.findById(id);
+		List<User> output = null;
+
+		if (user == null) {
+			resp.setStatus(404);
+		} else {
+			output = followedUserService.findByFollowedUserId(user);
+		}
+
+		return output;
 	}
 	
 	@GetMapping("users/matches")
