@@ -53,7 +53,7 @@ export class ProfileComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.checkCurrentUserForAdminStatus();
+    // this.checkCurrentUserForAdminStatus();
     this.getUser();
   }
   getUser() {
@@ -204,36 +204,36 @@ onClickWalks() {
       },
     });
   }
-  checkCurrentUserForAdminStatus(){
-  this.currentUserId = parseInt(""+this.auth.getCurrentUserId());
-  this.userService.findUser(this.currentUserId).subscribe({
-  next :( data : User)=> {
-    if(data.role == "admin"){
-      this.adminUser = data;
-    }
-  },
-  error: (fail: any) => {
-    console.error(fail);
-  },
-  });
-  }
+  // checkCurrentUserForAdminStatus(){
+  // this.currentUserId = parseInt(""+this.auth.getCurrentUserId());
+  // this.userService.findUser(this.currentUserId).subscribe({
+  // next :( data : User)=> {
+  //   if(data.role == "admin"){
+  //     this.adminUser = data;
+  //   }
+  // },
+  // error: (fail: any) => {
+  //   console.error(fail);
+  // },
+  // });
+  // }
 
 
-  adminDelete(userToBeDeavtivated: User){
-    console.log("inside method admin delete");
-    let id: string = this.route.snapshot.paramMap.get('id')!;
-    if (id === null) {
-      id = localStorage.getItem('currentUserId')!;
-    }
-    this.userService.adminDisableUser(+id).subscribe({
-      next: (data) => {
-        this.followed = false;
-        this.getUser();
-      },
-      error: (err) => {
-        console.error(err);
-      }
-    })
+  // adminDelete(userToBeDeavtivated: User){
+  //   console.log("inside method admin delete");
+  //   let id: string = this.route.snapshot.paramMap.get('id')!;
+  //   if (id === null) {
+  //     id = localStorage.getItem('currentUserId')!;
+  //   }
+  //   this.userService.adminDisableUser(+id).subscribe({
+  //     next: (data) => {
+  //       this.followed = false;
+  //       this.getUser();
+  //     },
+  //     error: (err) => {
+  //       console.error(err);
+  //     }
+  //   })
 
     // this.userService.delete(userToBeDeavtivated.id).subscribe({
       //   next: (data : any) => {
@@ -244,7 +244,7 @@ onClickWalks() {
       //   },
       //    });
 
-    }
+    // }
 
 
 

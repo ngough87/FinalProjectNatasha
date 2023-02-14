@@ -23,7 +23,28 @@ export class UserService {
     return options;
   }
 
+  index(): Observable<User[]> {
+    //return this.http.get<Todo[]>(this.url + '?sorted=true').pipe(
+    return this.http.get<User[]>(this.url + 'api/user ', this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('UserService.index(): error retrieving users: ' + err)
+        );
+      })
+    );
+  }
+  search(users : User): Observable<User[]> {
 
+    return this.http.post<User[]>(this.url + 'api/user ', users,  this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('UserService.search(): error retrieving users: ' + err)
+        );
+      })
+    );
+  }
 
   updateUser(user: User): Observable<User> {
     console.log(user);

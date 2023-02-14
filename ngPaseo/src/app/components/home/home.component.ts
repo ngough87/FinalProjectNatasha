@@ -1,3 +1,4 @@
+import { User } from './../../models/user';
 import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -26,11 +27,13 @@ export class HomeComponent implements OnInit{
 
   walks: Walk[] = [];
   searchWalk: Walk = new Walk();
-
+  users: User[] = [];
+  searchUsers: User = new User();
   walkTypes: WalkType[] = [];
   walkCategories: WalkCategory[] = [];
   walkLocations: WalkLocation[] = [];
-results: Walk[] = [];
+  results: Walk[] = [];
+
 
   newLocation: WalkLocation | null = null;
   newAddress: Address | null = null;
@@ -62,6 +65,18 @@ this.walkService.search(searchWalk).subscribe({
   },
 error: (error) =>{
   console.error("HomeComponent search() failed");
+  console.error(error);
+}
+});
+
+}
+searchUser(searchUsers: User){
+this.userService.search(searchUsers).subscribe({
+  next: (data) => {
+    this.users = data;
+  },
+error: (error) =>{
+  console.error("HomeComponent user search() failed");
   console.error(error);
 }
 });
