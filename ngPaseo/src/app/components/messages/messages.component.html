@@ -194,12 +194,12 @@
                       <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
                     </div>
                     <div class="modal-header">
-                      <small class="text-uppercase text-muted">Sent By: </small>
                       <p>
+                      <small class="text-uppercase text-muted">Sent By: </small>
                         {{viewedMessage.sender.username}}
                       </p>
-                      <small class="text-uppercase text-muted">Received On: </small>
                       <p *ngIf="viewedMessage.dateSent">
+                      <small class="text-uppercase text-muted">Received On: </small>
                         {{viewedMessage.dateSent}}
                       </p>
                       <p *ngIf="!viewedMessage.dateSent">
@@ -230,12 +230,12 @@
                       <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
                     </div>
                     <div class="modal-header">
-                      <small class="text-uppercase text-muted">Sent To: </small>
                       <p>
+                      <small class="text-uppercase text-muted">Sent To: </small>
                         {{viewedMessage.receiver.username}}
                       </p>
-                      <small class="text-uppercase text-muted">Sent On: </small>
                       <p *ngIf="viewedMessage.dateSent">
+                      <small class="text-uppercase text-muted">Sent On: </small>
                         {{viewedMessage.dateSent}}
                       </p>
                       <p *ngIf="!viewedMessage.dateSent">
