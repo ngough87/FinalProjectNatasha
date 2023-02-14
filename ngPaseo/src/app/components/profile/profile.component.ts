@@ -339,4 +339,11 @@ export class ProfileComponent implements OnInit {
     this.modalService.dismissAll();
     this.router.navigateByUrl('/walkPage/' + this.viewedWalk.id);
   }
+
+  close() {
+    this.modalService.dismissAll();
+    this.viewedWalk = new Walk();
+    this.viewedWalkCreated = false;
+    this.viewedWalkJoined = false;
+  }
 }
