@@ -45,9 +45,7 @@
                         <div class="row">
                           <div class="col-lg-3 p-2">
                             <div class="custom-control custom-checkbox">
-                              <input type="checkbox" class="custom-control-input" id="">
-                              <label class="custom-control-label text-nowrap" for=""><a
-                                href="">{{message.dateSent}}</a>{{message.sender.firstName + ' ' + message.sender.lastName}}</label>
+                              <label class="custom-control-label text-nowrap" for="" (click)="open(viewcontent, message)"><a href="">{{message.dateSent}}</a>{{message.sender.firstName + ' ' + message.sender.lastName}}</label>
                               </div>
                             </div>
                             <div class="col-lg py-2">
@@ -55,8 +53,8 @@
                                 <span data-ng-class="{'font-weight-bold font-italic':!item.read}"></span>
                               </div>
                               <p class="lead mb-0">
-                                <button class="btn btn-lg btn-outline-primary" (click)="open(content, message)">Reply</button>
-                                <button class="btn btn-lg btn-outline-danger" (click)="delete(message.id)">Delete</button>
+                                <button class="btn btn-lg btn-outline-primary btnRight" (click)="open(content, message)">Reply</button>
+                                <button class="btn btn-lg btn-outline-danger btnRight" (click)="delete(message.id)">Delete</button>
                               </p>
                             </div>
                           </div>
@@ -65,12 +63,11 @@
 
                       <div *ngIf="selected === 2">
 
-                        <!-- single message (repeated) -->
+                        <!-- deleted messages (repeated) -->
                         <li *ngFor="let message of deletedMessages" class="list-group-item d-block py-1">
-                          <div class="row">
+                          <div class="row" (click)="view(viewcontent, message)">
                             <div class="col-lg-3 p-2">
                               <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="">
                                 <label class="custom-control-label text-nowrap" for=""><a
                                   href="">{{message.dateSent}}</a>{{message.sender.firstName + ' ' + message.sender.lastName}}</label>
                                 </div>
@@ -79,10 +76,6 @@
                                 <div class="float-right text-right">
                                   <span data-ng-class="{'font-weight-bold font-italic':!item.read}"></span>
                                 </div>
-                                <p class="lead mb-0">
-                                  <button class="btn btn-lg btn-outline-primary" (click)="open(content, message)">Reply</button>
-                                  <button class="btn btn-lg btn-outline-danger" (click)="delete(message.id)">Delete</button>
-                                </p>
                               </div>
                             </div>
                           </li>
@@ -128,6 +121,7 @@
                       (click)="createdMessage.contents = ''"></app-create-message>
                     </div>
                   </ng-template>
+                  <!-- End Reply Modal -->
 
                   <!-- Compose Modal -->
                   <ng-template #composecontent let-modal>
@@ -157,90 +151,36 @@
                       (click)="close()"></app-create-message>
                     </div>
                   </ng-template>
+                  <!-- End Compose Modal -->
 
-                  <!-- view message modal -->
-                  <div id="messageModal" class="modal fade mt-0 mt-md-5" tabindex="-1" role="dialog" aria-hidden="true">
-                      <div class="modal-dialog modal-lg">
-                          <div class="modal-content">
-                              <div class="modal-header">
-                                  <div>
-                                      <small class="text-uppercase text-muted">Subject</small>
-                                      <h4 class="modal-title"></h4>
-                                  </div>
-                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">×</span>
-                                      <span class="sr-only">Close</span>
-                                  </button>
-                              </div>
-                              <div class="modal-body">
-                                  <div class="row">
-                                      <div class="col-sm-8">
-                                          <small class="text-uppercase text-muted">From</small>
-                                          <h4>
-                                      <a :href="'mailto:'+selected.fromAddress"></a>
-                                  </h4>
-                                      </div>
-                                      <div class="col-sm-4">
-                                          <small class="text-uppercase text-muted">Sent</small>
-                                          <h6>
-
-                                  </h6>
-                                      </div>
-                                  </div>
-                                  <p class="my-3" data-ng-bind-html="selected.body | html"></p>
-                                  <button class="btn btn-primary float-right ml-2" data-dismiss="modal" aria-hidden="true">Close</button>
-                                  <button class="btn btn-outline-primary float-right" data-dismiss="modal">Reply</button>
-                              </div>
-                          </div>
+                  <!-- View Modal -->
+                  <ng-template #viewcontent let-modal>
+                    <div class="modal-header">
+                      <h4 class="modal-title" id="modal-basic-content" aria-label="modal-basic-content">View Message</h4>
+                      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+                    </div>
+                    <div class="modal-header">
+                      <small class="text-uppercase text-muted">Sent By: </small>
+                      <p>
+                        {{viewedMessage.sender.username}}
+                      </p>
+                      <p>{{viewedMessage.sender.firstName + ' ' + viewedMessage.sender.lastName}}</p>
+                      <div>
+                          <h4 class="modal-title"></h4>
                       </div>
                   </div>
-                  <!-- /modal -->
-
-                  <!-- compose modal-->
-                  <div id="composeModal" class="modal fade mt-0 mt-md-5" tabindex="-1" role="dialog" aria-hidden="true">
-                      <div class="modal-dialog modal-lg">
-                          <div class="modal-content">
-                              <div class="modal-header">
-                                  <h5 class="text-uppercase text-muted">Compose</h5>
-                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">×</span>
-                                      <span class="sr-only">Close</span>
-                                  </button>
-                              </div>
-                              <div class="modal-body">
-                                  <form class="form" role="form" autocomplete="off">
-                                      <div class="form-row py-2">
-                                          <label for="name2" class="col-sm-2 mb-0">To</label>
-                                          <div class="col">
-                                              <input type="text" name="name2" id="name2" class="form-control" required="">
-                                          </div>
-                                      </div>
-                                      <div class="form-row py-2">
-                                          <label for="subject" class="col-sm-2 mb-0">Subject</label>
-                                          <div class="col">
-                                              <input type="text" name="subject" id="subject" class="form-control" required="">
-                                          </div>
-                                      </div>
-                                      <div class="form-row py-2">
-                                          <label for="message2" class="col-sm-2 mb-0">Message</label>
-                                          <div class="col">
-                                              <textarea rows="6" name="message2" id="message2" class="form-control" required=""></textarea>
-                                          </div>
-                                      </div>
-                                      <div class="form-row py-2">
-                                          <div class="col offset-2">
-                                              <button type="submit" class="btn btn-outline-secondary btn-lg">Attachments <i class="align-middle mb-1 material-icons">attach_file</i></button>
-                                          </div>
-                                          <div class="col">
-                                              <button type="submit" class="btn btn-secondary btn-lg float-right ml-2">Send Message</button>
-                                              <button type="submit" class="btn btn-outline-secondary btn-lg float-right">Save Draft</button>
-                                          </div>
-                                      </div>
-                                  </form>
-                              </div>
+                    <div class="modal-body">
+                      <form>
+                        <div class="mb-3">
+                          <label for="compose">Message</label>
+                          <div class="input-group">
+                            <textarea id="compose" class="form-control" name="compose"[(ngModel)]="viewedMessage.contents" ></textarea>
                           </div>
-                      </div>
-                  </div>
+                        </div>
+                      </form>
+                    </div>
+                  </ng-template>
+                  <!-- End View Modal -->
               </div>
           </div>
       </div>

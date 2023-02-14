@@ -44,7 +44,6 @@ export class MessagesComponent implements OnInit {
         this.deletedMessages = [];
         this.messages = data;
         for (let message of this.messages) {
-          console.log(message);
           if (message.enabled) {
             this.inbox.push(message);
           } else {
@@ -89,6 +88,20 @@ export class MessagesComponent implements OnInit {
 
   //Open reply modal
   open(content:any, message:Message) {
+		this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
+			(result) => {
+				this.closeResult = `Closed with: ${result}`;
+			},
+			(reason) => {
+				this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+			},
+		);
+    this.receiverId = message.receiver.id;
+    this.viewedMessage = message;
+	}
+
+  //Open reply modal
+  view(content:any, message:Message) {
 		this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
 			(result) => {
 				this.closeResult = `Closed with: ${result}`;
