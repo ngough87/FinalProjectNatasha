@@ -34,7 +34,7 @@
 
 <div *ngIf="checkLogin()">
 
-  <div class="form-group">
+  <div>
 
           <input [(ngModel)]="searchWalk.date" class="form-control" type="date" name="date" id="date" />
           <label for="date" class="form-label">Date</label>
@@ -43,34 +43,11 @@
             id="description">
           <label for="description" class="form-label">Keyword Search</label>
 
-          <label class="form-label" for="walkCategory">Walk Category </label>
-          <select [(ngModel)]="searchWalk.walkCategory" class="form-control form-select" name="walkCategory"
-            id="walkCategory">
-            <option [ngValue]="walkCategory" name="walkCategory" *ngFor="let walkCategory of walkCategories">
-              {{ walkCategory.name }}
-            </option>
-
-          </select>
-
-
-          <label for="walkType" class="form-label">Walk Type </label>
-          <select class="form-control form-select" [(ngModel)]="searchWalk.walkType" name="walkType" id="walkType">
-            <option class="" [ngValue]="walkType" name="walkType" *ngFor="let walkType of walkTypes">
-              {{ walkType.name }}
-            </option>
-          </select>
-
-
-          <label for="walkLocation" class="form-label">Walk Location</label>
-          <select class="form-control form-select" [(ngModel)]="searchWalk.walkLocation" name="walkLocation"
-            id="walkLocation">
-            <option [ngValue]="walkLocation" name="walkLocation" *ngFor="let walkLocation of walkLocations">
-              {{ walkLocation.name }}
-            </option>
-          </select>
   <button (click)="search(searchWalk)">
-      Search
-  </button>
+
+    Search
+
+    </button>
 
   </div>
   <div *ngIf="walks">
@@ -153,8 +130,6 @@
 
 
 
-</div>
-
-
-    <app-walk></app-walk>
+<div *ngIf = "createNewWalk">
+  <app-walk></app-walk>
 </div>
