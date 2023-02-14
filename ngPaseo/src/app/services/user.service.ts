@@ -120,6 +120,16 @@ export class UserService {
       })
     );
   }
+  adminDisableUser(id:number):Observable<void> {
+    return this.http.delete<void>(this.url + "api/user/" + id, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('UserService.disableUser(): error disabling user.')
+        );
+      })
+    );
+  }
 
 
 }

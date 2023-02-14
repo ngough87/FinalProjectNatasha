@@ -17,6 +17,7 @@ import { User } from 'src/app/models/user';
   styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent implements OnInit {
+[x: string]: any;
   walks: Walk[] = [];
   user: User = new User();
   address: Address = new Address();
@@ -35,8 +36,7 @@ export class ProfileComponent implements OnInit {
     private addressService: AddressService,
     private gender: GenderService,
     private walkService: WalkService,
-    private route: ActivatedRoute
-  ) {}
+    private route: ActivatedRoute ) {}
 
   ngOnInit() {
     this.getUser();
@@ -131,4 +131,17 @@ export class ProfileComponent implements OnInit {
       },
     });
   }
+
+  adminDeactivateAccount(){
+    let id =this.route.snapshot.paramMap.get('id')!;
+    this.userService.adminDisableUser(+id).subscribe({
+      next: () => {
+        this.getUser();
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    })
+  }
+
 }
