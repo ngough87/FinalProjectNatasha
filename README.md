@@ -84,31 +84,31 @@ Deployed application:
 
   
   ### Technologies User
-  -Java
-  -Angular
-  -MAMP
--SQL
--HTML
--Gradle
--Maven
--JPA/Hibernate
--JUnit Testing
--Bootstrap
--CSS
--MySQLWorkbench
--Trello
--WireFrame
--GitHub
--SpringToolSuite
--Terminal
+  - Java
+  - Angular
+  - MAMP
+- SQL
+- HTML
+- Gradle
+- Maven
+- JPA/Hibernate
+- JUnit Testing
+- Bootstrap
+- CSS
+- MySQLWorkbench
+- Trello
+- WireFrame
+- GitHub
+- SpringToolSuite
+- Terminal
   
   ## LessonsLearned
   
- -Ran into JSON ignore issues during front end development
--Importance of composite key classes for join tables
--Importance of status codes in API
--Learning how to nest async methods so values are not null
+ - Ran into JSON ignore issues during front end development
+- Importance of composite key classes for join tables
+- Importance of status codes in API
+- Learning how to nest async methods so values are not null
   
   
-###Future Goals
-  -Map integration allowing users to search by a map.
+### Future Goals
+  - Map integration allowing users to search by a map.
