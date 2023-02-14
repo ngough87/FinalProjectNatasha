@@ -129,8 +129,10 @@
            </table>
            </div>
            <div class="modal-footer">
-             <button>Edit Walk</button>
-             <button>Delete Walk</button>
+             <button *ngIf="viewedWalkCreated || user.role === 'admin'">Edit Walk</button>
+             <button *ngIf="viewedWalkCreated || user.role === 'admin'">Delete Walk</button>
+             <button *ngIf="!viewedWalkCreated && !viewedWalkJoined">Join Walk</button>
+             <button *ngIf="!viewedWalkCreated && viewedWalkJoined">Leave Walk</button>
            </div>
        </ng-template>
        <!-- End Created Walk Modal -->
