@@ -35,7 +35,12 @@
 <div *ngIf="checkLogin()">
 
   <div *ngIf="walks">
+    <div class="row-span-5"> <span *ngFor="let category of walkCategories"> {{category.name}} |</span><br>
+    <span *ngFor="let type of walkTypes"> {{type.name}} |</span><br>
+    <span *ngFor="let location of walkLocations"> {{location.name}} </span><br>
+    </div>
     <table class="table table-striped table-bordered table-hover table-condensed">
+
       <thead>
         <th>Name</th>
         <th>User</th>
