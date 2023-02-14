@@ -35,6 +35,10 @@ export class ProfileComponent implements OnInit {
   followed:boolean = false;
   closeResult = '';
   viewedWalk: Walk = new Walk();
+  adminUser : User = new User();
+  displayDeactivateProfileButton : boolean = false;
+  currentUserId : number = 0;
+
 
   imageUrl: string = this.user.profileImageUrl;
   constructor(
@@ -49,6 +53,7 @@ export class ProfileComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.checkCurrentUserForAdminStatus();
     this.getUser();
   }
   getUser() {
@@ -118,6 +123,7 @@ export class ProfileComponent implements OnInit {
     }
   }
 
+
   getUserWalks() {
     this.walkService.getUserWalks(this.user.id).subscribe({
       next: (data) => {
@@ -131,16 +137,16 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-getFollowers(){
-  this.userService.findFollowers(+this.user.id).subscribe({
-    next: (data) => {
-      this.followingUsers = data;
-    },
-    error: (err) => {
-      console.error('Failed to get following users');
-      console.error(err);
-    }
-  })
+  getFollowers(){
+    this.userService.findFollowers(+this.user.id).subscribe({
+      next: (data) => {
+        this.followingUsers = data;
+      },
+      error: (err) => {
+        console.error('Failed to get following users');
+        console.error(err);
+      }
+    })
 }
 
 getFollowed(){
@@ -177,10 +183,10 @@ getCurrentUserFollowed() {
   })
 }
 
-  clickPhotos() {
-    this.displayPhotos = !this.displayPhotos;
-  }
-  onClickWalks() {
+clickPhotos() {
+  this.displayPhotos = !this.displayPhotos;
+}
+onClickWalks() {
     this.displayWalks = !this.displayWalks;
   }
 
@@ -198,21 +204,54 @@ getCurrentUserFollowed() {
       },
     });
   }
+  checkCurrentUserForAdminStatus(){
+  this.currentUserId = parseInt(""+this.auth.getCurrentUserId());
+  this.userService.findUser(this.currentUserId).subscribe({
+  next :( data : User)=> {
+    if(data.role == "admin"){
+      this.adminUser = data;
+    }
+  },
+  error: (fail: any) => {
+    console.error(fail);
+  },
+  });
+  }
 
 
-  adminDelete(id: number){
-    if(this.user.role === admin){
-    this.userService.delete(id).subscribe({
-       });
+  adminDelete(userToBeDeavtivated: User){
+    console.log("inside method admin delete");
+    let id: string = this.route.snapshot.paramMap.get('id')!;
+    if (id === null) {
+      id = localStorage.getItem('currentUserId')!;
+    }
+    this.userService.adminDisableUser(+id).subscribe({
+      next: (data) => {
+        this.followed = false;
+        this.getUser();
+      },
+      error: (err) => {
+        console.error(err);
       }
+    })
+
+    // this.userService.delete(userToBeDeavtivated.id).subscribe({
+      //   next: (data : any) => {
+      //     console.log("Account Deactivated");
+      //   },
+    //   error: (err) => {
+      //     console.error(err);
+      //   },
+      //    });
+
     }
 
 
 
 
 
-  unfollowUser() {
-    let id: string = this.route.snapshot.paramMap.get('id')!;
+    unfollowUser() {
+      let id: string = this.route.snapshot.paramMap.get('id')!;
     if (id === null) {
       id = localStorage.getItem('currentUserId')!;
     }
@@ -228,9 +267,9 @@ getCurrentUserFollowed() {
   }
 
 
-    //Open reply modal
-    open(content:any, walk:Walk) {
-      this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
+  //Open reply modal
+  open(content:any, walk:Walk) {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
         (result) => {
           this.closeResult = `Closed with: ${result}`;
         },

@@ -60,9 +60,11 @@
               <button name="unfollowUser" (click)="unfollowUser()">Unfollow</button>
             </div>
 
-            <div ></div>
-            <button name="adminDelete" (click)="adminDeactivateAccount()">Deactivate Account</button>
+            <div *ngIf="adminUser">
 
+            <button name="adminDelete" (click)="adminDelete(user)">Deactivate Account</button>
+
+          </div>
           </nav>
 
 
