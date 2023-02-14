@@ -30,7 +30,7 @@ export class HomeComponent implements OnInit{
   walkTypes: WalkType[] = [];
   walkCategories: WalkCategory[] = [];
   walkLocations: WalkLocation[] = [];
-results: Walk[] = [];
+  results: Walk[] = [];
 
   newLocation: WalkLocation | null = null;
   newAddress: Address | null = null;
@@ -50,7 +50,7 @@ results: Walk[] = [];
     this.loadCategories();
     this.loadTypes();
     this.loadLocation();
-
+    this.reload();
     this.checkLogin();
   }
 
@@ -66,6 +66,18 @@ error: (error) =>{
 }
 });
 
+}
+reload(){
+  this.walkService.index().subscribe({
+    next: (data) => {
+      this.walks = data;
+    },
+    error: (error) =>{
+      console.error("HomeComponent reload error");
+      console.error(error);
+    }
+
+  });
 }
 
   checkLogin(){

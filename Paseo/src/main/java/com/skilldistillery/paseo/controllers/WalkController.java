@@ -158,4 +158,13 @@ public class WalkController {
 		}
 
 	}
+	
+	@GetMapping("walks/joined/{id}")
+	public List<Walk> findJoinedWalksByUserId(@PathVariable int id, HttpServletResponse res) {
+		List <Walk> output = walkService.getJoinedWalksByUserId(id);
+		if (output == null || output.isEmpty()) {
+			res.setStatus(404);
+		}
+		return output;
+	}
 }

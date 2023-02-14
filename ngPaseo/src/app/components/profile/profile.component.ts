@@ -20,6 +20,9 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 })
 export class ProfileComponent implements OnInit {
   walks: Walk[] = [];
+  joinedWalks: Walk[] = [];
+  loggedInUserWalks: Walk[] = [];
+
   user: User = new User();
   followedUsers:User[] = [];
   currentUserFollowedUsers: User[] = [];
@@ -27,11 +30,14 @@ export class ProfileComponent implements OnInit {
   address: Address = new Address();
   userGender = new Gender();
   genders: Gender[] = [];
+
   displayPhotos = true;
-  displayWalks = false;
+  displayCreatedWalks = false;
+  displayJoinedWalks = false;
   displayGroups = false;
   displayInterests = false;
   followed:boolean = false;
+
   closeResult = '';
   viewedWalk: Walk = new Walk();
 
@@ -130,6 +136,34 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  getUserJoinedWalks() {
+    this.walkService.getJoinedWalks(this.user.id).subscribe({
+      next: (data) => {
+        this.joinedWalks = data;
+      },
+      error: (err) => {
+        console.error('Failed to get joined walks');
+      console.error(err);
+      }
+    })
+  }
+
+  getLoggedInUserJoinedWalks() {
+    if (this.user.id === +localStorage.getItem('id')!) {
+      this.loggedInUserWalks = this.joinedWalks;
+    } else {
+      this.walkService.getJoinedWalks(+localStorage.getItem('id')!).subscribe({
+        next: (data) => {
+          this.loggedInUserWalks = data;
+        },
+        error: (err) => {
+          console.error('Failed to get joined walks');
+        console.error(err);
+        }
+    });
+  }
+}
+
 getFollowers(){
   this.userService.findFollowers(+this.user.id).subscribe({
     next: (data) => {
@@ -177,10 +211,19 @@ getCurrentUserFollowed() {
 }
 
   clickPhotos() {
-    this.displayPhotos = !this.displayPhotos;
+    this.displayPhotos = true;
+    this.displayCreatedWalks = false;
+    this.displayJoinedWalks = false;
   }
-  onClickWalks() {
-    this.displayWalks = !this.displayWalks;
+  clickCreatedWalks() {
+    this.displayPhotos = false;
+    this.displayCreatedWalks = true;
+    this.displayJoinedWalks = false;
+  }
+  clickJoinedWalks() {
+    this.displayPhotos = false;
+    this.displayCreatedWalks = false;
+    this.displayJoinedWalks = true;
   }
 
   followUser() {
