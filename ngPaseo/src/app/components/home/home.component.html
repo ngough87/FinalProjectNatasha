@@ -34,20 +34,76 @@
 
 <div *ngIf="checkLogin()">
 
+  <div *ngIf="walks">
+    <table class="table table-striped table-bordered table-hover table-condensed">
+      <thead>
+        <th>Name</th>
+        <th>User</th>
+        <th>Date</th>
+        <th>Walk Location</th>
+        <th> Details</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let walk of walks">
+        <td>
+          {{walk.name}}
+        </td>
+
+
+        <td>
+          <img [src]="walk.user.profileImageUrl">
+
+            {{walk.user.username}}
+
+        </td>
+        <td>
+
+          {{walk.date}}
+
+        </td>
+
+        <td>
+
+        {{walk.walkLocation.name}},
+        {{walk.walkLocation.address.city}}, {{walk.walkLocation.address.state}}
+
+      </td>
+      <td>
+        {{walk.walkType.name}},
+        {{walk.walkCategory.name}}
+
+      </td>
+
+        </tr>
+
+
+
+
+
+
+      </tbody>
+    </table>
+
+
+    <button>Fix me</button>
+    <br />
+    <input type="checkbox"/>
+  </div>
+
+  <!-- <div *ngIf="selected">
+    <p>{{ selected.id }}</p>
+    <p>{{ selected.task }}</p>
+    <p>{{ selected.description }}</p>
+    <p>{{ selected.completed }}</p>
+    <button (click)="displayTodoTable()">Back</button>
+    <button (click)="setEditTodo()">Edit</button> -->
+
 <div>
     <div class="form-group">
         <input [(ngModel)]="searchWalk.date" class="form-control" type="date" name="date" id="date" />
         <label for="date" class="form-label">Date</label>
       </div>
-      <div class="form-group">
 
-        <label for="startTime">Start Time:</label>
-        <input type="time" [(ngModel)]="searchWalk.startTime" name="startTime" id="startTime" />
-
-        <label for="endTime">End Time:</label>
-        <input type="time" [(ngModel)]="searchWalk.endTime" name="endTime" id="endTime" />
-        <td></td>
-      </div>
       <br>
       <div class="form-group">
 
@@ -105,8 +161,13 @@
 
 <div *ngFor = "let result of results">
 
-{{result.name}}
-{{result.user}}
+
+
+
+
+
+
+
 </div>
 
 
