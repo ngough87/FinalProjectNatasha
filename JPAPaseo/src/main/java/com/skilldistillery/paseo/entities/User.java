@@ -26,11 +26,7 @@ public class User {
 
 	private String username;
 	
-<<<<<<< HEAD
 
-=======
-	
->>>>>>> f5e908e9a5f511ae08c52ddce3c65bc0efcf318a
 	private String password;
 	
 	@Column(name = "first_name")

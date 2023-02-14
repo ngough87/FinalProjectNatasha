@@ -6,7 +6,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Walk } from 'src/app/models/walk';
 
-
 import { AuthService } from 'src/app/services/auth.service';
 import { WalkLocationService } from 'src/app/services/walk-location.service';
 import { UserService } from 'src/app/services/user.service';
@@ -50,7 +49,6 @@ export class WalkComponent implements OnInit {
     this.loadCategories();
     this.loadTypes();
     this.loadLocation();
-
   }
 
   reload(): void {
@@ -107,9 +105,7 @@ export class WalkComponent implements OnInit {
   }
 
   createNewLocation(newLocation: WalkLocation): void {
-
     this.addressService.createAddress(newLocation.address).subscribe({
-
       next: (data) => {
         newLocation.address = data;
 
@@ -117,22 +113,18 @@ export class WalkComponent implements OnInit {
           next: (data) => {
             this.addLocation = false;
             this.loadLocation();
-
           },
           error: (fail) => {
             console.error('walk.component.ts, createNewLocation-2');
             console.error(fail);
           },
         });
-
       },
-
-        error:(fail)=> {
+      error: (fail) => {
         console.error('walk.component.ts, createNewLocation-1');
         console.error(fail);
-        },
-      });
-
+      },
+    });
   }
 
   updateWalk(walk: Walk) {
