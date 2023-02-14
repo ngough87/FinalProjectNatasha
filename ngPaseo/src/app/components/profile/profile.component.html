@@ -47,8 +47,9 @@
           <nav>
             <ul>
               <li>
-                <a (click)="displayPhotos = true; displayWalks = false;">Photos</a></li>
-                <li><a (click)="displayWalks = true; displayPhotos = false">Walks</a></li>
+                <a (click)="clickPhotos()">Photos</a></li>
+                <li><a (click)="clickCreatedWalks()">Created Walks</a></li>
+                <li><a (click)="clickJoinedWalks()">Joined Walks</a></li>
               <!-- <li><a (click)="displayGroups =">Groups</a></li> -->
               <!-- <li><a (click)="displayInterests">Interest</a></li> -->
             </ul>
@@ -79,7 +80,7 @@
             <img src="https://images.pexels.com/photos/5637806/pexels-photo-5637806.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Photo" />
             <img src="https://images.pexels.com/photos/9623763/pexels-photo-9623763.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Photo" />
         </div> -->
-        <div class="walks" id="walks" *ngIf="displayWalks">
+        <div class="walks" id="createdWalks" *ngIf="displayCreatedWalks">
            <div class="walks" *ngFor="let walk of walks">
             <div class="w3-row-padding">
               <div class="w3-third w3-container w3-margin-bottom col-4">
@@ -97,13 +98,11 @@
                 </div>
                 </div>
               </div>
-            <!-- <tr>{{walk.name}}</tr>
-            <tr>{{walk.description}}</tr> -->
             </div>
 
         </div>
 
-         <!-- Walk Modal -->
+         <!-- Created Walk Modal -->
          <ng-template #content let-modal>
           <div class="modal-header">
             <h4 class="modal-title" id="modal-basic-title">{{viewedWalk.name}}</h4>
@@ -128,21 +127,44 @@
               </tbody>
             </table>
             </div>
-            <!-- <form>
-              <div class="mb-3">
-                <label for="reply">Reply</label>
-                <div class="input-group">
-                  <textarea id="reply" class="form-control" name="reply" [(ngModel)]="createdMessage.contents"
-                  ></textarea>
-                </div>
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <app-create-message [receiverId]="viewedMessage.sender.id" [message]="createdMessage"
-            (click)="createdMessage.contents = ''"></app-create-message>
-          </div> -->
+            <div class="modal-footer">
+              <button>Delete Walk</button>
+            </div>
         </ng-template>
+        <!-- End Created Walk Modal -->
+
+         <!-- Joined Walk Modal -->
+         <ng-template #content let-modal>
+          <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">{{viewedWalk.name}}</h4>
+            <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+          </div>
+          <div class="modal-header">
+            <small class="text-uppercase text-muted">Date Planned: {{viewedWalk.date}}</small>
+            <small class="text-uppercase text-muted" *ngIf="viewedWalk.startTime && viewedWalk.endTime">Time: {{viewedWalk.startTime + ' - ' + viewedWalk.endTime}}</small>
+            <div>
+                <h4 class="modal-title"></h4>
+            </div>
+        </div>
+          <div class="modal-body">
+            <table>
+              <thead></thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <p>{{viewedWalk.description}}</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            </div>
+            <div class="modal-footer">
+              <button>View Creator</button>
+              <button>Join Walk</button>
+              <button>Leave Walk</button>
+            </div>
+        </ng-template>
+        <!-- End Joined Walk Modal -->
 
         </div>
       </div>

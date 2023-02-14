@@ -3,7 +3,6 @@ package com.skilldistillery.paseo.services;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -11,18 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.skilldistillery.paseo.entities.User;
+import com.skilldistillery.paseo.entities.UserWalk;
 import com.skilldistillery.paseo.entities.Walk;
-import com.skilldistillery.paseo.repositories.AddressRepository;
-import com.skilldistillery.paseo.repositories.GenderRepository;
-import com.skilldistillery.paseo.repositories.PreferredGenderRepository;
-import com.skilldistillery.paseo.repositories.PreferredWalkCategoryRepository;
-import com.skilldistillery.paseo.repositories.PreferredWalkLocationRepository;
-import com.skilldistillery.paseo.repositories.PreferredWalkTypeRepository;
 import com.skilldistillery.paseo.repositories.UserRepository;
-import com.skilldistillery.paseo.repositories.WalkCategoryRepository;
-import com.skilldistillery.paseo.repositories.WalkLocationRepository;
+import com.skilldistillery.paseo.repositories.UserWalkRepository;
 import com.skilldistillery.paseo.repositories.WalkRepository;
-import com.skilldistillery.paseo.repositories.WalkTypeRepository;
 
 @Service
 @Transactional
@@ -32,33 +24,10 @@ public class WalkServiceImpl implements WalkService {
 	private WalkRepository walkRepo;
 
 	@Autowired
-	private WalkCategoryRepository walkCatRepo;
-
-	@Autowired
-	private WalkLocationRepository walkLocRepo;
-
-	@Autowired
-	private WalkTypeRepository walkTypeRepo;
-
-	@Autowired
-	private PreferredWalkCategoryRepository preferredWalkCatrepo;
-
-	@Autowired
-	private PreferredGenderRepository preferredGenderRepo;
-
-	@Autowired
-	private PreferredWalkLocationRepository preferredWalkLocRepo;
-
-	@Autowired
-	private PreferredWalkTypeRepository preferredWalkTypeRepo;
-
-	@Autowired
 	private UserRepository userRepo;
+	
 	@Autowired
-	private AddressRepository addRepo;
-
-	@Autowired
-	private GenderRepository genderRepo;
+	private UserWalkRepository userWalkRepo;
 
 	@Override
 	public Walk findById(int id) {
@@ -193,5 +162,14 @@ public class WalkServiceImpl implements WalkService {
 		} }
 	return results;
 }
+	
+	public List<Walk> getJoinedWalksByUserId(int id) {
+		List<UserWalk> query = userWalkRepo.findByUserId(id);
+		List<Walk> output = new ArrayList<>();
+		for (UserWalk walk : query) {
+			output.add(walk.getWalk());
+		}
+		return output;
+	}
 
 }
