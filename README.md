@@ -63,8 +63,7 @@ Deployed application:
   
   | Return Type | Route            | Functionality |
 | ----------- | ---------------- |---------------|
-  |List < Messages > | GET api/messages | Returns a list of messages|
-  
+  |List < Messages > | GET api/messages | Returns a list of messages|  
   | Message   | GET api/messages /{id}       |Get one message by id|
   | List < Messages >  | POST api/messages/recevied      |Returns a list of received messages|
 | Message   | POST api/messages/create      |Register/Create a new message|
