@@ -10,8 +10,11 @@ import com.skilldistillery.paseo.entities.User;
 
 public interface FollowedUserRepository extends JpaRepository<FollowedUser, Integer>{
 	
-	List<User> findByUser_Id(int id);
+	List<FollowedUser> findByUser_Id(int id);
 	
 	FollowedUser findById(FollowedUserKey id);
+	List<FollowedUser> findByFollowedUserId(int id);
+
+	FollowedUser findByUserIdAndFollowedUserId(int id, int id2);
 	
 }

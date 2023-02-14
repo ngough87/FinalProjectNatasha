@@ -1,5 +1,6 @@
 package com.skilldistillery.paseo.services;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,7 @@ public class MessageServiceImpl implements MessageService {
 	public Message create(Message message) {
 		if(message != null) {
 			message.setEnabled(true);
+			message.setDateSent(LocalDate.now());
 			messageRepo.saveAndFlush(message);
 		}
 		return message;
@@ -69,13 +71,4 @@ public class MessageServiceImpl implements MessageService {
 		
 		return messageRepo.findById(messageId);
 	}
-
-	
-	
-
-
-
-
-
-
 }

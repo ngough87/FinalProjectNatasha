@@ -15,6 +15,7 @@ export class CreateMessageComponent {
   @Input() receiverId: number = 0;
   @Input() message: Message = new Message();
   @Input() receiverUsername: string = '';
+  contents:string = '';
 
   constructor(
     private auth: AuthService,
@@ -24,17 +25,18 @@ export class CreateMessageComponent {
   ) {}
 
   createNewMessage() {
+    this.contents = this.message.contents;
     if (this.receiverUsername) {
       this.userService.findUserByUsername(this.receiverUsername).subscribe({
         next: (receiver) => {
-          console.log(receiver);
           this.message.receiver = receiver;
           this.message.sender = new User();
           this.message.sender.id = Number(localStorage.getItem('currentUserId')
           );
+          this.message.contents = this.contents;
+
           this.messageService.create(this.message).subscribe({
             next: (data) => {
-              console.log(data);
             },
             error: (err) => {
               console.error('Failed to send message');
@@ -51,7 +53,6 @@ export class CreateMessageComponent {
 
       this.messageService.create(this.message).subscribe({
         next: (data) => {
-          console.log(data);
         },
         error: (err) => {
           console.error('Failed to send message');

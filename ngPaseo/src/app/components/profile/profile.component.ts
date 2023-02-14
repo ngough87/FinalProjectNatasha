@@ -10,6 +10,8 @@ import { UserService } from 'src/app/services/user.service';
 import { Address } from 'src/app/models/address';
 import { Gender } from 'src/app/models/gender';
 import { User } from 'src/app/models/user';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+
 
 @Component({
   selector: 'app-profile',
@@ -20,13 +22,19 @@ export class ProfileComponent implements OnInit {
 [x: string]: any;
   walks: Walk[] = [];
   user: User = new User();
+  followedUsers:User[] = [];
+  currentUserFollowedUsers: User[] = [];
+  followingUsers:User[] = [];
   address: Address = new Address();
   userGender = new Gender();
   genders: Gender[] = [];
   displayPhotos = true;
-  displayWalks = true;
+  displayWalks = false;
   displayGroups = false;
   displayInterests = false;
+  followed:boolean = false;
+  closeResult = '';
+  viewedWalk: Walk = new Walk();
 
   imageUrl: string = this.user.profileImageUrl;
   constructor(
@@ -36,7 +44,9 @@ export class ProfileComponent implements OnInit {
     private addressService: AddressService,
     private gender: GenderService,
     private walkService: WalkService,
-    private route: ActivatedRoute ) {}
+    private route: ActivatedRoute,
+    private modalService: NgbModal
+  ) {}
 
   ngOnInit() {
     this.getUser();
@@ -51,7 +61,11 @@ export class ProfileComponent implements OnInit {
           console.log(data);
           this.user = data;
           console.log(this.user);
+          this.getFollowed();
+          this.getFollowers();
           this.getUserWalks();
+          this.getCurrentUserFollowed();
+          this.viewedWalk = new Walk();
           if (!this.user.address) {
             this.user.address = new Address();
           } else {
@@ -78,7 +92,10 @@ export class ProfileComponent implements OnInit {
           console.log(data);
           this.user = data;
           console.log(this.user);
+          this.getFollowed();
+          this.getFollowers();
           this.getUserWalks();
+          this.getCurrentUserFollowed();
           if (!this.user.address) {
             this.user.address = new Address();
           } else {
@@ -113,6 +130,53 @@ export class ProfileComponent implements OnInit {
       },
     });
   }
+
+getFollowers(){
+  this.userService.findFollowers(+this.user.id).subscribe({
+    next: (data) => {
+      this.followingUsers = data;
+    },
+    error: (err) => {
+      console.error('Failed to get following users');
+      console.error(err);
+    }
+  })
+}
+
+getFollowed(){
+  this.userService.findFriends(+this.user.id).subscribe({
+    next: (data) => {
+      let id = localStorage.getItem('currentUserId');
+      this.followedUsers = data;
+
+    },
+    error: (err) => {
+      console.error('Failed to get followed users');
+      console.error(err);
+    }
+  })
+}
+
+getCurrentUserFollowed() {
+  let id:string = localStorage.getItem('currentUserId')!;
+  this.userService.findFriends(+id).subscribe({
+    next: (data) => {
+      let id = localStorage.getItem('currentUserId');
+      this.currentUserFollowedUsers = data;
+      for (let u of this.currentUserFollowedUsers) {
+        if (u.id === +this.user.id!) {
+          this.followed = true;
+          break;
+        }
+      }
+    },
+    error: (err) => {
+      console.error('Failed to get followed users');
+      console.error(err);
+    }
+  })
+}
+
   clickPhotos() {
     this.displayPhotos = !this.displayPhotos;
   }
@@ -122,6 +186,9 @@ export class ProfileComponent implements OnInit {
 
   followUser() {
     let id: string = this.route.snapshot.paramMap.get('id')!;
+    if (id === null) {
+      id = localStorage.getItem('currentUserId')!;
+    }
     this.userService.followUser(+id).subscribe({
       next: () => {
         this.getUser();
@@ -132,10 +199,26 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  adminDeactivateAccount(){
-    let id =this.route.snapshot.paramMap.get('id')!;
-    this.userService.adminDisableUser(+id).subscribe({
-      next: () => {
+
+  adminDelete(id: number){
+    if(this.user.role === admin){
+    this.userService.delete(id).subscribe({
+       });
+      }
+    }
+
+
+
+
+
+  unfollowUser() {
+    let id: string = this.route.snapshot.paramMap.get('id')!;
+    if (id === null) {
+      id = localStorage.getItem('currentUserId')!;
+    }
+    this.userService.unfollowUser(+id).subscribe({
+      next: (data) => {
+        this.followed = false;
         this.getUser();
       },
       error: (err) => {
@@ -144,4 +227,17 @@ export class ProfileComponent implements OnInit {
     })
   }
 
+
+    //Open reply modal
+    open(content:any, walk:Walk) {
+      this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
+        (result) => {
+          this.closeResult = `Closed with: ${result}`;
+        },
+        (reason) => {
+          this.closeResult = `Dismissed with ${reason}`;
+        },
+      );
+      this.viewedWalk = walk;
+    }
 }

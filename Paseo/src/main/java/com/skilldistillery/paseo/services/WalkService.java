@@ -18,4 +18,7 @@ public interface WalkService {
 
 	boolean disableWalk(int id);
 
+
+	List<Walk> searchByWalk(Walk searchWalk);
+
 }
