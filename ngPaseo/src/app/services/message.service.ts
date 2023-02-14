@@ -71,11 +71,10 @@ export class MessageService {
       );
   }
 
-  getSenderMessage(senderId: number): Observable<Message[]> {
-    console.log(senderId);
+  getSenderMessage(): Observable<Message[]> {
     return this.http
       .get<Message[]>(
-        this.url + 'api/messages/senderId/' + senderId,
+        this.url + 'api/messages',
         this.getHttpOptions()
       )
       .pipe(
