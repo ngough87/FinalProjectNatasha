@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit{
 
   walks: Walk[] = [];
   searchWalk: Walk = new Walk();
-  createNewWalk : boolean = false;
+  createNewWalk : boolean = true;
   walkTypes: WalkType[] = [];
   walkCategories: WalkCategory[] = [];
   walkLocations: WalkLocation[] = [];
