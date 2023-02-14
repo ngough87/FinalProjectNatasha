@@ -1,7 +1,7 @@
 # FinalProject
 
 
-###Team
+### Team
 - Sandra Harpole -  Scrum Master
 - Forrest January - Team Member
 - Kna Kong - Repo Owner
@@ -70,20 +70,20 @@ Deployed application:
 |  Message   | PUT api/messages /{messageId}       |Update an existing messages  by id|
 | void   | DELETE api/messages /{messageId}      |Delete an existing messages  by id|
   
-    | Return Type | Route            | Functionality |
+| Return Type | Route            | Functionality |
 | ----------- | ---------------- |---------------|
 |List<Walk>| GET api/walks | Get all walks|
-  |List<Walk>| GET api/walks/search | Search walks|
+|List<Walk>| GET api/walks/search | Search walks|
 |Walk| GET api/walks/{walkId} | Get walk {walkId}|
- |List<Walk>| GET api/walks/user/{userId} | Search walks by user id|
-  |Walk| POST api/walks| Create a new walk|
-  |Walk| PUT api/walks/{walkId}| Update walks by id|
-  |Walk| DELET api/walks/{walkId}|Delete walk by id|
-  |List<Walk>| GET api/walks/joined/{id}| Returns of list of joined walks by user id|
+|List<Walk>| GET api/walks/user/{userId} | Search walks by user id|
+|Walk| POST api/walks| Create a new walk|
+|Walk| PUT api/walks/{walkId}| Update walks by id|
+|Walk| DELET api/walks/{walkId}|Delete walk by id|
+|List<Walk>| GET api/walks/joined/{id}| Returns of list of joined walks by user id|
   
 
   
-  ###Technologies User
+  ### Technologies User
   -Java
   -Angular
   -MAMP
@@ -102,7 +102,7 @@ Deployed application:
 -SpringToolSuite
 -Terminal
   
-  ##LessonsLearned
+  ## LessonsLearned
   
  -Ran into JSON ignore issues during front end development
 -Importance of composite key classes for join tables
