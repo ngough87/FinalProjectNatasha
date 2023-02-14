@@ -51,11 +51,8 @@
         </tr>
 </table>
 
-
-
-
   </div>
-  <div *ngIf="walks">
+  <div *ngIf="walks && !selected">
     <div class="row-span-5">
     <span *ngFor="let category of walkCategories">  {{category.name}} |</span><br>
     <span *ngFor="let type of walkTypes"> {{type.name}} |</span><br>
@@ -71,12 +68,10 @@
         <th> Details</th>
       </thead>
       <tbody>
-        <tr *ngFor="let walk of walks">
+        <tr *ngFor="let walk of walks" (click)="selected = walk">
         <td>
           {{walk.name}}
         </td>
-
-
         <td>
           <img src="{{walk.user.profileImageUrl}}" height="100px" width="100px" alt="" class="img-thumbnail">
           <br>
@@ -93,8 +88,11 @@
 
         {{walk.walkLocation.name}},
         {{walk.walkLocation.address.city}}, {{walk.walkLocation.address.state}}
+        </td>
 
-      </td>
+
+
+
       <td>
         {{walk.walkType.name}},
         {{walk.walkCategory.name}}
@@ -102,10 +100,6 @@
       </td>
 
         </tr>
-
-
-
-
 
 
       </tbody>
@@ -117,13 +111,30 @@
     <input type="checkbox"/>
   </div>
 
-  <!-- <div *ngIf="selected">
-    <p>{{ selected.id }}</p>
-    <p>{{ selected.task }}</p>
-    <p>{{ selected.description }}</p>
-    <p>{{ selected.completed }}</p>
-    <button (click)="displayTodoTable()">Back</button>
-    <button (click)="setEditTodo()">Edit</button> -->
+  <div *ngIf="selected">
+
+    <td>
+      <img src="{{selected.user.profileImageUrl}}" height="100px" width="100px" alt="" class="img-thumbnail">
+      <br>
+        {{selected.user.username}}
+
+    </td>
+  <h1>{{selected.name}}</h1>
+  <img [src] = "selected.imageUrl">
+  <p>{{selected.description}}</p>
+
+  <h3>{{selected.walkLocation.name}}</h3>
+
+    <p> {{selected.walkLocation.address.street}}, {{selected.walkLocation.address.city}}
+
+    <br>
+
+    {{selected.walkLocation.address.state}}, {{selected.walkLocation.address.zip}}</p>
+
+    <button class="btn-lg" (click)="selected=null">Back</button>
+  </div>
+
+
 
 
 <div *ngFor = "let result of results">

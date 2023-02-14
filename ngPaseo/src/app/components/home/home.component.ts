@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit{
 
 
 
-
+  selected : Walk | null = null;
   walks: Walk[] = [];
   searchWalk: Walk = new Walk();
   users: User[] = [];
