@@ -23,7 +23,7 @@ public class UserWalk {
 	@MapsId(value="walk")
 	private Walk walk;
 	private String description;
-	private int rating;
+	private Integer rating;
 	
 	public UserWalk () {}
 
@@ -58,11 +58,11 @@ public class UserWalk {
 		this.id = id;
 	}
 
-	public int getRating() {
+	public Integer getRating() {
 		return rating;
 	}
 
-	public void setRating(int rating) {
+	public void setRating(Integer rating) {
 		this.rating = rating;
 	}
 

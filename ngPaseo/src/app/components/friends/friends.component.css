@@ -5,3 +5,12 @@
   padding-bottom: 3%;
   text-align: center;
 }
+
+
+body{
+  background-image: url("https://kajabi-storefronts-production.kajabi-cdn.com/kajabi-storefronts-production/blogs/32863/images/JcsvhaATZS86h3t21SEg_hiking2.avif.png");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  height: 150vh;
+  background-attachment: fixed;
+}

@@ -45,6 +45,8 @@ export class ProfileComponent implements OnInit {
   displayDeactivateProfileButton : boolean = false;
   currentUserId : number = 0;
 
+  viewedWalkJoined: boolean = false;
+  viewedWalkCreated: boolean = false;
 
   imageUrl: string = this.user.profileImageUrl;
   constructor(
@@ -71,10 +73,11 @@ export class ProfileComponent implements OnInit {
         next: (data) => {
           console.log(data);
           this.user = data;
-          console.log(this.user);
           this.getFollowed();
           this.getFollowers();
           this.getUserWalks();
+          this.getUserJoinedWalks();
+          this.getLoggedInUserJoinedWalks();
           this.getCurrentUserFollowed();
           this.viewedWalk = new Walk();
           if (!this.user.address) {
@@ -88,6 +91,8 @@ export class ProfileComponent implements OnInit {
             this.userGender = data.gender!;
           }
 
+          this.viewedWalkCreated = false;
+          this.viewedWalkJoined = false;
           this.imageUrl = Object.assign({}, this.user.profileImageUrl);
           console.log('Logged in');
         },
@@ -102,10 +107,11 @@ export class ProfileComponent implements OnInit {
         next: (data) => {
           console.log(data);
           this.user = data;
-          console.log(this.user);
           this.getFollowed();
           this.getFollowers();
           this.getUserWalks();
+          this.getUserJoinedWalks();
+          this.getLoggedInUserJoinedWalks();
           this.getCurrentUserFollowed();
           if (!this.user.address) {
             this.user.address = new Address();
@@ -118,6 +124,8 @@ export class ProfileComponent implements OnInit {
             this.userGender = data.gender!;
           }
 
+          this.viewedWalkCreated = false;
+          this.viewedWalkJoined = false;
           this.imageUrl = Object.assign({}, this.user.profileImageUrl);
           console.log('Logged in');
         },
@@ -144,8 +152,15 @@ export class ProfileComponent implements OnInit {
   }
 
   getUserJoinedWalks() {
-    this.walkService.getJoinedWalks(this.user.id).subscribe({
+    let id:number = 0;
+    if (this.route.snapshot.paramMap.get('id')) {
+      id = +this.route.snapshot.paramMap.get('id')!;
+    } else {
+      id = +localStorage.getItem('currentUserId')!;
+    }
+    this.walkService.getJoinedWalks(id).subscribe({
       next: (data) => {
+        console.log(data);
         this.joinedWalks = data;
       },
       error: (err) => {
@@ -156,10 +171,10 @@ export class ProfileComponent implements OnInit {
   }
 
   getLoggedInUserJoinedWalks() {
-    if (this.user.id === +localStorage.getItem('id')!) {
+    if (this.user.id === +localStorage.getItem('currentUserId')!) {
       this.loggedInUserWalks = this.joinedWalks;
     } else {
-      this.walkService.getJoinedWalks(+localStorage.getItem('id')!).subscribe({
+      this.walkService.getJoinedWalks(+localStorage.getItem('currentUserId')!).subscribe({
         next: (data) => {
           this.loggedInUserWalks = data;
         },
@@ -186,9 +201,7 @@ getFollowers(){
 getFollowed(){
   this.userService.findFriends(+this.user.id).subscribe({
     next: (data) => {
-      let id = localStorage.getItem('currentUserId');
       this.followedUsers = data;
-
     },
     error: (err) => {
       console.error('Failed to get followed users');
@@ -321,5 +334,25 @@ getCurrentUserFollowed() {
         },
       );
       this.viewedWalk = walk;
+      for (let walk of this.joinedWalks) {
+        if (walk.id === this.viewedWalk.id) {
+          this.viewedWalkJoined = true;
+          break;
+        }
+      }
+      for (let walk of this.walks) {
+        if (walk.id === this.viewedWalk.id) {
+          this.viewedWalkCreated = true;
+          break;
+        }
+      }
+    }
+
+    joinWalk() {
+
+    }
+
+    leaveWalk() {
+
     }
 }

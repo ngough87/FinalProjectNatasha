@@ -34,10 +34,50 @@
 
 <div *ngIf="checkLogin()">
 
+  <div class="form-group">
+
+          <input [(ngModel)]="searchWalk.date" class="form-control" type="date" name="date" id="date" />
+          <label for="date" class="form-label">Date</label>
+
+          <input [(ngModel)]="searchWalk.description" class="form-control" type="text" name="description"
+            id="description">
+          <label for="description" class="form-label">Keyword Search</label>
+
+          <label class="form-label" for="walkCategory">Walk Category </label>
+          <select [(ngModel)]="searchWalk.walkCategory" class="form-control form-select" name="walkCategory"
+            id="walkCategory">
+            <option [ngValue]="walkCategory" name="walkCategory" *ngFor="let walkCategory of walkCategories">
+              {{ walkCategory.name }}
+            </option>
+
+          </select>
+
+
+          <label for="walkType" class="form-label">Walk Type </label>
+          <select class="form-control form-select" [(ngModel)]="searchWalk.walkType" name="walkType" id="walkType">
+            <option class="" [ngValue]="walkType" name="walkType" *ngFor="let walkType of walkTypes">
+              {{ walkType.name }}
+            </option>
+          </select>
+
+
+          <label for="walkLocation" class="form-label">Walk Location</label>
+          <select class="form-control form-select" [(ngModel)]="searchWalk.walkLocation" name="walkLocation"
+            id="walkLocation">
+            <option [ngValue]="walkLocation" name="walkLocation" *ngFor="let walkLocation of walkLocations">
+              {{ walkLocation.name }}
+            </option>
+          </select>
+  <button (click)="search(searchWalk)">
+      Search
+  </button>
+
+  </div>
   <div *ngIf="walks">
-    <div class="row-span-5"> <span *ngFor="let category of walkCategories"> {{category.name}} |</span><br>
+    <div class="row-span-5">
+    <span *ngFor="let category of walkCategories">  {{category.name}} |</span><br>
     <span *ngFor="let type of walkTypes"> {{type.name}} |</span><br>
-    <span *ngFor="let location of walkLocations"> {{location.name}} </span><br>
+    <span *ngFor="let location of walkLocations">  {{location.name}}  |</span><br>
     </div>
     <table class="table table-striped table-bordered table-hover table-condensed">
 
@@ -56,8 +96,8 @@
 
 
         <td>
-          <img [src]="walk.user.profileImageUrl">
-
+          <img src="{{walk.user.profileImageUrl}}" height="100px" width="100px" alt="" class="img-thumbnail">
+          <br>
             {{walk.user.username}}
 
         </td>
@@ -103,66 +143,6 @@
     <button (click)="displayTodoTable()">Back</button>
     <button (click)="setEditTodo()">Edit</button> -->
 
-<div>
-    <div class="form-group">
-        <input [(ngModel)]="searchWalk.date" class="form-control" type="date" name="date" id="date" />
-        <label for="date" class="form-label">Date</label>
-      </div>
-
-      <br>
-      <div class="form-group">
-
-        <input [(ngModel)]="searchWalk.description" class="form-control" type="text" name="description"
-          id="description">
-        <label for="description" class="form-label">Keyword Search</label>
-
-      </div>
-
-
-
-
-      <div class="input-group mb-3">
-
-        <label class="input-group-text form-label" for="walkCategory">Walk Category </label>
-        <select [(ngModel)]="searchWalk.walkCategory" class="form-control form-select" name="walkCategory"
-          id="walkCategory">
-          <option [ngValue]="walkCategory" name="walkCategory" *ngFor="let walkCategory of walkCategories">
-            {{ walkCategory.name }}
-          </option>
-
-        </select>
-      </div>
-
-
-
-      <div class="input-group mb-3">
-        <label for="walkType" class=" input-group-text form-label">Walk Type </label>
-        <select class="form-control form-select" [(ngModel)]="searchWalk.walkType" name="walkType" id="walkType">
-          <option class="" [ngValue]="walkType" name="walkType" *ngFor="let walkType of walkTypes">
-            {{ walkType.name }}
-          </option>
-        </select>
-
-      </div>
-
-
-      <div class="input-group mb-3">
-        <label for="walkLocation" class="input-group-text  form-label">Walk Location</label>
-        <select class="form-control form-select" [(ngModel)]="searchWalk.walkLocation" name="walkLocation"
-          id="walkLocation">
-          <option [ngValue]="walkLocation" name="walkLocation" *ngFor="let walkLocation of walkLocations">
-            {{ walkLocation.name }}
-
-
-
-
-          </option>
-        </select>
-<button (click)="search(searchWalk)">
-    Search
-</button>
-
-</div>
 
 <div *ngFor = "let result of results">
 
@@ -181,7 +161,34 @@
     <button (click)="onSubmitUserSearch(keyword)" class="button">Search</button>
 
   </form>
-  <div *ngFor = "let onUserSearchResult of usersSearchResults"></div>
+  <div *ngFor = "let usersSearchResult of usersSearchResults"></div>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+
+    <thead>
+      <th>Name</th>
+      <th>User</th>
+
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+      <td>
+        {{user.firstName}}
+        {{user.lastName}}
+      </td>
+
+
+      <td>
+        <img src="{{user.profileImageUrl}}" height="100px" width="100px" alt="" class="img-thumbnail">
+        <br>
+          {{user.username}}
+
+
+      </td>
+
+      </tr>
+    </tbody>
+  </table>
 </div>
 
 
