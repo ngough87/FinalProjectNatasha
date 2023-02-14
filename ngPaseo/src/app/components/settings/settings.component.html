@@ -1,15 +1,19 @@
 
-<div class="bg-image "
+<!-- <div class="bg-image img-fluid "
 style="background-image: url('https://c1.wallpaperflare.com/preview/670/395/688/walk-path-feet-trail.jpg' );
-      background-size: 100%; background-repeat: no-repeat; height: 100vh; background-attachment: fixed;">
+      background-size: 100%; background-repeat: no-repeat; height: 100vh; background-attachment: fixed;"> -->
+
+<body>
 
 
 <div (load)="getLoggedInUser(); getGenders()">
-
+<div class="container-fluid">
   <div class="row">
 
     <div class="col-8 " id="form-wrapper" >
       <div class="bg-success text-dark bg-opacity-10"style="max-width: 750px; margin: 100px; float: left;  padding: 40px; background-color: #FBFCF9;">
+
+
         <form >
           <div style="text-align: center;">
       <h1>Account Settings</h1>
@@ -138,6 +142,7 @@ style="background-image: url('https://c1.wallpaperflare.com/preview/670/395/688/
           </div>
 
       </form>
+
 </div>
 
     </div>
@@ -147,8 +152,8 @@ style="background-image: url('https://c1.wallpaperflare.com/preview/670/395/688/
   <h1>Profile Image</h1>
         <div class="container" >
     <img src='https://t4.ftcdn.net/jpg/03/46/93/61/360_F_346936114_RaxE6OQogebgAWTalE1myseY1Hbb5qPM.jpg' *ngIf="!user.profileImageUrl">
-    <img [src]="imageUrl" onerror="this.onerror=null; this.src='https://t4.ftcdn.net/jpg/03/46/93/61/360_F_346936114_RaxE6OQogebgAWTalE1myseY1Hbb5qPM.jpg'" *ngIf="user.profileImageUrl">
-    <label for="profileImageUrl" class="form-label">Profile Image</label>
+    <img [src]="user.profileImageUrl" class="img-fluid" onerror="this.onerror=null; this.src='https://t4.ftcdn.net/jpg/03/46/93/61/360_F_346936114_RaxE6OQogebgAWTalE1myseY1Hbb5qPM.jpg'" *ngIf="user.profileImageUrl">
+    <label for="profileImageUrl" class="form-label">Update with url: </label>
     <input class="form-control" type="text" placeholder="enter image url"name="profileImageUrl" id="profileImageUrl" [(ngModel)]="user.profileImageUrl">
   </div>
     </div>
@@ -159,3 +164,6 @@ style="background-image: url('https://c1.wallpaperflare.com/preview/670/395/688/
   </div>
   </div>
 </div>
+
+</body>
+
