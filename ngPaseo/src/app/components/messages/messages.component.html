@@ -1,7 +1,22 @@
+<!-- Jumbotron -->
+<div
+  class="bg-image p-5 text-center shadow-1-strong rounded mb-5 text-white"
+  style="background-image: url('https://images.unsplash.com/photo-1488344100863-f49b3cec9853?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDEzfHx8ZW58MHx8fHw%3D&w=1000&q=80');"
+>
+  <h1 class="mb-3 h2">Connect with Paseo</h1>
+
+  <p>
+    In a perfect world, your ideal walking partner would live next door or work in the next office over.
+    If you don’t already have a local friend to recruit, take some steps and use Pase to find one!
+  </p>
+</div>
+<!-- Jumbotron -->
+<body>
 <div class="container" ng-app="app" ng-controller="ctrl">
+
   <div class="row min-vh-100 flex-column py-4">
       <div class="col-12 d-flex flex-column flex-grow-1">
-          <div class="row flex-fill">
+          <div class="row ">
               <div class="col-md-3 bg-light py-3 rounded mr-md-1 mb-2">
                   <ul class="list-group sticky-top sticky-offset">
                       <button class="btn btn-block btn-outline-secondary my-1 text-uppercase" (click)="compose(composecontent)">Compose</button>
@@ -22,25 +37,7 @@
                   </ul>
               </div>
               <div class="col-md py-3 rounded shadow bg-white ml-md-n1 mb-2">
-                  <!-- <div class="d-flex flex-sm-row flex-column py-1 mb-1">
-                      <button type="button" class="btn btn-outline-secondary text-uppercase mr-sm-1 mr-none">
-                          <div class="custom-control custom-checkbox">
-                              <input type="checkbox" class="custom-control-input" id="checkAll">
-                              <label class="custom-control-label text-nowrap" for="checkAll">All</label>
-                          </div>
-                      </button>
-                      <button type="button" class="btn btn-outline-secondary text-uppercase mr-sm-auto mr-none">Move...</button>
-                      <button type="button" class="btn btn-outline-secondary mr-sm-1 mr-none" data-target="#composeModal" data-toggle="modal"><i class="align-middle mb-1 material-icons">edit</i></button>
-                      <button type="button" class="btn btn-outline-secondary text-uppercase dropdown-toggle" data-toggle="dropdown">More</button>
-                      <div class="dropdown-menu dropdown-menu-right">
-                          <a href="#" class="dropdown-item px-3">Trash</a>
-                          <a href="#" class="dropdown-item px-3">Drafts</a>
-                          <a href="#" class="dropdown-item px-3">Favorites</a>
-                          <div class="dropdown-divider"></div>
-                          <a href="#" class="dropdown-item px-3">New folder..</a>
-                      </div>
-                  </div> -->
-                  <!-- messages list -->
+
                   <ul class="list-group py-2">
                     <div *ngIf="selected === 1">
 
@@ -266,3 +263,4 @@
       </div>
   </div>
 </div>
+</body>
