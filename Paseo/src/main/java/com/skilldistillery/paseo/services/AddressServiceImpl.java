@@ -35,13 +35,7 @@ public class AddressServiceImpl implements AddressService {
 	public Address update(Address address, int id) {
 		Address output = addressRepo.findByStreetAndCityAndStateAndZip(address.getStreet(), address.getCity(), address.getState(), address.getZip());
 		if (output == null) {
-			output = addressRepo.findById(id);
-			
-			output.setStreet(address.getStreet());
-			output.setCity(address.getCity());
-			output.setState(address.getState());
-			output.setZip(address.getZip());
-			output = addressRepo.saveAndFlush(output);
+			output = addressRepo.saveAndFlush(address);
 		}
 		
 		return output;

@@ -20,5 +20,6 @@ public interface WalkService {
 
 
 	List<Walk> searchByWalk(Walk searchWalk);
+	List<Walk> getJoinedWalksByUserId(int id);
 
 }
