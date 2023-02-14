@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.paseo.entities.User;
+import com.skilldistillery.paseo.repositories.UserRepository;
 import com.skilldistillery.paseo.services.AuthService;
 import com.skilldistillery.paseo.services.FollowedUserService;
 import com.skilldistillery.paseo.services.UserService;
@@ -35,6 +36,9 @@ public class UserController {
 	
 	@Autowired
 	private FollowedUserService followedUserService;
+	
+	@Autowired 
+	private UserRepository userRepo;
 
 	@GetMapping("users")
 	public List<User> show(HttpServletRequest req, HttpServletResponse resp) {
@@ -82,7 +86,7 @@ public class UserController {
 		User existing = null;
 		System.out.println(user);
 		try {
-			existing = userService.update(principal.getName(), user, id);
+			existing = userService.update(user, id);
 			if (existing == null) {
 				resp.setStatus(404);
 			}
@@ -158,6 +162,26 @@ public class UserController {
 		return output;
 	}
 	
-	
+	@GetMapping("users/search/{keyword}")
+	public List<User> findByFirstNameOrLastNameOrUsername(@PathVariable("keyword") String keyword, Principal principal, HttpServletResponse resp){
+		List<User> searchResult = null;
+		
+		User loggedInUser = userRepo.findByUsername(principal.getName());
+		
+		try {
+			if(loggedInUser != null) {
+				
+				searchResult = userService.findByFirstNameLastNameOrUsername(keyword);
+				
+				resp.setStatus(200);
+			}
+		} catch (Exception e) {
+			resp.setStatus(404);
+			e.printStackTrace();
+		}
+		
+		return searchResult;
+		
+	}
 
 }

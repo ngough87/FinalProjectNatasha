@@ -1,5 +1,6 @@
+import { User } from './../../models/user';
 import { AuthService } from './../../services/auth.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Walk } from 'src/app/models/walk';
 import { Address } from 'src/app/models/address';
@@ -12,6 +13,7 @@ import { WalkCategoryService } from 'src/app/services/walk-category.service';
 import { WalkLocationService } from 'src/app/services/walk-location.service';
 import { WalkTypeService } from 'src/app/services/walk-type.service';
 import { WalkService } from 'src/app/services/walk.service';
+
 
 @Component({
   selector: 'app-home',
@@ -26,11 +28,15 @@ export class HomeComponent implements OnInit{
   selected : Walk | null = null;
   walks: Walk[] = [];
   searchWalk: Walk = new Walk();
-  createNewWalk : boolean = true;
+  users: User[] = [];
+  usersSearchResults: User[] = [];
+  createNewWalk : boolean = false;
   walkTypes: WalkType[] = [];
   walkCategories: WalkCategory[] = [];
   walkLocations: WalkLocation[] = [];
   results: Walk[] = [];
+  keyword: String = "";
+  loggedInUser: User = new User();
 
   newLocation: WalkLocation | null = null;
   newAddress: Address | null = null;
@@ -42,16 +48,33 @@ export class HomeComponent implements OnInit{
     private walkService: WalkService,
     private walkLocationService: WalkLocationService,
     private walkCatService: WalkCategoryService,
-    private walkTypeService: WalkTypeService
+    private walkTypeService: WalkTypeService,
 
   ) {}
-  ngOnInit(): void {
 
+
+  ngOnInit(): void {
+    this. getLoggedInUser();
     this.loadCategories();
     this.loadTypes();
     this.loadLocation();
     this.reload();
     this.checkLogin();
+
+  }
+
+
+  onSubmitUserSearch(keyword: String){
+    this.userService.searchForUser(keyword).subscribe({
+      next: (data : User[]) => {
+        this.usersSearchResults = data;
+
+      },
+      error: (error) =>{
+        console.error("HomeComponent search() failed");
+        console.error(error);
+      }
+    })
   }
 
 
@@ -112,4 +135,17 @@ reload(){
       },
     });
   }
+  getLoggedInUser(){
+    this.auth.getLoggedInUser().subscribe({
+      next: (data) => {
+        this.loggedInUser = data;
+
+      }
+    })
+  }
+  updateUser(user: User){
+    console.log(user.id)
+    this.router.navigateByUrl('/settings/' + user.id);
+  }
+
 }

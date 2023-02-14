@@ -23,7 +23,28 @@ export class UserService {
     return options;
   }
 
+  index(): Observable<User[]> {
+    //return this.http.get<Todo[]>(this.url + '?sorted=true').pipe(
+    return this.http.get<User[]>(this.url + 'api/user ', this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('UserService.index(): error retrieving users: ' + err)
+        );
+      })
+    );
+  }
+  searchForUser(keyword : String ): Observable<User[]> {
 
+    return this.http.get<User[]>(this.url + 'api/users/search/' + keyword,  this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('UserService.search(): error retrieving users: ' + err)
+        );
+      })
+    );
+  }
 
   updateUser(user: User): Observable<User> {
     console.log(user);
@@ -127,6 +148,16 @@ export class UserService {
         console.log(err);
         return throwError(
           () => new Error('UserService.followUser(): error unfollowing user.')
+        );
+      })
+    );
+  }
+  adminDisableUser(id:number):Observable<void> {
+    return this.http.delete<void>(this.url + "api/user/" + id, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('UserService.disableUser(): error disabling user.')
         );
       })
     );

@@ -35,8 +35,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User update(String username, User user, int id) {
-		User existing = userRepo.findByUsernameAndId(username, id);
+	public User update(User user, int id) {
+		User existing = userRepo.findByUsernameAndId(user.getUsername(), id);
 		if (existing != null) {
 			existing.setUsername(user.getUsername());
 			//existing.setPassword(user.getPassword());
@@ -132,6 +132,21 @@ public class UserServiceImpl implements UserService {
 		}
 		
 		return output;
+	}
+
+	@Override
+	public List<User> findByFirstNameLastNameOrUsername(String keyword) {
+		keyword = "%" + keyword + "%";
+		List<User> keywordSearch = userRepo.findByFirstNameLikeOrLastNameLikeOrUsernameLike(keyword, keyword, keyword);
+		for(User user: keywordSearch) {
+			user.setBirthdate(null);
+			user.setAddress(null);
+			user.setPassword(null);
+			user.setEnabled(null);
+			user.setRole(null);
+			
+		}
+		return userRepo.findByFirstNameLikeOrLastNameLikeOrUsernameLike(keyword, keyword, keyword);
 	}
 	
 	

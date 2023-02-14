@@ -50,7 +50,7 @@ public class MessageServiceImpl implements MessageService {
 			messageRepo.saveAndFlush(deleteMe);
 			success = true;
 		}
-		return success;
+		return success; 
 	}
 
 	@Override

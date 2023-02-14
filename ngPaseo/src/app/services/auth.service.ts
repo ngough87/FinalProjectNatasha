@@ -45,6 +45,7 @@ export class AuthService {
   }
 
   getLoggedInUser() {
+    console.log("inside get loggedin method")
     let credentials = atob("" + this.getCredentials());
     if (!credentials) {
       throw new Error('Not logged in');
