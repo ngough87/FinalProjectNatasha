@@ -9,7 +9,7 @@ import com.skilldistillery.paseo.entities.Walk;
 public interface WalkRepository extends JpaRepository<Walk, Integer>{
 
 	
-	List<Walk> findByUser_Id(int id);
+	List<Walk> findByUser_IdAndEnabled(int id, boolean enabled);
 	
 	Walk findByUserId(int userId);
 	

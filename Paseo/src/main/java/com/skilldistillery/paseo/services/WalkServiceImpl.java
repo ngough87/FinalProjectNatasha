@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.skilldistillery.paseo.entities.User;
 import com.skilldistillery.paseo.entities.UserWalk;
+import com.skilldistillery.paseo.entities.UserWalkKey;
 import com.skilldistillery.paseo.entities.Walk;
 import com.skilldistillery.paseo.repositories.UserRepository;
 import com.skilldistillery.paseo.repositories.UserWalkRepository;
@@ -62,7 +63,8 @@ public class WalkServiceImpl implements WalkService {
 
 		if (user != null && user.getEnabled() == true) {
 
-			usersListOfWalks = walkRepo.findByUser_Id(userID);
+			usersListOfWalks = walkRepo.findByUser_IdAndEnabled(userID, true);
+			
 
 		}
 
@@ -76,8 +78,12 @@ public class WalkServiceImpl implements WalkService {
 		if (newWalk != null && user != null) {
 			newWalk.setUser(user);
 			newWalk.setEnabled(true);
-			walkRepo.saveAndFlush(newWalk);
-
+			newWalk = walkRepo.saveAndFlush(newWalk);
+			
+			UserWalkKey key = new UserWalkKey(userId, newWalk.getId());
+			UserWalk joinedWalk = new UserWalk(key, user, newWalk);
+			userWalkRepo.saveAndFlush(joinedWalk);
+			user.addCreatedWalks(newWalk);
 		}
 
 		return newWalk;
@@ -113,7 +119,11 @@ public class WalkServiceImpl implements WalkService {
 			walk.setEnabled(false);
 			walkRepo.saveAndFlush(walk);
 			deleted = true;
-
+			
+			UserWalkKey key = new UserWalkKey(walk.getUser().getId(), walk.getId());
+			UserWalk leftWalk = new UserWalk(key, walk.getUser(), walk);
+			userWalkRepo.saveAndFlush(leftWalk);
+			walk.getUser().removeCreatedWalks(walk);
 		}
 
 		return deleted;
@@ -164,7 +174,7 @@ public class WalkServiceImpl implements WalkService {
 }
 	
 	public List<Walk> getJoinedWalksByUserId(int id) {
-		List<UserWalk> query = userWalkRepo.findByUserId(id);
+		List<UserWalk> query = userWalkRepo.findByUserIdAndWalk_Enabled(id, true);
 		List<Walk> output = new ArrayList<>();
 		for (UserWalk walk : query) {
 			output.add(walk.getWalk());
