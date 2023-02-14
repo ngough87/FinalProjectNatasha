@@ -133,6 +133,21 @@ public class UserServiceImpl implements UserService {
 		
 		return output;
 	}
+
+	@Override
+	public List<User> findByFirstNameLastNameOrUsername(String keyword) {
+		keyword = "%" + keyword + "%";
+		List<User> keywordSearch = userRepo.findByFirstNameLikeOrLastNameLikeOrUsernameLike(keyword, keyword, keyword);
+		for(User user: keywordSearch) {
+			user.setBirthdate(null);
+			user.setAddress(null);
+			user.setPassword(null);
+			user.setEnabled(null);
+			user.setRole(null);
+			
+		}
+		return userRepo.findByFirstNameLikeOrLastNameLikeOrUsernameLike(keyword, keyword, keyword);
+	}
 	
 	
 

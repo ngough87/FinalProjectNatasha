@@ -56,7 +56,6 @@ export class WalkService {
   }
 
   update(walk: Walk): Observable<Walk> {
-    console.log(walk);
     // Create GET request to authenticate credentials
     return this.http
       .put<Walk>(this.url + 'api/walks/' + walk.id, walk, this.getHttpOptions())
@@ -108,7 +107,6 @@ getById(id: number): Observable<Walk> {
   }
 
 getUserWalks(userId: number): Observable<Walk[]> {
-  console.log(userId);
   return this.http.get<Walk[]>(this.url + 'api/walks/user/' + userId, this.getHttpOptions()).pipe(
     catchError((err: any) => {
       console.log(err);
@@ -119,4 +117,15 @@ getUserWalks(userId: number): Observable<Walk[]> {
   );
 }
 
+getJoinedWalks(userId:number):Observable<Walk[]> {
+  return this.http.get<Walk[]>(this.url + 'api/walks/joined/' + userId, this.getHttpOptions()).pipe(
+    catchError((err: any) => {
+      console.log(err);
+      return throwError(
+        () => new Error('WalkService.getJoinedWalks(): error retrieving joined walks for user: ' + err)
+      );
+    })
+  );
+
+}
 }

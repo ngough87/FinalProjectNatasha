@@ -34,9 +34,9 @@ export class UserService {
       })
     );
   }
-  search(users : User): Observable<User[]> {
+  searchForUser(keyword : String ): Observable<User[]> {
 
-    return this.http.post<User[]>(this.url + 'api/user ', users,  this.getHttpOptions()).pipe(
+    return this.http.get<User[]>(this.url + 'api/users/search/' + keyword,  this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError(

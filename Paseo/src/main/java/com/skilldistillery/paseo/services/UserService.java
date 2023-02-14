@@ -15,4 +15,6 @@ User findById(int id);
 
 public List<User> findUsersByMatchingPreferences(User loggedInUser);
 
+public List<User> findByFirstNameLastNameOrUsername(String keyword);
+
 }

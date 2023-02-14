@@ -21,6 +21,9 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 export class ProfileComponent implements OnInit {
 [x: string]: any;
   walks: Walk[] = [];
+  joinedWalks: Walk[] = [];
+  loggedInUserWalks: Walk[] = [];
+
   user: User = new User();
   followedUsers:User[] = [];
   currentUserFollowedUsers: User[] = [];
@@ -28,11 +31,14 @@ export class ProfileComponent implements OnInit {
   address: Address = new Address();
   userGender = new Gender();
   genders: Gender[] = [];
+
   displayPhotos = true;
-  displayWalks = false;
+  displayCreatedWalks = false;
+  displayJoinedWalks = false;
   displayGroups = false;
   displayInterests = false;
   followed:boolean = false;
+
   closeResult = '';
   viewedWalk: Walk = new Walk();
   adminUser : User = new User();
@@ -137,16 +143,44 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  getFollowers(){
-    this.userService.findFollowers(+this.user.id).subscribe({
+  getUserJoinedWalks() {
+    this.walkService.getJoinedWalks(this.user.id).subscribe({
       next: (data) => {
-        this.followingUsers = data;
+        this.joinedWalks = data;
       },
       error: (err) => {
-        console.error('Failed to get following users');
-        console.error(err);
+        console.error('Failed to get joined walks');
+      console.error(err);
       }
     })
+  }
+
+  getLoggedInUserJoinedWalks() {
+    if (this.user.id === +localStorage.getItem('id')!) {
+      this.loggedInUserWalks = this.joinedWalks;
+    } else {
+      this.walkService.getJoinedWalks(+localStorage.getItem('id')!).subscribe({
+        next: (data) => {
+          this.loggedInUserWalks = data;
+        },
+        error: (err) => {
+          console.error('Failed to get joined walks');
+        console.error(err);
+        }
+    });
+  }
+}
+
+getFollowers(){
+  this.userService.findFollowers(+this.user.id).subscribe({
+    next: (data) => {
+      this.followingUsers = data;
+    },
+    error: (err) => {
+      console.error('Failed to get following users');
+      console.error(err);
+    }
+  })
 }
 
 getFollowed(){
@@ -183,11 +217,20 @@ getCurrentUserFollowed() {
   })
 }
 
-clickPhotos() {
-  this.displayPhotos = !this.displayPhotos;
-}
-onClickWalks() {
-    this.displayWalks = !this.displayWalks;
+  clickPhotos() {
+    this.displayPhotos = true;
+    this.displayCreatedWalks = false;
+    this.displayJoinedWalks = false;
+  }
+  clickCreatedWalks() {
+    this.displayPhotos = false;
+    this.displayCreatedWalks = true;
+    this.displayJoinedWalks = false;
+  }
+  clickJoinedWalks() {
+    this.displayPhotos = false;
+    this.displayCreatedWalks = false;
+    this.displayJoinedWalks = true;
   }
 
   followUser() {

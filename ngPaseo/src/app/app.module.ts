@@ -20,6 +20,10 @@ import { RegisterComponent } from './components/register/register.component';
 import { WalkComponent } from './components/walk/walk.component';
 import { CreateMessageComponent } from './components/create-message/create-message.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { WalkCategoryPipe } from './pipes/walk-category.pipe';
+import { WalkTypePipe } from './pipes/walk-type.pipe';
+import { WalkLocationPipe } from './pipes/walk-location.pipe';
+import { WalkGenderPipe } from './pipes/walk-gender.pipe';
 
 @NgModule({
   declarations: [
@@ -37,7 +41,11 @@ import { FooterComponent } from './components/footer/footer.component';
     WalkPageComponent,
     WalkComponent,
     CreateMessageComponent,
-    FooterComponent
+    FooterComponent,
+    WalkCategoryPipe,
+    WalkTypePipe,
+    WalkLocationPipe,
+    WalkGenderPipe
   ],
   imports: [
     BrowserModule,

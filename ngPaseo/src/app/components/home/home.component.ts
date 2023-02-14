@@ -1,6 +1,6 @@
 import { User } from './../../models/user';
 import { AuthService } from './../../services/auth.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Walk } from 'src/app/models/walk';
 import { Address } from 'src/app/models/address';
@@ -13,6 +13,7 @@ import { WalkCategoryService } from 'src/app/services/walk-category.service';
 import { WalkLocationService } from 'src/app/services/walk-location.service';
 import { WalkTypeService } from 'src/app/services/walk-type.service';
 import { WalkService } from 'src/app/services/walk.service';
+
 
 @Component({
   selector: 'app-home',
@@ -28,12 +29,12 @@ export class HomeComponent implements OnInit{
   walks: Walk[] = [];
   searchWalk: Walk = new Walk();
   users: User[] = [];
-  searchUsers: User = new User();
+  usersSearchResults: User[] = [];
   walkTypes: WalkType[] = [];
   walkCategories: WalkCategory[] = [];
   walkLocations: WalkLocation[] = [];
   results: Walk[] = [];
-
+  keyword: String = "";
 
   newLocation: WalkLocation | null = null;
   newAddress: Address | null = null;
@@ -45,16 +46,32 @@ export class HomeComponent implements OnInit{
     private walkService: WalkService,
     private walkLocationService: WalkLocationService,
     private walkCatService: WalkCategoryService,
-    private walkTypeService: WalkTypeService
+    private walkTypeService: WalkTypeService,
 
   ) {}
+
+
   ngOnInit(): void {
 
     this.loadCategories();
     this.loadTypes();
     this.loadLocation();
-
+    this.reload();
     this.checkLogin();
+  }
+
+
+  onSubmitUserSearch(keyword: String){
+    this.userService.searchForUser(keyword).subscribe({
+      next: (data : User[]) => {
+        this.usersSearchResults = data;
+
+      },
+      error: (error) =>{
+        console.error("HomeComponent search() failed");
+        console.error(error);
+      }
+    })
   }
 
 
@@ -70,17 +87,17 @@ error: (error) =>{
 });
 
 }
-searchUser(searchUsers: User){
-this.userService.search(searchUsers).subscribe({
-  next: (data) => {
-    this.users = data;
-  },
-error: (error) =>{
-  console.error("HomeComponent user search() failed");
-  console.error(error);
-}
-});
+reload(){
+  this.walkService.index().subscribe({
+    next: (data) => {
+      this.walks = data;
+    },
+    error: (error) =>{
+      console.error("HomeComponent reload error");
+      console.error(error);
+    }
 
+  });
 }
 
   checkLogin(){

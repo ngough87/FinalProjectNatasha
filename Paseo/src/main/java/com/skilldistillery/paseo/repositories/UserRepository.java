@@ -17,7 +17,7 @@ User findById(int id);
 
 List<User> findByEnabled(boolean b);
 
-List<User> findByFirst_NameLikeLast_NameLikeUsernameLike(@Param("keyword1") String keyword1, @Param("keyword2") String keyword2, @Param("keyword3") String keyword3);
+List<User> findByFirstNameLikeOrLastNameLikeOrUsernameLike(@Param("k") String keyword, @Param("k") String keyword1, @Param("k") String keyword3);
 
 
 }

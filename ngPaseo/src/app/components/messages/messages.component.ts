@@ -14,16 +14,18 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 })
 export class MessagesComponent implements OnInit {
   messages: Message[] = [];
-  inbox:Message[] = [];
+  inbox: Message[] = [];
   deletedMessages: Message[] = [];
+  sentMessages: Message[] = [];
   sender: User = new User();
   receiver: User = new User();
   closeResult = '';
-  receiverId:number = 0;
-  viewedMessage:Message = new Message();
-  createdMessage:Message = new Message();
-  selected:number = 1;
-  receiverUsername:string = '';
+  receiverId: number = 0;
+  viewedMessage: Message = new Message();
+  createdMessage: Message = new Message();
+  selected: number = 1;
+  receiverUsername: string = '';
+  followedUsers: User[] = [];
 
   constructor(
     private auth: AuthService,
@@ -38,13 +40,17 @@ export class MessagesComponent implements OnInit {
   }
 
   reload(): void {
+    if (this.auth.checkLogin()){
     this.messageService.index().subscribe({
       next: (data) => {
         this.inbox = [];
         this.deletedMessages = [];
+        this.sentMessages = [];
+        this.followedUsers = [];
         this.messages = data;
+        this.getFollowed();
+        this.getSentMessages();
         for (let message of this.messages) {
-          console.log(message);
           if (message.enabled) {
             this.inbox.push(message);
           } else {
@@ -60,6 +66,9 @@ export class MessagesComponent implements OnInit {
         console.error(err);
       },
     });
+  } else {
+    this.router.navigateByUrl('/home');
+  }
   }
 
   createNewMessage(message: Message, receiverId: number) {
@@ -86,20 +95,37 @@ export class MessagesComponent implements OnInit {
     });
   }
 
-
   //Open reply modal
-  open(content:any, message:Message) {
-		this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
-			(result) => {
-				this.closeResult = `Closed with: ${result}`;
-			},
-			(reason) => {
-				this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-			},
-		);
+  open(content: any, message: Message) {
+    this.modalService
+      .open(content, { ariaLabelledBy: 'modal-basic-title' })
+      .result.then(
+        (result) => {
+          this.closeResult = `Closed with: ${result}`;
+        },
+        (reason) => {
+          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        }
+      );
     this.receiverId = message.receiver.id;
     this.viewedMessage = message;
-	}
+  }
+
+  //Open view modal
+  view(content: any, message: Message) {
+    this.modalService
+      .open(content, { ariaLabelledBy: 'modal-basic-title' })
+      .result.then(
+        (result) => {
+          this.closeResult = `Closed with: ${result}`;
+        },
+        (reason) => {
+          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        }
+      );
+    this.receiverId = message.receiver.id;
+    this.viewedMessage = message;
+  }
 
   close() {
     this.modalService.dismissAll();
@@ -107,24 +133,60 @@ export class MessagesComponent implements OnInit {
   }
 
   //Open reply modal
-  compose(content:any) {
-		this.modalService.open(content, { ariaLabelledBy: 'modal-basic-content' }).result.then(
-			(result) => {
-				this.closeResult = `Closed with: ${result}`;
-			},
-			(reason) => {
-				this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-			},
-		);
-	}
+  compose(content: any) {
+    this.modalService
+      .open(content, { ariaLabelledBy: 'modal-basic-content' })
+      .result.then(
+        (result) => {
+          this.closeResult = `Closed with: ${result}`;
+        },
+        (reason) => {
+          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        }
+      );
+  }
 
-	private getDismissReason(reason: any): string {
-		if (reason === ModalDismissReasons.ESC) {
-			return 'by pressing ESC';
-		} else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-			return 'by clicking on a backdrop';
-		} else {
-			return `with: ${reason}`;
-		}
-	}
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+
+  getFollowed() {
+    let id = localStorage.getItem('currentUserId');
+    if (id && !isNaN(+id)) {
+      this.userService.findFriends(+id).subscribe({
+        next: (data) => {
+          this.followedUsers = data;
+        },
+        error: (err) => {
+          console.error('Failed to get followed users');
+          console.error(err);
+        },
+      });
+    } else {
+      this.router.navigateByUrl('/home');
+    }
+  }
+
+  getSentMessages() {
+    let id = localStorage.getItem('currentUserId');
+    if (id && !isNaN(+id)) {
+      this.messageService.getSenderMessage().subscribe({
+        next: (data) => {
+          this.sentMessages = data;
+        },
+        error: (err) => {
+          console.error('messages.component.getSentMessages(): Error retrieving sent messages');
+          console.error(err);
+        }
+      })
+  } else {
+    this.router.navigateByUrl('/home');
+  }
+}
 }
