@@ -16,6 +16,7 @@ export class MessagesComponent implements OnInit {
   messages: Message[] = [];
   inbox: Message[] = [];
   deletedMessages: Message[] = [];
+  sentMessages: Message[] = [];
   sender: User = new User();
   receiver: User = new User();
   closeResult = '';
@@ -39,13 +40,16 @@ export class MessagesComponent implements OnInit {
   }
 
   reload(): void {
+    if (this.auth.checkLogin()){
     this.messageService.index().subscribe({
       next: (data) => {
         this.inbox = [];
         this.deletedMessages = [];
+        this.sentMessages = [];
         this.followedUsers = [];
         this.messages = data;
         this.getFollowed();
+        this.getSentMessages();
         for (let message of this.messages) {
           if (message.enabled) {
             this.inbox.push(message);
@@ -62,6 +66,9 @@ export class MessagesComponent implements OnInit {
         console.error(err);
       },
     });
+  } else {
+    this.router.navigateByUrl('/home');
+  }
   }
 
   createNewMessage(message: Message, receiverId: number) {
@@ -104,7 +111,7 @@ export class MessagesComponent implements OnInit {
     this.viewedMessage = message;
   }
 
-  //Open reply modal
+  //Open view modal
   view(content: any, message: Message) {
     this.modalService
       .open(content, { ariaLabelledBy: 'modal-basic-title' })
@@ -165,4 +172,21 @@ export class MessagesComponent implements OnInit {
       this.router.navigateByUrl('/home');
     }
   }
+
+  getSentMessages() {
+    let id = localStorage.getItem('currentUserId');
+    if (id && !isNaN(+id)) {
+      this.messageService.getSenderMessage().subscribe({
+        next: (data) => {
+          this.sentMessages = data;
+        },
+        error: (err) => {
+          console.error('messages.component.getSentMessages(): Error retrieving sent messages');
+          console.error(err);
+        }
+      })
+  } else {
+    this.router.navigateByUrl('/home');
+  }
+}
 }

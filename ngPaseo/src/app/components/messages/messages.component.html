@@ -14,6 +14,10 @@
                               <span class="fa fa-trash fa-fw mr-md-1"></span>
                               <span class="d-none d-md-inline">Deleted</span>
                           </h1>
+                          <h1 (click)="selected = 3" class="nav-link text-muted px-md-1" title="Deleted">
+                              <span class="fa fa-trash fa-fw mr-md-1"></span>
+                              <span class="d-none d-md-inline">Sent</span>
+                          </h1>
                       </div>
                   </ul>
               </div>
@@ -76,6 +80,30 @@
                                   <div class="col-6" *ngIf="message.dateSent"><p>Received: {{message.dateSent}}</p></div>
                                  <div class="col-6" *ngIf="!message.dateSent"><p>Received: Unknown</p></div>
                                  <div class="col-6"> From: {{message.sender.firstName + ' ' + message.sender.lastName}}</div>
+                               </div>
+                               </div>
+                              </div>
+                              <div class="col-lg py-2">
+                                <div class="float-right text-right">
+                                  <span data-ng-class="{'font-weight-bold font-italic':!item.read}"></span>
+                                </div>
+                              </div>
+                            </div>
+                          </li>
+
+                        </div>
+
+                      <div *ngIf="selected === 3">
+
+                        <!-- Sent messages (repeated) -->
+                        <li *ngFor="let message of sentMessages" class="list-group-item d-block py-1">
+                          <div class="row" (click)="view(viewsent, message)">
+                            <div class="col-lg-3 p-2">
+                              <div class="custom-control text-nowrap">
+                                <div>
+                                  <div class="col-6" *ngIf="message.dateSent"><p>Sent: {{message.dateSent}}</p></div>
+                                 <div class="col-6" *ngIf="!message.dateSent"><p>Sent: Unknown</p></div>
+                                 <div class="col-6"> To: {{message.receiver.firstName + ' ' + message.receiver.lastName}}</div>
                                </div>
                                </div>
                               </div>
@@ -190,7 +218,43 @@
                         <div class="mb-3">
                           <label for="compose">Message</label>
                           <div class="input-group">
-                            <textarea id="compose" class="form-control" name="compose"[(ngModel)]="viewedMessage.contents" ></textarea>
+                            <textarea id="viewReceived" class="form-control" name="viewReceived">{{viewedMessage.contents}}</textarea>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </ng-template>
+                  <!-- End View Modal -->
+
+                  <!-- View Sent Modal -->
+                  <ng-template #viewsent let-modal>
+                    <div class="modal-header">
+                      <h4 class="modal-title" id="modal-basic-content" aria-label="modal-basic-content">View Message</h4>
+                      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+                    </div>
+                    <div class="modal-header">
+                      <small class="text-uppercase text-muted">Sent To: </small>
+                      <p>
+                        {{viewedMessage.receiver.username}}
+                      </p>
+                      <small class="text-uppercase text-muted">Sent On: </small>
+                      <p *ngIf="viewedMessage.dateSent">
+                        {{viewedMessage.dateSent}}
+                      </p>
+                      <p *ngIf="!viewedMessage.dateSent">
+                        Unknown
+                      </p>
+                      <div>
+                        <h4 class="modal-title"></h4>
+                      </div>
+                    </div>
+                    <div class="modal-body">
+                      <p><strong>To: </strong>{{viewedMessage.receiver.firstName + ' ' + viewedMessage.receiver.lastName}}</p>
+                      <form>
+                        <div class="mb-3">
+                          <label for="compose">Message</label>
+                          <div class="input-group">
+                            <textarea id="viewSent" class="form-control" name="viewSent">{{viewedMessage.contents}}</textarea>
                           </div>
                         </div>
                       </form>
