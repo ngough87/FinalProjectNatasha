@@ -414,7 +414,23 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `paseodb`;
-INSERT INTO `user` (`id`, `username`, `password`, `first_name`, `last_name`, `birthdate`, `description`, `enabled`, `role`, `profile_image_url`, `address_id`, `gender_id`) VALUES (1, 'admin', '$2a$10$4SMKDcs9jT18dbFxqtIqDeLEynC7MUrCEUbv1a/bhO.x9an9WGPvm', 'Bob', 'hope', NULL, NULL, 1, NULL, NULL, NULL, 1);
+INSERT INTO `user` (`id`, `username`, `password`, `first_name`, `last_name`, `birthdate`, `description`, `enabled`, `role`, `profile_image_url`, `address_id`, `gender_id`) VALUES (1, 'admin', '$2a$10$4SMKDcs9jT18dbFxqtIqDeLEynC7MUrCEUbv1a/bhO.x9an9WGPvm', 'Bob', 'hope', '1988-02-15', NULL, 1, 'admin', NULL, NULL, NULL);
+INSERT INTO `user` (`id`, `username`, `password`, `first_name`, `last_name`, `birthdate`, `description`, `enabled`, `role`, `profile_image_url`, `address_id`, `gender_id`) VALUES (2, 'walkerpuffy', 'cGFzc3dvcmQx', 'Johnson', 'Parker', '1988-02-15', NULL, 1, NULL, NULL, NULL, NULL);
+INSERT INTO `user` (`id`, `username`, `password`, `first_name`, `last_name`, `birthdate`, `description`, `enabled`, `role`, `profile_image_url`, `address_id`, `gender_id`) VALUES (3, 'walkerlongterm', 'cGFzc3dvcmQy', 'Omer', 'Washington', '1988-02-15', NULL, 1, NULL, NULL, NULL, NULL);
+INSERT INTO `user` (`id`, `username`, `password`, `first_name`, `last_name`, `birthdate`, `description`, `enabled`, `role`, `profile_image_url`, `address_id`, `gender_id`) VALUES (4, 'walkerstriking', 'cGFzc3dvcmQz', 'Dion', 'Cervantes', '1982-04-02', NULL, 1, NULL, NULL, NULL, NULL);
+INSERT INTO `user` (`id`, `username`, `password`, `first_name`, `last_name`, `birthdate`, `description`, `enabled`, `role`, `profile_image_url`, `address_id`, `gender_id`) VALUES (5, 'walkervivid', 'cGFzc3dvcmQ0', 'Sylvia', 'Owen', '1982-04-02', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `user` (`id`, `username`, `password`, `first_name`, `last_name`, `birthdate`, `description`, `enabled`, `role`, `profile_image_url`, `address_id`, `gender_id`) VALUES (6, 'walkerhardtofind', 'cGFzc3dvcmQ1', 'Bradly', 'Howe', '1982-04-02', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `user` (`id`, `username`, `password`, `first_name`, `last_name`, `birthdate`, `description`, `enabled`, `role`, `profile_image_url`, `address_id`, `gender_id`) VALUES (7, 'walkerprime', 'cGFzc3dvcmQ2', 'Janet', 'Poole', '1982-04-02', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `user` (`id`, `username`, `password`, `first_name`, `last_name`, `birthdate`, `description`, `enabled`, `role`, `profile_image_url`, `address_id`, `gender_id`) VALUES (8, 'chivalrouswalker', 'cGFzc3dvcmQ3', 'Hattie', 'Stephens', '1932-02-03', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `user` (`id`, `username`, `password`, `first_name`, `last_name`, `birthdate`, `description`, `enabled`, `role`, `profile_image_url`, `address_id`, `gender_id`) VALUES (9, 'walkerinformal', 'cGFzc3dvcmQ4', 'Shaun', 'Hogan', '1932-02-03', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `user` (`id`, `username`, `password`, `first_name`, `last_name`, `birthdate`, `description`, `enabled`, `role`, `profile_image_url`, `address_id`, `gender_id`) VALUES (10, 'runwigeon', 'cGFzc3dvcmQ5', 'Stacy', 'Fox', '1932-02-03', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `user` (`id`, `username`, `password`, `first_name`, `last_name`, `birthdate`, `description`, `enabled`, `role`, `profile_image_url`, `address_id`, `gender_id`) VALUES (11, 'woodchuckrun', 'cGFzc3dvcmQxMA==', 'Hung', 'Huff', '1932-02-03', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `user` (`id`, `username`, `password`, `first_name`, `last_name`, `birthdate`, `description`, `enabled`, `role`, `profile_image_url`, `address_id`, `gender_id`) VALUES (12, 'runyak', 'cGFzc3dvcmQxMQ==', 'Yong', 'Ashley', '2000-04-06', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `user` (`id`, `username`, `password`, `first_name`, `last_name`, `birthdate`, `description`, `enabled`, `role`, `profile_image_url`, `address_id`, `gender_id`) VALUES (13, 'ploverrun', 'cGFzc3dvcmQxMg==', 'Nelda', 'Walsh', '2000-04-06', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `user` (`id`, `username`, `password`, `first_name`, `last_name`, `birthdate`, `description`, `enabled`, `role`, `profile_image_url`, `address_id`, `gender_id`) VALUES (14, 'jackrabbitrun', 'cGFzc3dvcmQxMw==', 'Blanca', 'Black', '2000-04-06', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `user` (`id`, `username`, `password`, `first_name`, `last_name`, `birthdate`, `description`, `enabled`, `role`, `profile_image_url`, `address_id`, `gender_id`) VALUES (15, 'barracudarun', 'cGFzc3dvcmQxNA==', 'Trent', 'Cooke', '2000-04-06', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `user` (`id`, `username`, `password`, `first_name`, `last_name`, `birthdate`, `description`, `enabled`, `role`, `profile_image_url`, `address_id`, `gender_id`) VALUES (17, 'molerun', 'cGFzc3dvcmQxNQ==', 'Jerome', 'Burke', '2002-05-03', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `user` (`id`, `username`, `password`, `first_name`, `last_name`, `birthdate`, `description`, `enabled`, `role`, `profile_image_url`, `address_id`, `gender_id`) VALUES (18, 'crocodilerun', 'cGFzc3dvcmQxNg==', 'Jordon', 'Blanchard', '2002-05-03', NULL, NULL, NULL, NULL, NULL, NULL);
 
 COMMIT;
 
@@ -425,9 +441,11 @@ COMMIT;
 START TRANSACTION;
 USE `paseodb`;
 INSERT INTO `walk_type` (`id`, `name`, `description`) VALUES (1, 'stroll', NULL);
-INSERT INTO `walk_type` (`id`, `name`, `description`) VALUES (2, 'dog_walking', NULL);
-INSERT INTO `walk_type` (`id`, `name`, `description`) VALUES (3, 'speed_walking', NULL);
-INSERT INTO `walk_type` (`id`, `name`, `description`) VALUES (4, 'any', NULL);
+INSERT INTO `walk_type` (`id`, `name`, `description`) VALUES (2, 'dog walking', NULL);
+INSERT INTO `walk_type` (`id`, `name`, `description`) VALUES (3, 'speed walking', NULL);
+INSERT INTO `walk_type` (`id`, `name`, `description`) VALUES (4, 'hiking', NULL);
+INSERT INTO `walk_type` (`id`, `name`, `description`) VALUES (5, 'HIIT', NULL);
+INSERT INTO `walk_type` (`id`, `name`, `description`) VALUES (6, 'leisure', NULL);
 
 COMMIT;
 
@@ -443,7 +461,6 @@ INSERT INTO `walk_category` (`id`, `name`, `description`) VALUES (3, 'nature', N
 INSERT INTO `walk_category` (`id`, `name`, `description`) VALUES (4, 'mall walking', NULL);
 INSERT INTO `walk_category` (`id`, `name`, `description`) VALUES (5, 'tracks', NULL);
 INSERT INTO `walk_category` (`id`, `name`, `description`) VALUES (6, 'trails', NULL);
-INSERT INTO `walk_category` (`id`, `name`, `description`) VALUES (7, 'any', NULL);
 
 COMMIT;
 
@@ -453,7 +470,10 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `paseodb`;
-INSERT INTO `walk_location` (`id`, `name`, `description`, `address_id`, `image_url`) VALUES (1, 'Sunside Park', 'Sunny grassy knoll. ', 1, NULL);
+INSERT INTO `walk_location` (`id`, `name`, `description`, `address_id`, `image_url`) VALUES (1, 'Sunside Park', 'Sunny grassy knoll. ', 1, 'https://media.istockphoto.com/id/841278554/photo/beautiful-morning-light-in-public-park-with-green-grass-field.jpg?s=612x612&w=0&k=20&c=rXOM3Uq9kPbpM5IWnCAnffHOP8KKpVKCJDMuNBlTNls=');
+INSERT INTO `walk_location` (`id`, `name`, `description`, `address_id`, `image_url`) VALUES (2, 'Capital park', 'Wide open park', 1, 'https://www.shutterstock.com/image-photo/panorama-beautiful-city-park-260nw-523559155.jpg');
+INSERT INTO `walk_location` (`id`, `name`, `description`, `address_id`, `image_url`) VALUES (3, 'Hellmand trail', 'steep inclines, great views! ', 1, 'https://nobodyhikesinla.files.wordpress.com/2011/10/hiking-2011-10-311.jpg');
+INSERT INTO `walk_location` (`id`, `name`, `description`, `address_id`, `image_url`) VALUES (4, 'Fontanelle Forest', 'dense forest, great for bird watching', 1, 'https://forestoration.com/wp-content/uploads/2019/05/IMG_8420.jpg');
 
 COMMIT;
 
@@ -464,6 +484,12 @@ COMMIT;
 START TRANSACTION;
 USE `paseodb`;
 INSERT INTO `walk` (`id`, `name`, `date`, `description`, `walk_category_id`, `walk_type_id`, `location_id`, `user_id`, `privacy`, `start_time`, `end_time`, `main_image_url`, `enabled`) VALUES (1, 'Fun in the sun', '2023-01-12', 'This was an amazing walk! ', 1, 1, 1, 1, 1, NULL, NULL, NULL, NULL);
+INSERT INTO `walk` (`id`, `name`, `date`, `description`, `walk_category_id`, `walk_type_id`, `location_id`, `user_id`, `privacy`, `start_time`, `end_time`, `main_image_url`, `enabled`) VALUES (2, 'Fontanelle Hike', '2023-01-02', 'Fun hike in Fontanell forest! ', 6, 2, 1, 2, 1, NULL, NULL, NULL, NULL);
+INSERT INTO `walk` (`id`, `name`, `date`, `description`, `walk_category_id`, `walk_type_id`, `location_id`, `user_id`, `privacy`, `start_time`, `end_time`, `main_image_url`, `enabled`) VALUES (3, 'Boardwalk stroll', '2023-02-15', 'Leisurely walk on the river front boardwalk.', 1, 3, 1, 3, 0, NULL, NULL, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqTzkXa34umOS9CuQG-HjIKrKsD09vsWHCw2-GEzyQ2ijWqM3--QHYDvXjksUan3hqV80&usqp=CAU', NULL);
+INSERT INTO `walk` (`id`, `name`, `date`, `description`, `walk_category_id`, `walk_type_id`, `location_id`, `user_id`, `privacy`, `start_time`, `end_time`, `main_image_url`, `enabled`) VALUES (4, 'Around the block', '2023-02-08', 'Walk with the dogs to the park.', 2, 4, 1, 4, 0, NULL, NULL, 'https://www.papillion.org/ImageRepository/Document?documentID=3643', NULL);
+INSERT INTO `walk` (`id`, `name`, `date`, `description`, `walk_category_id`, `walk_type_id`, `location_id`, `user_id`, `privacy`, `start_time`, `end_time`, `main_image_url`, `enabled`) VALUES (5, 'Hellmand hills', '2023-01-05', 'Tough hike up hellman trails!', 6, 5, 1, 2, 0, NULL, NULL, 'https://fastly.4sqi.net/img/general/600x600/eI0qe3KZh6s3RR8mkUzsIz5VEzJss2mise1sVnb-0zo.jpg', NULL);
+INSERT INTO `walk` (`id`, `name`, `date`, `description`, `walk_category_id`, `walk_type_id`, `location_id`, `user_id`, `privacy`, `start_time`, `end_time`, `main_image_url`, `enabled`) VALUES (6, 'Walk around the track', '2023-01-15', '5 miles walking in circles', 5, 2, 1, 1, 1, NULL, NULL, 'https://www.dynamicsportsconstruction.com/wp-content/uploads/2016/03/outdoor-track.jpg', NULL);
+INSERT INTO `walk` (`id`, `name`, `date`, `description`, `walk_category_id`, `walk_type_id`, `location_id`, `user_id`, `privacy`, `start_time`, `end_time`, `main_image_url`, `enabled`) VALUES (7, 'Strollers and dogs', '2023-02-14', 'Walk on railroad trail with kids', 6, 2, 1, 3, 1, NULL, NULL, 'https://newengland.com/wp-content/uploads/Boardwalk-scaled.jpg', NULL);
 
 COMMIT;
 
@@ -474,6 +500,10 @@ COMMIT;
 START TRANSACTION;
 USE `paseodb`;
 INSERT INTO `message` (`id`, `contents`, `date_sent`, `sender`, `receiver`, `seen`, `enabled`) VALUES (1, 'Let\'s go for a walk! ', '2023-12-01', 1, 1, 1, 1);
+INSERT INTO `message` (`id`, `contents`, `date_sent`, `sender`, `receiver`, `seen`, `enabled`) VALUES (2, 'Wow what an amazing idea!', '2023-01-05', 2, 3, 2, 1);
+INSERT INTO `message` (`id`, `contents`, `date_sent`, `sender`, `receiver`, `seen`, `enabled`) VALUES (3, 'Let\'s go on a walk!', '2023-05-01', 1, 2, 1, 1);
+INSERT INTO `message` (`id`, `contents`, `date_sent`, `sender`, `receiver`, `seen`, `enabled`) VALUES (4, 'Want to meet for a walk?', '2023-01-02', 3, 1, 0, 1);
+INSERT INTO `message` (`id`, `contents`, `date_sent`, `sender`, `receiver`, `seen`, `enabled`) VALUES (5, 'Hi!', '2023-02-01', 1, 2, 0, 1);
 
 COMMIT;
 
@@ -484,6 +514,9 @@ COMMIT;
 START TRANSACTION;
 USE `paseodb`;
 INSERT INTO `walk_image` (`id`, `image_url`, `walk_id`, `description`, `user_id`) VALUES (1, 'https://pullmanchamber.com/wp-content/uploads/2015/04/Parks11.jpg', 1, NULL, 1);
+INSERT INTO `walk_image` (`id`, `image_url`, `walk_id`, `description`, `user_id`) VALUES (2, 'https://forestoration.com/wp-content/uploads/2019/05/IMG_8420.jpg', 2, NULL, 2);
+INSERT INTO `walk_image` (`id`, `image_url`, `walk_id`, `description`, `user_id`) VALUES (3, 'https://kubrick.htvapps.com/htv-prod-media.s3.amazonaws.com/images/2-forbidden-forest-at-fontenelle-1572456166.jpg?crop=1.00xw:0.846xh;0,0.154xh&resize=1200:*', 2, NULL, 2);
+INSERT INTO `walk_image` (`id`, `image_url`, `walk_id`, `description`, `user_id`) VALUES (4, 'https://nobodyhikesinla.files.wordpress.com/2011/10/hiking-2011-10-311.jpg', 3, NULL, 1);
 
 COMMIT;
 
@@ -503,7 +536,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `paseodb`;
-INSERT INTO `followed_user` (`user_id`, `followed_user_id`) VALUES (1, 1);
+INSERT INTO `followed_user` (`user_id`, `followed_user_id`) VALUES (1, 2);
 
 COMMIT;
 
