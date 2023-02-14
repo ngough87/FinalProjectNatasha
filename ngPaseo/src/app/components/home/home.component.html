@@ -24,7 +24,7 @@
 
 <hr/>
 
-<h3>Lorem Ipsum</h3>
+<h3></h3>
   <app-register></app-register>
 </div>
 
@@ -35,19 +35,24 @@
 <div *ngIf="checkLogin()">
 
   <div>
-
-          <input [(ngModel)]="searchWalk.date" class="form-control" type="date" name="date" id="date" />
-          <label for="date" class="form-label">Date</label>
-
-          <input [(ngModel)]="searchWalk.description" class="form-control" type="text" name="description"
+<table>
+    <thead></thead>
+        <tr>
+        <td><input [(ngModel)]="searchWalk.date" class="form-control" type="date" name="date" id="date" />
+        <label for="date" class="form-label">Date</label>
+        </td>
+        <td><input [(ngModel)]="searchWalk.description" class="form-control" type="text" name="description"
             id="description">
-          <label for="description" class="form-label">Keyword Search</label>
+        <label for="description" class="form-label">Keyword Search</label>
+        </td>
+        <td>
+          <button (click)="search(searchWalk)">Search</button>
+          </td>
+        </tr>
+</table>
 
-  <button (click)="search(searchWalk)">
 
-    Search
 
-    </button>
 
   </div>
   <div *ngIf="walks">
