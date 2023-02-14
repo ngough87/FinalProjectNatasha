@@ -30,11 +30,13 @@ export class HomeComponent implements OnInit{
   searchWalk: Walk = new Walk();
   users: User[] = [];
   usersSearchResults: User[] = [];
+  createNewWalk : boolean = false;
   walkTypes: WalkType[] = [];
   walkCategories: WalkCategory[] = [];
   walkLocations: WalkLocation[] = [];
   results: Walk[] = [];
   keyword: String = "";
+  loggedInUser: User = new User();
 
   newLocation: WalkLocation | null = null;
   newAddress: Address | null = null;
@@ -52,12 +54,13 @@ export class HomeComponent implements OnInit{
 
 
   ngOnInit(): void {
-
+    this. getLoggedInUser();
     this.loadCategories();
     this.loadTypes();
     this.loadLocation();
     this.reload();
     this.checkLogin();
+
   }
 
 
@@ -132,4 +135,17 @@ reload(){
       },
     });
   }
+  getLoggedInUser(){
+    this.auth.getLoggedInUser().subscribe({
+      next: (data) => {
+        this.loggedInUser = data;
+
+      }
+    })
+  }
+  updateUser(user: User){
+    console.log(user.id)
+    this.router.navigateByUrl('/settings/' + user.id);
+  }
+
 }

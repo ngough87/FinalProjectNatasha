@@ -86,7 +86,7 @@ public class UserController {
 		User existing = null;
 		System.out.println(user);
 		try {
-			existing = userService.update(principal.getName(), user, id);
+			existing = userService.update(user, id);
 			if (existing == null) {
 				resp.setStatus(404);
 			}

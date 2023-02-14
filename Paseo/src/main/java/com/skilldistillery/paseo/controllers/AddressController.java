@@ -51,7 +51,7 @@ public class AddressController {
 
 				user.setAddress(newAddress);
 
-				userService.update(principal.getName(), user, user.getId());
+				userService.update(user, user.getId());
 				res.setStatus(202);
 
 			}

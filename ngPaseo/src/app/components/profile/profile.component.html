@@ -60,12 +60,6 @@
             <div *ngIf="followed">
               <button name="unfollowUser" (click)="unfollowUser()">Unfollow</button>
             </div>
-
-            <div *ngIf="adminUser.role === 'admin'">
-
-            <!-- <button name="adminDelete" (click)="adminDelete(user)">Deactivate Account</button> -->
-
-          </div>
           </nav>
 
 
@@ -135,8 +129,10 @@
            </table>
            </div>
            <div class="modal-footer">
-             <button>Edit Walk</button>
-             <button>Delete Walk</button>
+             <button *ngIf="viewedWalkCreated || user.role === 'admin'">Edit Walk</button>
+             <button *ngIf="viewedWalkCreated || user.role === 'admin'">Delete Walk</button>
+             <button *ngIf="!viewedWalkCreated && !viewedWalkJoined">Join Walk</button>
+             <button *ngIf="!viewedWalkCreated && viewedWalkJoined">Leave Walk</button>
            </div>
        </ng-template>
        <!-- End Created Walk Modal -->

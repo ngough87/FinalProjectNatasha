@@ -7,7 +7,7 @@ import com.skilldistillery.paseo.entities.User;
 public interface UserService {
 public List <User> show();
 
-public User update(String username, User user, int id);
+public User update(User user, int id);
 
 public boolean destroy(String username, int id);
 
