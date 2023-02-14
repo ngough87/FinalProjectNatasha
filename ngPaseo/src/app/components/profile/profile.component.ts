@@ -294,4 +294,12 @@ getCurrentUserFollowed() {
         }
       }
     }
+
+    joinWalk() {
+
+    }
+
+    leaveWalk() {
+
+    }
 }

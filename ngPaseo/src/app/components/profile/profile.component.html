@@ -187,8 +187,8 @@
             </div>
             <div class="modal-footer">
               <button>View Creator</button>
-              <button *ngIf="!viewedWalkCreated && !viewedWalkJoined">Join Walk</button>
-              <button *ngIf="!viewedWalkCreated && viewedWalkJoined">Leave Walk</button>
+              <button *ngIf="!viewedWalkCreated && !viewedWalkJoined" (click)="joinWalk()">Join Walk</button>
+              <button *ngIf="!viewedWalkCreated && viewedWalkJoined" (click)="leaveWalk()">Leave Walk</button>
             </div>
         </ng-template>
         <!-- End Joined Walk Modal -->
