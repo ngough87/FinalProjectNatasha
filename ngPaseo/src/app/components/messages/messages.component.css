@@ -2,3 +2,11 @@
   float: right;
 }
 
+body{
+  background-image: url("https://blog-assets.thedyrt.com/uploads/2018/10/93Xlomfw-compressor.jpeg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  height: 200vh;
+  background-attachment: fixed;
+
+}

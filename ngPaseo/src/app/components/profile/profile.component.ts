@@ -1,3 +1,4 @@
+import { NavbarComponent } from './../navbar/navbar.component';
 import { AuthService } from 'src/app/services/auth.service';
 import { WalkService } from 'src/app/services/walk.service';
 import { AddressService } from './../../services/address.service';
@@ -326,5 +327,29 @@ export class ProfileComponent implements OnInit {
         console.error(err);
       },
     });
+  }
+
+  deleteWalk() {
+    this.walkService.destroy(this.viewedWalk.id).subscribe({
+      next: () => {
+        this.getUser();
+        this.modalService.dismissAll();
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    })
+  }
+
+  editWalk() {
+    this.modalService.dismissAll();
+    this.router.navigateByUrl('/walkPage/' + this.viewedWalk.id);
+  }
+
+  close() {
+    this.modalService.dismissAll();
+    this.viewedWalk = new Walk();
+    this.viewedWalkCreated = false;
+    this.viewedWalkJoined = false;
   }
 }

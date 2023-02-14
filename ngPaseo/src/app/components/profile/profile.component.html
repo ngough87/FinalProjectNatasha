@@ -51,8 +51,6 @@
                 <a (click)="clickPhotos()">Photos</a></li>
                 <li><a (click)="clickCreatedWalks()">Created Walks</a></li>
                 <li><a (click)="clickJoinedWalks()">Joined Walks</a></li>
-              <!-- <li><a (click)="displayGroups =">Groups</a></li> -->
-              <!-- <li><a (click)="displayInterests">Interest</a></li> -->
             </ul>
             <div *ngIf="!followed">
               <button name="followUser" (click)="followUser()">Follow</button>
@@ -72,14 +70,6 @@
             <img src="https://images.pexels.com/photos/5637806/pexels-photo-5637806.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Photo" />
             <img src="https://images.pexels.com/photos/9623763/pexels-photo-9623763.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Photo" />
         </div>
-        <!-- <div class="photos" id="photos" *ngIf="imageUrl && displayPhotos == false">
-            <img src="https://images.pexels.com/photos/4825760/pexels-photo-4825760.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Photo" />
-            <img src="https://images.pexels.com/photos/5733432/pexels-photo-5733432.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Photo" />
-            <img src="https://images.pexels.com/photos/4511122/pexels-photo-4511122.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Photo" />
-            <img src="https://images.pexels.com/photos/5064903/pexels-photo-5064903.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Photo" />
-            <img src="https://images.pexels.com/photos/5637806/pexels-photo-5637806.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Photo" />
-            <img src="https://images.pexels.com/photos/9623763/pexels-photo-9623763.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Photo" />
-        </div> -->
 
         <!-- display created walks -->
         <div class="walks" id="createdWalks" *ngIf="displayCreatedWalks">
@@ -107,7 +97,7 @@
         <ng-template #created let-modal>
          <div class="modal-header">
            <h4 class="modal-title" id="modal-basic-title">{{viewedWalk.name}}</h4>
-           <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+           <button type="button" class="btn-close" aria-label="Close" (click)="close()"></button>
          </div>
          <div class="modal-header">
            <small class="text-uppercase text-muted">Date Planned: {{viewedWalk.date}}</small>
@@ -129,10 +119,17 @@
            </table>
            </div>
            <div class="modal-footer">
-             <button *ngIf="viewedWalkCreated || user.role === 'admin'">Edit Walk</button>
-             <button *ngIf="viewedWalkCreated || user.role === 'admin'">Delete Walk</button>
-             <button *ngIf="!viewedWalkCreated && !viewedWalkJoined">Join Walk</button>
-             <button *ngIf="!viewedWalkCreated && viewedWalkJoined">Leave Walk</button>
+<<<<<<< HEAD
+             <button *ngIf="viewedWalkCreated || user.role === 'admin'" class="form-control btn btn-success"(click)="editWalk()">Edit Walk</button>
+             <button *ngIf="viewedWalkCreated || user.role === 'admin'"  class="form-control btn btn-danger"(click)="deleteWalk()">Delete Walk</button>
+             <button *ngIf="!viewedWalkCreated && !viewedWalkJoined" class="form-control btn btn-success"(click)="joinWalk()">Join Walk</button>
+             <button *ngIf="!viewedWalkCreated && viewedWalkJoined" class="form-control btn btn-danger"(click)="leaveWalk()">Leave Walk</button>
+=======
+             <button class="btn btn-warning" *ngIf="viewedWalkCreated || user.role === 'admin'" (click)="editWalk()">Edit Walk</button>
+             <button class="btn btn-danger" *ngIf="viewedWalkCreated || user.role === 'admin'" (click)="deleteWalk()">Delete Walk</button>
+             <button class="btn btn-primary" *ngIf="!viewedWalkCreated && !viewedWalkJoined" (click)="joinWalk()">Join Walk</button>
+             <button class="btn btn-warning" *ngIf="!viewedWalkCreated && viewedWalkJoined" (click)="leaveWalk()">Leave Walk</button>
+>>>>>>> fd4acf4001df1867061c553e0ab79e94dac9e4f8
            </div>
        </ng-template>
        <!-- End Created Walk Modal -->
@@ -189,8 +186,8 @@
             </div>
             <div class="modal-footer">
               <button>View Creator</button>
-              <button *ngIf="!viewedWalkCreated && !viewedWalkJoined" (click)="joinWalk()">Join Walk</button>
-              <button *ngIf="!viewedWalkCreated && viewedWalkJoined" (click)="leaveWalk()">Leave Walk</button>
+              <button class="btn btn-primary" *ngIf="!viewedWalkCreated && !viewedWalkJoined" (click)="joinWalk()">Join Walk</button>
+              <button class="btn btn-danger" *ngIf="!viewedWalkCreated && viewedWalkJoined" (click)="leaveWalk()">Leave Walk</button>
             </div>
         </ng-template>
         <!-- End Joined Walk Modal -->

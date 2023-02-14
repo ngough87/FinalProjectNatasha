@@ -1,7 +1,14 @@
-
+<body>
+<div class="container-fluid">
 <div class="row">
-  <div class="col-8">
+  <div class="col-8" id="form-wrapper">
+    <div class="bg-success text-dark bg-opacity-10"style="max-width: 600px; margin: 300px; float: left;  padding: 40px; background-color: #828380;">
     <form>
+      <div style="text-align: center;">
+        <hr>
+      <h1>Edit Walk</h1>
+      <hr>
+    </div>
       <table>
         <tbody>
           <tr>
@@ -21,9 +28,9 @@
    <label for="startTime">Start Time:</label>
 <input type="time" [(ngModel)]="walk.startTime" name="startTime" id="startTime"/>
  </td>
+ <td>
  <label for="endTime">End Time:</label>
  <input type="time" [(ngModel)]="walk.endTime" name="endTime" id="endTime"/>
- <td>
 
 
  </td>
@@ -38,7 +45,7 @@
           </tr>
           <tr>
             <td>
-              <select [(ngModel)]="walk.walkCategory" name="walkCategory" id="walkCategory">
+              <select  class="form-control form-select" [(ngModel)]="walk.walkCategory" name="walkCategory" id="walkCategory">
                 <option [ngValue]="walkCategory" name="walkCategory" *ngFor="let walkCategory of walkCategories">
                   {{ walkCategory.name }}
                 </option>
@@ -46,7 +53,7 @@
               <label for="walkCategory" class="form-label">Walk Category</label>
             </td>
             <td>
-              <select [(ngModel)]="walk.walkType" name="walkType" id="walkType">
+              <select  class="form-control form-select" [(ngModel)]="walk.walkType" name="walkType" id="walkType">
                 <option [ngValue]="walkType" name="walkType" *ngFor="let walkType of walkTypes">
                   {{ walkType.name }}
                 </option>
@@ -56,7 +63,7 @@
           </tr>
           <tr>
             <td>
-              <select [(ngModel)]="walk.walkLocation" name="walkLocation" id="walkLocation">
+              <select class="form-control form-select" [(ngModel)]="walk.walkLocation" name="walkLocation" id="walkLocation">
                 <option [ngValue]="walkLocation" name="walkLocation" *ngFor="let walkLocation of walkLocations">
                   {{ walkLocation.name }}
                 </option>
@@ -73,16 +80,16 @@
           </tr>
           <tr *ngIf="checkAuth()">
             <td>
-          <button (click)="updateWalk(walk)" >Update</button>
+          <button  class="btn btn-success" (click)="updateWalk(walk)" >Update</button>
           </td>
           <td>
-            <button (click)="delete(walk.id)" >Delete</button>
+            <button class="btn btn-danger" (click)="delete(walk.id)" >Delete</button>
           </td>
         </tr>
         <tr>
           <td>
 
-            <button (click)="return()">Cancel</button>
+            <button class="btn btn-primary" (click)="return()">Cancel</button>
           </td>
           </tr>
 
@@ -93,3 +100,6 @@
     </form>
   </div>
 </div>
+</div>
+</div>
+</body>

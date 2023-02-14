@@ -8,5 +8,5 @@ import com.skilldistillery.paseo.entities.UserWalk;
 import com.skilldistillery.paseo.entities.UserWalkKey;
 
 public interface UserWalkRepository extends JpaRepository<UserWalk, UserWalkKey>{
-	List<UserWalk> findByUserId(int id);
+	List<UserWalk> findByUserIdAndWalk_Enabled(int id, boolean disabled);
 }

@@ -1,3 +1,4 @@
+<body>
 <!-- Jumbotron -->
 <div
   class="bg-image p-5 text-center shadow-1-strong rounded mb-5 text-white"
@@ -7,11 +8,10 @@
 
   <p>
     In a perfect world, your ideal walking partner would live next door or work in the next office over.
-    If you don’t already have a local friend to recruit, take some steps and use Pase to find one!
+    If you don’t already have a local friend to recruit, take some steps and use Paseo to find one!
   </p>
 </div>
 <!-- Jumbotron -->
-<body>
 <div class="container" ng-app="app" ng-controller="ctrl">
 
   <div class="row min-vh-100 flex-column py-4">
@@ -194,12 +194,12 @@
                       <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
                     </div>
                     <div class="modal-header">
-                      <small class="text-uppercase text-muted">Sent By: </small>
                       <p>
+                      <small class="text-uppercase text-muted">Sent By: </small>
                         {{viewedMessage.sender.username}}
                       </p>
-                      <small class="text-uppercase text-muted">Received On: </small>
                       <p *ngIf="viewedMessage.dateSent">
+                      <small class="text-uppercase text-muted">Received On: </small>
                         {{viewedMessage.dateSent}}
                       </p>
                       <p *ngIf="!viewedMessage.dateSent">
@@ -230,12 +230,12 @@
                       <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
                     </div>
                     <div class="modal-header">
-                      <small class="text-uppercase text-muted">Sent To: </small>
                       <p>
+                      <small class="text-uppercase text-muted">Sent To: </small>
                         {{viewedMessage.receiver.username}}
                       </p>
-                      <small class="text-uppercase text-muted">Sent On: </small>
                       <p *ngIf="viewedMessage.dateSent">
+                      <small class="text-uppercase text-muted">Sent On: </small>
                         {{viewedMessage.dateSent}}
                       </p>
                       <p *ngIf="!viewedMessage.dateSent">
