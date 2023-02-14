@@ -45,7 +45,11 @@
                         <div class="row">
                           <div class="col-lg-3 p-2">
                             <div class="custom-control custom-checkbox">
-                              <label class="custom-control-label text-nowrap" for="" (click)="open(viewcontent, message)"><a href="">{{message.dateSent}}</a>{{message.sender.firstName + ' ' + message.sender.lastName}}</label>
+                              <div class="custom-control-label text-nowrap" for="" (click)="open(viewcontent, message)">
+                                <div class="col-6" *ngIf="message.dateSent"><p>Received: {{message.dateSent}}</p></div>
+                                <div class="col-6" *ngIf="!message.dateSent"><p>Received: Unknown</p></div>
+                                <div class="col-6"> From: {{message.sender.firstName + ' ' + message.sender.lastName}}</div>
+                                </div>
                               </div>
                             </div>
                             <div class="col-lg py-2">
@@ -67,10 +71,13 @@
                         <li *ngFor="let message of deletedMessages" class="list-group-item d-block py-1">
                           <div class="row" (click)="view(viewcontent, message)">
                             <div class="col-lg-3 p-2">
-                              <div class="custom-control custom-checkbox">
-                                <label class="custom-control-label text-nowrap" for=""><a
-                                  href="">{{message.dateSent}}</a>{{message.sender.firstName + ' ' + message.sender.lastName}}</label>
-                                </div>
+                              <div class="custom-control text-nowrap">
+                                <div>
+                                  <div class="col-6" *ngIf="message.dateSent"><p>Received: {{message.dateSent}}</p></div>
+                                 <div class="col-6" *ngIf="!message.dateSent"><p>Received: Unknown</p></div>
+                                 <div class="col-6"> From: {{message.sender.firstName + ' ' + message.sender.lastName}}</div>
+                               </div>
+                               </div>
                               </div>
                               <div class="col-lg py-2">
                                 <div class="float-right text-right">
@@ -131,7 +138,9 @@
                     </div>
                     <div class="modal-header">
                       <small class="text-uppercase text-muted">Send To: </small>
-                      <input type="text" [(ngModel)]="receiverUsername"/>
+                      <select [(ngModel)]="receiverUsername">
+                        <option [value]="user.username" *ngFor="let user of followedUsers">{{user.username}}</option>
+                        </select>
                       <div>
                           <h4 class="modal-title"></h4>
                       </div>
@@ -164,12 +173,19 @@
                       <p>
                         {{viewedMessage.sender.username}}
                       </p>
-                      <p>{{viewedMessage.sender.firstName + ' ' + viewedMessage.sender.lastName}}</p>
+                      <small class="text-uppercase text-muted">Received On: </small>
+                      <p *ngIf="viewedMessage.dateSent">
+                        {{viewedMessage.dateSent}}
+                      </p>
+                      <p *ngIf="!viewedMessage.dateSent">
+                        Unknown
+                      </p>
                       <div>
-                          <h4 class="modal-title"></h4>
+                        <h4 class="modal-title"></h4>
                       </div>
-                  </div>
+                    </div>
                     <div class="modal-body">
+                      <p><strong>From: </strong>{{viewedMessage.sender.firstName + ' ' + viewedMessage.sender.lastName}}</p>
                       <form>
                         <div class="mb-3">
                           <label for="compose">Message</label>
