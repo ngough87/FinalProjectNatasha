@@ -46,7 +46,7 @@
         <label for="description" class="form-label">Keyword Search</label>
         </td>
         <td>
-          <button (click)="search(searchWalk)">Search</button>
+          <button class="btn-primary" (click)="search(searchWalk)">Search</button>
           </td>
         </tr>
 </table>
@@ -113,7 +113,7 @@
 
 
     <button>Fix me</button>
-    <br />
+    <br/>
     <input type="checkbox"/>
   </div>
 
@@ -135,6 +135,7 @@
 
 
 
-<div *ngIf = "createNewWalk">
+<div *ngIf ="createNewWalk">
   <app-walk></app-walk>
 </div>
+
