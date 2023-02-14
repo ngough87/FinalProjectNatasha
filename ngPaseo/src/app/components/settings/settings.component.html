@@ -144,7 +144,8 @@ style="background-image: url('https://c1.wallpaperflare.com/preview/670/395/688/
 
     <div class="col-4 ">
       <div  class="bg-success text-dark bg-opacity-10" style="max-width: 750px; margin: 100px; float: left;  padding: 40px;background-color: #FBFCF9" >
-  <div class="container" >
+  <h1>Profile Image</h1>
+        <div class="container" >
     <img src='https://t4.ftcdn.net/jpg/03/46/93/61/360_F_346936114_RaxE6OQogebgAWTalE1myseY1Hbb5qPM.jpg' *ngIf="!user.profileImageUrl">
     <img [src]="imageUrl" onerror="this.onerror=null; this.src='https://t4.ftcdn.net/jpg/03/46/93/61/360_F_346936114_RaxE6OQogebgAWTalE1myseY1Hbb5qPM.jpg'" *ngIf="user.profileImageUrl">
     <label for="profileImageUrl" class="form-label">Profile Image</label>
