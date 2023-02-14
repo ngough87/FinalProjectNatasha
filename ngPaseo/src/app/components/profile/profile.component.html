@@ -119,17 +119,10 @@
            </table>
            </div>
            <div class="modal-footer">
-<<<<<<< HEAD
              <button *ngIf="viewedWalkCreated || user.role === 'admin'" class="form-control btn btn-success"(click)="editWalk()">Edit Walk</button>
              <button *ngIf="viewedWalkCreated || user.role === 'admin'"  class="form-control btn btn-danger"(click)="deleteWalk()">Delete Walk</button>
              <button *ngIf="!viewedWalkCreated && !viewedWalkJoined" class="form-control btn btn-success"(click)="joinWalk()">Join Walk</button>
              <button *ngIf="!viewedWalkCreated && viewedWalkJoined" class="form-control btn btn-danger"(click)="leaveWalk()">Leave Walk</button>
-=======
-             <button class="btn btn-warning" *ngIf="viewedWalkCreated || user.role === 'admin'" (click)="editWalk()">Edit Walk</button>
-             <button class="btn btn-danger" *ngIf="viewedWalkCreated || user.role === 'admin'" (click)="deleteWalk()">Delete Walk</button>
-             <button class="btn btn-primary" *ngIf="!viewedWalkCreated && !viewedWalkJoined" (click)="joinWalk()">Join Walk</button>
-             <button class="btn btn-warning" *ngIf="!viewedWalkCreated && viewedWalkJoined" (click)="leaveWalk()">Leave Walk</button>
->>>>>>> fd4acf4001df1867061c553e0ab79e94dac9e4f8
            </div>
        </ng-template>
        <!-- End Created Walk Modal -->
@@ -186,8 +179,8 @@
             </div>
             <div class="modal-footer">
               <button>View Creator</button>
-              <button class="btn btn-primary" *ngIf="!viewedWalkCreated && !viewedWalkJoined" (click)="joinWalk()">Join Walk</button>
-              <button class="btn btn-danger" *ngIf="!viewedWalkCreated && viewedWalkJoined" (click)="leaveWalk()">Leave Walk</button>
+              <button class="btn btn-primary" *ngIf="!viewedWalkCreated && !viewedWalkJoined" class="form-control btn btn-success" (click)="joinWalk()">Join Walk</button>
+              <button class="btn btn-danger" *ngIf="!viewedWalkCreated && viewedWalkJoined" class="form-control btn btn-danger" (click)="leaveWalk()">Leave Walk</button>
             </div>
         </ng-template>
         <!-- End Joined Walk Modal -->
