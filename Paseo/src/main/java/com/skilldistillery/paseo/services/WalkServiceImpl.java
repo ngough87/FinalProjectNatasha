@@ -148,7 +148,7 @@ public class WalkServiceImpl implements WalkService {
 			}
 			if (walk.getPrivacy() == false) {
 
-				if (walk.getDescription().contains(searchWalk.getDescription())) {
+				if (walk.getDescription() != null && walk.getDescription().contains(searchWalk.getDescription())) {
 					if (!results.contains(walk)) {
 						results.add(walk);
 

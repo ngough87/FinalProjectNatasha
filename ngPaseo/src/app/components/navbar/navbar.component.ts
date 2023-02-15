@@ -38,6 +38,7 @@ export class NavbarComponent {
         this.loggedInUser = data;
         console.log('Logged in as: ' + data.username);
         this.router.navigateByUrl('/home');
+        location.reload();
       },
       error: (err) => {
         console.error('Error logging into user:');
