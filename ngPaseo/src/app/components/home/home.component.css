@@ -3,3 +3,11 @@ body{
   background-color: black;
 }
 
+.jumboImg {
+  background-size: cover;
+}
+
+.centerMe {
+  text-align: center;
+  justify-self: center;
+}

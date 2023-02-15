@@ -21,12 +21,12 @@
           <input [(ngModel)]="walk.date" class="form-control" type="date" name="date" id="date" />
           <label for="date" class="form-label">Date</label>
         </div>
-        <div class="input-group form-control">
+        <div>
 
-          <label for="startTime">Start Time:</label>
+          <label for="startTime" class="form-label">Start Time:</label>
           <input class="form-time form" type="time" [(ngModel)]="walk.startTime" name="startTime" id="startTime" />
 
-          <label for="endTime">End Time:</label>
+          <label for="endTime" class="form-label">End Time:</label>
           <input type="time" [(ngModel)]="walk.endTime" name="endTime" id="endTime" />
           <td></td>
         </div>
@@ -39,43 +39,43 @@
 
         </div>
 
-        <div class="input-group mb-3">
+        <div class="mb-3">
 
-          <label class="input-group-text form-control form-label" for="walkCategory">Walk Category </label>
-          <select [(ngModel)]="walk.walkCategory" class="form-control input-group form-select" name="walkCategory"
-            id="walkCategory">
-            <option [ngValue]="walkCategory" name="walkCategory" *ngFor="let walkCategory of walkCategories">
-              {{ walkCategory.name }}
-            </option>
+          <select [(ngModel)]="walk.walkCategory" class="form-control form-select" name="walkCategory"
+          id="walkCategory">
+          <option [ngValue]="walkCategory" name="walkCategory" *ngFor="let walkCategory of walkCategories">
+            {{ walkCategory.name }}
+          </option>
 
-          </select>
+        </select>
+        <label class="form-label" for="">Walk Category </label>
         </div>
 
 
 
-        <div class="input-group mb-3">
-          <label for="walkType" class=" input-group-text form-label">Walk Type </label>
+        <div class="mb-3">
           <select class="form-control input-group form-select" [(ngModel)]="walk.walkType" name="walkType" id="walkType">
             <option class="" [ngValue]="walkType" name="walkType" *ngFor="let walkType of walkTypes">
               {{ walkType.name }}
             </option>
           </select>
+          <label for="walkType" class=" form-label">Walk Type </label>
 
         </div>
 
 
-        <div class="input-group mb">
-          <label for="walkLocation" class="input-group-text  form-label">Walk Location</label>
+        <div class="mb-3">
           <select class="form-control form-select" [(ngModel)]="walk.walkLocation" name="walkLocation"
-            id="walkLocation">
-            <option [ngValue]="walkLocation" name="walkLocation" *ngFor="let walkLocation of walkLocations">
-              {{ walkLocation.name }}
+          id="walkLocation">
+          <option [ngValue]="walkLocation" name="walkLocation" *ngFor="let walkLocation of walkLocations">
+            {{ walkLocation.name }}
 
 
 
 
-            </option>
-          </select>
+          </option>
+        </select>
+        <label for="walkLocation" class="form-label">Walk Location</label>
 
         </div>
         <hr>
