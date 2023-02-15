@@ -130,7 +130,7 @@ getJoinedWalks(userId:number):Observable<Walk[]> {
 }
 
   joinWalk(walkId:number):Observable<void> {
-    return this.http.get<void>(this.url + 'api/walks/join/' + walkId, this.getHttpOptions()).pipe(
+    return this.http.post<void>(this.url + 'api/walks/join/' + walkId,"", this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError(
