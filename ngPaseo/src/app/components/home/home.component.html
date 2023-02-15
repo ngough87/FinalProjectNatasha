@@ -125,43 +125,43 @@
       <p>{{selected.description}}</p>
 
       <h3>{{selected.walkLocation.name}}</h3>
-
       <p> {{selected.walkLocation.address.street}}, {{selected.walkLocation.address.city}}
 
-        <br>
+            <br>
 
-        {{selected.walkLocation.address.state}}, {{selected.walkLocation.address.zip}}
-      </p>
+            {{selected.walkLocation.address.state}}, {{selected.walkLocation.address.zip}}
+          </p>
 
-      <button type="button" class="button btn-lg" (click)="selected=null">Back</button>
+          <button type="button" class="button btn-lg" (click)="selected=null">Back</button>
+
+
+  </div>
     </div>
 
 
-  <div *ngIf="checkLogin()">
-    <div class="searchForUsers">
+    <div *ngIf="checkLogin()">
+      <div class="searchForUsers">
       <form>
         <label for="keyword">Search by name or username</label>
         <input [(ngModel)]="keyword" name="keyword" type="text">
         <button (click)="onSubmitUserSearch(keyword)" class="button">Search</button>
 
       </form>
-      <div *ngFor="let usersSearchResult of usersSearchResults"></div>
+
 
       <table class="table table-striped table-bordered table-hover table-condensed">
 
-
         <tbody>
-          <tr *ngFor="let usersSearchResult of usersSearchResults">
-            <td>
-              <a href="">
-                <img [src]="usersSearchResult.profileImageUrl" height="100px" width="100px" alt=""
-                  class="img-thumbnail">
-                {{usersSearchResult.firstName}}
-                {{usersSearchResult.lastName}}
-                {{usersSearchResult.username}}
-              </a>
-              <button (click)="updateUser(this.usersSearchResult)" *ngIf="loggedInUser.role == 'admin'">Edit</button>
-            </td>
+          <tr *ngFor = "let usersSearchResult of usersSearchResults">
+          <td>
+            <a [routerLink]="['/profile/' + usersSearchResult.id]">
+            <img [src]="usersSearchResult.profileImageUrl" height="100px" width="100px" alt="" class="img-thumbnail" >
+            {{usersSearchResult.firstName}}
+            {{usersSearchResult.lastName}}
+            {{usersSearchResult.username}}
+          </a>
+            <button (click)="updateUser(this.usersSearchResult)" *ngIf="loggedInUser.role == 'admin'" >Edit</button>
+          </td>
           </tr>
         </tbody>
       </table>
@@ -171,8 +171,6 @@
 
   </div>
 
-
-</div>
 
 
 
