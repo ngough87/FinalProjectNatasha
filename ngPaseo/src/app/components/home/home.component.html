@@ -6,8 +6,7 @@
 <!-- Jumbotron -->
 <div
   class="bg-image p-5 text-center shadow-1-strong rounded mb-10 text-white"
-  style="background-image: url('https://blog-assets.thedyrt.com/uploads/2018/10/93Xlomfw-compressor.jpeg');"
->
+  style="background-image: url('https://blog-assets.thedyrt.com/uploads/2018/10/93Xlomfw-compressor.jpeg');">
   <h1 class="mb-3 h2">Stay Connected</h1>
 
   <p>
@@ -27,43 +26,52 @@
 
 <div *ngIf="checkLogin()">
 
-  <div>
+  <div class="p-1 margin-1 border-1">
+    <h1 class="display-1 text-center jumbotron">Paseo Walks</h1>
     <table>
       <thead></thead>
-      <tr>
-        <td><input [(ngModel)]="searchWalk.date" class="form-control" type="date" name="date" id="date"/>
-          <label for="date" class="form-label">Date</label>
+    <tbody>
+      <div class="input-group"><tr>
+        <td><input [(ngModel)]="searchWalk.date" class="form-control margin-1" type="date" name="date" id="date"/>
+          <label for="date" class="form-label"></label>
         </td>
         <td><input [(ngModel)]="searchWalk.description" class="form-control" type="text" name="description"
-            id="description">
-          <label for="description" class="form-label">Keyword Search</label>
+            id="description"><label for="description" class="form-label"></label>
         </td>
         <td>
-          <select name="Category">
+          <select class="form-select form-control" name="category">
+          <option aria-placeholder>Category</option>
           <option *ngFor="let category of walkCategories" [(ngModel)]="searchWalk.walkCategory"> {{category.name}} </option></select>
-
+          <label for="category"></label>
         </td>
         <td>
-        <select name ="WalkType">
-              <option *ngFor="let type of walkTypes" [(ngModel)]="searchWalk.walkType"> {{type.name}} </option></select>
+        <select class="form-select form-control" name ="walkType">
+          <option aria-placeholder>Choose WalkType</option>
+          <option *ngFor="let type of walkTypes" [(ngModel)]="searchWalk.walkType"> {{type.name}} </option></select>
+          <label for="walkType"></label>
         </td>
         <td>
-        <select name="WalkLocation">
-                  <option *ngFor="let category of walkLocations"   [(ngModel)]="searchWalk.walkLocation"> {{category.name}} </option></select>
-
+        <select class="form-select form-control" name="WalkLocation">
+          <option aria-placeholder>Choose Location</option>
+          <option *ngFor="let category of walkLocations"   [(ngModel)]="searchWalk.walkLocation"> {{category.name}} </option></select>
+          <label for="WalkLocation"></label>
                 </td>
           <td>
-          <button type="button" class="btn-primary" (click)="search(searchWalk); displayWalks = results ">Search</button>
+
+          <button id="search" type="button" class="btn btn-primary form-button form-control input-group-append form-group" (click)="search(searchWalk); displayWalks = results ">Search</button>
+          <label for="search"></label>
         </td>
         <td>
-          <button type="button" class="btn-primary"(click)="displayWalks = walks" >Show All Walks</button>
-          <td>
-      </tr>
+          <button  id="allwalks"type="button" class="form-control form-group form-button btn btn-primary input-group-append "(click)="displayWalks = walks" >All Walks</button>
+          <label for="allwalks"></label>
+        </td>
+      </tr></div>
+    </tbody>
     </table>
 
   </div>
 
-  <div *ngIf="displayWalks && !selected">
+  <div *ngIf="displayWalks" class="col-med-8">
 
 
 
@@ -112,19 +120,19 @@
 
 
 
-    <div *ngIf="selected">
+    <div *ngIf="selected" class="">
 
-      <td>
+        <h6 class="display-6">Walk Details</h6>
         <img src="{{selected.user.profileImageUrl}}" height="100px" width="100px" alt="" class="img-thumbnail">
         <br>
-        {{selected.user.username}}
+        <p class="h3">{{selected.user.username}}</p>
 
-      </td>
-      <h1>{{selected.name}}</h1>
+
+      <h1 class="diplay-1 center underlined">{{selected.name}}</h1>
       <img [src]="selected.imageUrl">
-      <p>{{selected.description}}</p>
+      <p class="display-6">{{selected.description}}</p>
 
-      <h3>{{selected.walkLocation.name}}</h3>
+      <h3 class="display-3">{{selected.walkLocation.name}}</h3>
       <p> {{selected.walkLocation.address.street}}, {{selected.walkLocation.address.city}}
 
             <br>
@@ -142,9 +150,10 @@
     <div *ngIf="checkLogin()">
       <div class="searchForUsers">
       <form>
-        <label for="keyword">Search by name or username</label>
+        <h1 class="display-4">Paseo Walkers Search</h1>
+        <label for="keyword"></label>
         <input [(ngModel)]="keyword" name="keyword" type="text">
-        <button (click)="onSubmitUserSearch(keyword)" class="button">Search</button>
+        <button (click)="onSubmitUserSearch(keyword)" class="btn btn-primary">Search</button>
 
       </form>
 
@@ -167,8 +176,9 @@
       </table>
     </div>
 
-
+    <div class="row">
     <app-walk></app-walk>
+    <div>
   </div>
 
 
