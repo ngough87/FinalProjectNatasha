@@ -148,6 +148,7 @@
 
 
 </div>
+<div *ngIf="checkLogin()">
 <div class="searchForUsers">
   <form >
     <label for="keyword">Search by name or username</label>
@@ -164,7 +165,7 @@
       <tr *ngFor = "let usersSearchResult of usersSearchResults">
       <td>
         <a href="">
-        <img src="{{usersSearchResult.profileImageUrl}}" height="100px" width="100px" alt="" class="img-thumbnail">
+        <img [src]="usersSearchResult.profileImageUrl" height="100px" width="100px" alt="" class="img-thumbnail" >
         {{usersSearchResult.firstName}}
         {{usersSearchResult.lastName}}
         {{usersSearchResult.username}}
@@ -176,9 +177,9 @@
   </table>
 </div>
 
+<app-walk></app-walk>
 
-    <app-walk></app-walk>
-
+</div>
 
 
 
