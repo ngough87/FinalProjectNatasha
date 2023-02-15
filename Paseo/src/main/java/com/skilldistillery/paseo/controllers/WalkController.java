@@ -1,8 +1,6 @@
 package com.skilldistillery.paseo.controllers;
 
 import java.security.Principal;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,9 +18,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.paseo.entities.User;
+import com.skilldistillery.paseo.entities.UserWalk;
 import com.skilldistillery.paseo.entities.Walk;
 import com.skilldistillery.paseo.services.AuthService;
 import com.skilldistillery.paseo.services.UserService;
+import com.skilldistillery.paseo.services.UserWalkService;
 import com.skilldistillery.paseo.services.WalkService;
 
 @RestController
@@ -39,27 +39,30 @@ public class WalkController {
 	@Autowired
 	private AuthService auth;
 
+	@Autowired
+	private UserWalkService userWalkService;
+
 	@GetMapping("walks")
 	public List<Walk> show() {
 		return walkService.showWalksThatArePublic();
 	}
 
 	@PostMapping("walks/search")
-	public List<Walk> findWalksBySearch(@RequestBody Walk searchWalk, HttpServletResponse res, Principal princal){
+	public List<Walk> findWalksBySearch(@RequestBody Walk searchWalk, HttpServletResponse res, Principal princal) {
 		List<Walk> results = null;
 		System.out.println(searchWalk);
 		try {
 			results = walkService.searchByWalk(searchWalk);
-			if (results.isEmpty() ) {
+			if (results.isEmpty()) {
 				res.setStatus(404);
 			}
 		} catch (Exception e) {
 			res.setStatus(400);
 			e.printStackTrace();
 		}
-		
+
 		return results;
-	
+
 	}
 
 	@GetMapping("walks/{walkId}")
@@ -158,13 +161,49 @@ public class WalkController {
 		}
 
 	}
-	
+
 	@GetMapping("walks/joined/{id}")
 	public List<Walk> findJoinedWalksByUserId(@PathVariable int id, HttpServletResponse res) {
-		List <Walk> output = walkService.getJoinedWalksByUserId(id);
+		List<Walk> output = walkService.getJoinedWalksByUserId(id);
 		if (output == null || output.isEmpty()) {
 			res.setStatus(404);
 		}
 		return output;
+	}
+
+	@PostMapping("walks/join/{walkId}")
+	public void joinWalk(@PathVariable int walkId, Principal principal, HttpServletResponse res) {
+		Walk walk = walkService.findById(walkId);
+		User loggedInUser = auth.getUserByUsername(principal.getName());
+
+		if (walk != null && loggedInUser != null) {
+			try {
+				userWalkService.create(loggedInUser, walk);
+				res.setStatus(201);
+			} catch (Exception e) {
+				e.printStackTrace();
+				res.setStatus(400);
+			}
+		} else {
+			res.setStatus(404);
+		}
+	}
+	
+	@DeleteMapping("walks/leave/{walkId}")
+	public void leaveWalk(@PathVariable int walkId, Principal principal, HttpServletResponse res) {
+		Walk walk = walkService.findById(walkId);
+		User loggedInUser = auth.getUserByUsername(principal.getName());
+
+		if (walk != null && loggedInUser != null) {
+			try {
+				userWalkService.delete(loggedInUser, walk);
+				res.setStatus(204);
+			} catch (Exception e) {
+				e.printStackTrace();
+				res.setStatus(400);
+			}
+		} else {
+			res.setStatus(404);
+		}
 	}
 }

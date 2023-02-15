@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 
 
@@ -14,6 +15,34 @@
     In a perfect world, your ideal walking partner would live next door or work in the next office over.
     If you don’t already have a local friend to recruit, take some steps and use Paseo to find one!
   </p>
+=======
+<div *ngIf="!checkLogin()">
+  <ngb-carousel *ngIf="images">
+    <ng-template ngbSlide>
+      <div class="picsum-img-wrapper">
+        <img [src]="images[0]" alt="Random first slide" style="width: -webkit-fill-available;" />
+      </div>
+      <div class="carousel-caption">
+        <h3>Welcome To Paseo</h3>
+        <p>Helping you get out there since 2023.</p>
+      </div>
+    </ng-template>
+    <ng-template ngbSlide>
+      <div class="picsum-img-wrapper">
+        <img [src]="images[1]" alt="Random second slide" style="width: -webkit-fill-available;" />
+      </div>
+      <div class="carousel-caption">
+        <h3>Second slide label</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+      </div>
+    </ng-template>
+  </ngb-carousel>
+
+  <hr />
+
+  <h3></h3>
+  <app-register></app-register>
+>>>>>>> bcf49aee8d8a336da651dabcebb6db9a5603f6b2
 </div>
 <!-- Jumbotron -->
 <div>
@@ -22,169 +51,160 @@
 </div>
 
 
+<<<<<<< HEAD
 </body>
 
 
+=======
+>>>>>>> bcf49aee8d8a336da651dabcebb6db9a5603f6b2
 <div *ngIf="checkLogin()">
 
   <div>
-<table>
-    <thead></thead>
-        <tr>
-        <td><input [(ngModel)]="searchWalk.date" class="form-control" type="date" name="date" id="date" />
-        <label for="date" class="form-label">Date</label>
+    <table>
+      <thead></thead>
+      <tr>
+        <td><input [(ngModel)]="searchWalk.date" class="form-control" type="date" name="date" id="date"/>
+          <label for="date" class="form-label">Date</label>
         </td>
         <td><input [(ngModel)]="searchWalk.description" class="form-control" type="text" name="description"
             id="description">
-        <label for="description" class="form-label">Keyword Search</label>
+          <label for="description" class="form-label">Keyword Search</label>
         </td>
         <td>
+          <select name="Category">
+          <option *ngFor="let category of walkCategories" [(ngModel)]="searchWalk.walkCategory"> {{category.name}} </option></select>
+
+        </td>
+        <td>
+        <select name ="WalkType">
+              <option *ngFor="let type of walkTypes" [(ngModel)]="searchWalk.walkType"> {{type.name}} </option></select>
+        </td>
+        <td>
+        <select name="WalkLocation">
+                  <option *ngFor="let category of walkLocations"   [(ngModel)]="searchWalk.walkLocation"> {{category.name}} </option></select>
+
+                </td>
+          <td>
           <button class="btn-primary" (click)="search(searchWalk)">Search</button>
-          </td>
-        </tr>
-</table>
-
-  </div>
-  <div *ngIf="walks && !selected">
-    <div class="row-span-5">
-    <span *ngFor="let category of walkCategories">  {{category.name}} |</span><br>
-    <span *ngFor="let type of walkTypes"> {{type.name}} |</span><br>
-    <span *ngFor="let location of walkLocations">  {{location.name}}  |</span><br>
-    </div>
-    <table class="table table-striped table-bordered table-hover table-condensed">
-
-      <thead>
-        <th>Name</th>
-        <th>User</th>
-        <th>Date</th>
-        <th>Walk Location</th>
-        <th> Details</th>
-      </thead>
-      <tbody>
-        <tr *ngFor="let walk of walks" (click)="selected = walk">
-        <td>
-          {{walk.name}}
         </td>
-        <td>
-          <img src="{{walk.user.profileImageUrl}}" height="100px" width="100px" alt="" class="img-thumbnail">
-          <br>
-            {{walk.user.username}}
-
-        </td>
-        <td>
-
-          {{walk.date}}
-
-        </td>
-
-        <td>
-
-        {{walk.walkLocation.name}},
-        {{walk.walkLocation.address.city}}, {{walk.walkLocation.address.state}}
-        </td>
-
-
-
-
-      <td>
-        {{walk.walkType.name}},
-        {{walk.walkCategory.name}}
-
-      </td>
-
-        </tr>
-
-
-      </tbody>
+      </tr>
     </table>
 
-
-    <button>Fix me</button>
-    <br/>
-    <input type="checkbox"/>
   </div>
 
-  <div *ngIf="selected">
+  <div *ngIf="walks && !selected">
 
-    <td>
-      <img src="{{selected.user.profileImageUrl}}" height="100px" width="100px" alt="" class="img-thumbnail">
-      <br>
+
+
+                  <table class="table table-striped table-bordered table-hover table-condensed">
+
+                    <thead>
+                      <th>Name</th>
+                      <th>User</th>
+                      <th>Date</th>
+                      <th>Walk Location</th>
+                      <th> Details</th>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let walk of walks" (click)="selected = walk">
+                        <td>
+                          {{walk.name}}
+                        </td>
+                        <td>
+                          <img src="{{walk.user.profileImageUrl}}" height="100px" width="100px" alt=""
+                            class="img-thumbnail">
+                          <br>
+                          {{walk.user.username}}
+
+                        </td>
+                        <td>
+
+                          {{walk.date}}
+
+                        </td>
+
+                        <td>
+
+                          {{walk.walkLocation.name}},
+                          {{walk.walkLocation.address.city}}, {{walk.walkLocation.address.state}}
+                        </td>
+                        <td>
+                          {{walk.walkType.name}},
+                          {{walk.walkCategory.name}}
+
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                </div>
+
+
+
+    <div *ngIf="selected">
+
+      <td>
+        <img src="{{selected.user.profileImageUrl}}" height="100px" width="100px" alt="" class="img-thumbnail">
+        <br>
         {{selected.user.username}}
 
-    </td>
-  <h1>{{selected.name}}</h1>
-  <img [src] = "selected.imageUrl">
-  <p>{{selected.description}}</p>
+      </td>
+      <h1>{{selected.name}}</h1>
+      <img [src]="selected.imageUrl">
+      <p>{{selected.description}}</p>
 
-  <h3>{{selected.walkLocation.name}}</h3>
+      <h3>{{selected.walkLocation.name}}</h3>
+      <p> {{selected.walkLocation.address.street}}, {{selected.walkLocation.address.city}}
 
-    <p> {{selected.walkLocation.address.street}}, {{selected.walkLocation.address.city}}
+            <br>
 
-    <br>
+            {{selected.walkLocation.address.state}}, {{selected.walkLocation.address.zip}}
+          </p>
 
-    {{selected.walkLocation.address.state}}, {{selected.walkLocation.address.zip}}</p>
+          <button type="button" class="button btn-lg" (click)="selected=null">Back</button>
 
-    <button class="btn-lg" (click)="selected=null">Back</button>
+
+  </div>
+    </div>
+
+
+    <div *ngIf="checkLogin()">
+      <div class="searchForUsers">
+      <form>
+        <label for="keyword">Search by name or username</label>
+        <input [(ngModel)]="keyword" name="keyword" type="text">
+        <button (click)="onSubmitUserSearch(keyword)" class="button">Search</button>
+
+      </form>
+
+
+      <table class="table table-striped table-bordered table-hover table-condensed">
+
+        <tbody>
+          <tr *ngFor = "let usersSearchResult of usersSearchResults">
+          <td>
+            <a [routerLink]="['/profile/' + usersSearchResult.id]">
+            <img [src]="usersSearchResult.profileImageUrl" height="100px" width="100px" alt="" class="img-thumbnail" >
+            {{usersSearchResult.firstName}}
+            {{usersSearchResult.lastName}}
+            {{usersSearchResult.username}}
+          </a>
+            <button (click)="updateUser(this.usersSearchResult)" *ngIf="loggedInUser.role == 'admin'" >Edit</button>
+          </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <app-walk></app-walk>
+
   </div>
 
 
 
 
-<div *ngFor = "let result of results">
-</div>
 
-
-
-
-
-
-
-
-</div>
-<div *ngIf="checkLogin()">
-<div class="searchForUsers">
-  <form >
-    <label for="keyword">Search by name or username</label>
-    <input [(ngModel)]="keyword" name="keyword" type="text">
-    <button (click)="onSubmitUserSearch(keyword)" class="button">Search</button>
-
-  </form>
-  <div *ngFor = "let usersSearchResult of usersSearchResults"></div>
-
-  <table class="table table-striped table-bordered table-hover table-condensed">
-
-
-    <tbody>
-      <tr *ngFor = "let usersSearchResult of usersSearchResults">
-      <td>
-        <a href="">
-        <img [src]="usersSearchResult.profileImageUrl" height="100px" width="100px" alt="" class="img-thumbnail" >
-        {{usersSearchResult.firstName}}
-        {{usersSearchResult.lastName}}
-        {{usersSearchResult.username}}
-      </a>
-        <button (click)="updateUser(this.usersSearchResult)" *ngIf="loggedInUser.role == 'admin'" >Edit</button>
-      </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-<app-walk></app-walk>
-
-</div>
-
-
-
-
-
-
-
-
-
-
-
-<!-- <div class="form-group">
+  <!-- <div class="form-group">
 
   <input  [keywordString]= "'keyword'" class="form-control" type="text" name="keyword" id="keyword">
 
@@ -193,4 +213,3 @@
 
 
 </div> -->
-
