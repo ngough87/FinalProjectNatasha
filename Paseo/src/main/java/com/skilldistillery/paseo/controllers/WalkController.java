@@ -43,8 +43,9 @@ public class WalkController {
 	private UserWalkService userWalkService;
 
 	@GetMapping("walks")
-	public List<Walk> show() {
-		return walkService.showWalksThatArePublic();
+	public List<Walk> show(Principal principal) {
+		User user = auth.getUserByUsername(principal.getName());
+		return walkService.showWalksThatArePublic(user);
 	}
 
 	@PostMapping("walks/search")

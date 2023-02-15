@@ -171,7 +171,7 @@
             {{usersSearchResult.lastName}}
             {{usersSearchResult.username}}
           </a>
-            <button (click)="updateUser(this.usersSearchResult)" *ngIf="loggedInUser.role == 'admin'">Edit</button>
+            <button class="btn btn-warning btnRight" (click)="updateUser(this.usersSearchResult)" *ngIf="loggedInUser.role == 'admin'">Edit</button>
           </td>
           </tr>
         </tbody>

@@ -2,11 +2,12 @@ package com.skilldistillery.paseo.services;
 
 import java.util.List;
 
+import com.skilldistillery.paseo.entities.User;
 import com.skilldistillery.paseo.entities.Walk;
 
 public interface WalkService {
 
-	List<Walk> showWalksThatArePublic();
+	List<Walk> showWalksThatArePublic(User user);
 
 	List<Walk> findAllWalksByUserId(int id);
 	

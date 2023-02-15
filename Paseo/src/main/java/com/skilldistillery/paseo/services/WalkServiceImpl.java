@@ -37,7 +37,7 @@ public class WalkServiceImpl implements WalkService {
 
 	// non authorized view of data below
 	@Override
-	public List<Walk> showWalksThatArePublic() {
+	public List<Walk> showWalksThatArePublic(User user) {
 
 		List<Walk> walks = walkRepo.findAll();
 
@@ -45,8 +45,14 @@ public class WalkServiceImpl implements WalkService {
 
 		for (Walk walk : walks) {
 
-			if (walk.getPrivacy() == false) {
-				copyWalkList.add(walk);
+			if (user.getRole().equalsIgnoreCase("admin")) {
+				if (walk.getPrivacy() == false) {
+					copyWalkList.add(walk);
+				}
+			} else {
+				if (walk.getPrivacy() == false && walk.getEnabled() != null && walk.getEnabled() == true) {
+					copyWalkList.add(walk);
+				}
 			}
 
 		}
