@@ -108,7 +108,8 @@ public class UserController {
 	public void deleteUser(@PathVariable int id, HttpServletRequest req, HttpServletResponse resp,
 			Principal principal) {
 		try {
-			if (userService.destroy(principal.getName(), id)) {
+			User user = userService.findById(id);
+			if (user != null && userService.destroy(user.getUsername(), id)) {
 				resp.setStatus(204);
 			} else {
 				resp.setStatus(404);
