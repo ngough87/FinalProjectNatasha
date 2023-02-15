@@ -1,31 +1,28 @@
+
+
+
 <div *ngIf="!checkLogin()">
-  <ngb-carousel *ngIf="images">
-    <ng-template ngbSlide>
-      <div class="picsum-img-wrapper">
-        <img [src]="images[0]" alt="Random first slide" style="width: -webkit-fill-available;" />
-      </div>
-      <div class="carousel-caption">
-        <h3>Welcome To Paseo</h3>
-        <p>Helping you get out there since 2023.</p>
-      </div>
-    </ng-template>
-    <ng-template ngbSlide>
-      <div class="picsum-img-wrapper">
-        <img [src]="images[1]" alt="Random second slide" style="width: -webkit-fill-available;" />
-      </div>
-      <div class="carousel-caption">
-        <h3>Second slide label</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-      </div>
-    </ng-template>
-  </ngb-carousel>
+  <body>
+<!-- Jumbotron -->
+<div
+  class="bg-image p-5 text-center shadow-1-strong rounded mb-10 text-white"
+  style="background-image: url('https://blog-assets.thedyrt.com/uploads/2018/10/93Xlomfw-compressor.jpeg');"
+>
+  <h1 class="mb-3 h2">Stay Connected</h1>
 
-  <hr />
+  <p>
+    In a perfect world, your ideal walking partner would live next door or work in the next office over.
+    If you don’t already have a local friend to recruit, take some steps and use Paseo to find one!
+  </p>
+</div>
+<!-- Jumbotron -->
+<div>
 
-  <h3></h3>
   <app-register></app-register>
 </div>
 
+
+</body>
 
 
 <div *ngIf="checkLogin()">
@@ -125,43 +122,43 @@
       <p>{{selected.description}}</p>
 
       <h3>{{selected.walkLocation.name}}</h3>
-
       <p> {{selected.walkLocation.address.street}}, {{selected.walkLocation.address.city}}
 
-        <br>
+            <br>
 
-        {{selected.walkLocation.address.state}}, {{selected.walkLocation.address.zip}}
-      </p>
+            {{selected.walkLocation.address.state}}, {{selected.walkLocation.address.zip}}
+          </p>
 
-      <button type="button" class="button btn-lg" (click)="selected=null">Back</button>
+          <button type="button" class="button btn-lg" (click)="selected=null">Back</button>
+
+
+  </div>
     </div>
 
 
-  <div *ngIf="checkLogin()">
-    <div class="searchForUsers">
+    <div *ngIf="checkLogin()">
+      <div class="searchForUsers">
       <form>
         <label for="keyword">Search by name or username</label>
         <input [(ngModel)]="keyword" name="keyword" type="text">
         <button (click)="onSubmitUserSearch(keyword)" class="button">Search</button>
 
       </form>
-      <div *ngFor="let usersSearchResult of usersSearchResults"></div>
+
 
       <table class="table table-striped table-bordered table-hover table-condensed">
 
-
         <tbody>
-          <tr *ngFor="let usersSearchResult of usersSearchResults">
-            <td>
-              <a href="">
-                <img [src]="usersSearchResult.profileImageUrl" height="100px" width="100px" alt=""
-                  class="img-thumbnail">
-                {{usersSearchResult.firstName}}
-                {{usersSearchResult.lastName}}
-                {{usersSearchResult.username}}
-              </a>
-              <button (click)="updateUser(this.usersSearchResult)" *ngIf="loggedInUser.role == 'admin'">Edit</button>
-            </td>
+          <tr *ngFor = "let usersSearchResult of usersSearchResults">
+          <td>
+            <a [routerLink]="['/profile/' + usersSearchResult.id]">
+            <img [src]="usersSearchResult.profileImageUrl" height="100px" width="100px" alt="" class="img-thumbnail" >
+            {{usersSearchResult.firstName}}
+            {{usersSearchResult.lastName}}
+            {{usersSearchResult.username}}
+          </a>
+            <button (click)="updateUser(this.usersSearchResult)" *ngIf="loggedInUser.role == 'admin'" >Edit</button>
+          </td>
           </tr>
         </tbody>
       </table>
@@ -171,8 +168,6 @@
 
   </div>
 
-
-</div>
 
 
 

@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
   <div class="container-fluid">
-    <a class="navbar-brand" [routerLink]="['/home']">Paseo</a>
+    <a class="navbar-brand mb-0 h1" [routerLink]="['/home']">Paseo</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -24,16 +24,22 @@
               <li><a class="dropdown-item" [routerLink]="['/friends']">Followed Users</a></li>
               <li><a class="dropdown-item" [routerLink]="['/ads']">Walkers Wanted</a></li>
               <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" (click)="logout()" [routerLink]="['/home']">Logout</a></li>
+              <li><a class="dropdown-item"  (click)="logout()" [routerLink]="['/home']">Logout</a></li>
             </ul>
           </li>
         </ul>
       </div>
-          <div *ngIf="!loggedIn()">
+          <div class="text-nowrap float-right" *ngIf="!loggedIn()">
+
+
+
             <input type="text"name="username" [(ngModel)]="user.username" placeholder="Username"/>
             <input type="password" name="password" [(ngModel)]="user.password" placeholder="Password"/>
-            <button (click)="login(user)">Log In</button>
+            <button class="btn btn-primary"(click)="login(user)">Log In</button>
+
+            </div>
           </div>
-    </div>
-  </div>
+          </div>
+
+
 </nav>
