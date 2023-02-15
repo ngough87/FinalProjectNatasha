@@ -34,6 +34,7 @@ export class HomeComponent implements OnInit{
   walkTypes: WalkType[] = [];
   walkCategories: WalkCategory[] = [];
   walkLocations: WalkLocation[] = [];
+  displayWalks: Walk[] | null = null;
   results: Walk[] = [];
   keyword: String = "";
   loggedInUser: User = new User();
