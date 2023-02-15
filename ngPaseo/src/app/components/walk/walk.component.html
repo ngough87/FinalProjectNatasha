@@ -1,4 +1,4 @@
-<div class="bg-image"
+<div class="bg-image col"
   style="background-image: url('https://images.unsplash.com/photo-1487956382158-bb926046304a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8d2Fsa2luZ3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=2000&q=60' );
       background-size: cover; height: 100%; background-repeat: no-repeat; height: 80rem; background-attachment: fixed;">
 
@@ -17,14 +17,14 @@
 
         </div>
 
-        <div class="form-group">
+        <div>
           <input [(ngModel)]="walk.date" class="form-control" type="date" name="date" id="date" />
           <label for="date" class="form-label">Date</label>
         </div>
-        <div class="form-group">
+        <div class="input-group form-control">
 
           <label for="startTime">Start Time:</label>
-          <input type="time" [(ngModel)]="walk.startTime" name="startTime" id="startTime" />
+          <input class="form-time form" type="time" [(ngModel)]="walk.startTime" name="startTime" id="startTime" />
 
           <label for="endTime">End Time:</label>
           <input type="time" [(ngModel)]="walk.endTime" name="endTime" id="endTime" />
@@ -41,8 +41,8 @@
 
         <div class="input-group mb-3">
 
-          <label class="input-group-text form-label" for="walkCategory">Walk Category </label>
-          <select [(ngModel)]="walk.walkCategory" class="form-control form-select" name="walkCategory"
+          <label class="input-group-text form-control form-label" for="walkCategory">Walk Category </label>
+          <select [(ngModel)]="walk.walkCategory" class="form-control input-group form-select" name="walkCategory"
             id="walkCategory">
             <option [ngValue]="walkCategory" name="walkCategory" *ngFor="let walkCategory of walkCategories">
               {{ walkCategory.name }}

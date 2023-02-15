@@ -26,35 +26,37 @@
 
 <div *ngIf="checkLogin()">
 
-  <div class="p-1 margin-1 border-1">
-    <h1 class="display-1 text-center jumbotron">Paseo Walks</h1>
+<div class="jumbotron-fluid"><img class="img-fluid"  src="https://raw.githubusercontent.com/Knakong/FinalProject/6b522a7d9ecf0ba7bef53a60a3d4310014971683/ngPaseo/src/assets/Heading.png" alt="Responsive Image"></div>
+
+  <div class="p-1 margin-1 border-1 col-med-8">
+    <h1 class="lead display-3 text-center">Paseo Walks</h1>
     <table>
       <thead></thead>
     <tbody>
       <div class="input-group"><tr>
         <td><input [(ngModel)]="searchWalk.date" class="form-control margin-1" type="date" name="date" id="date"/>
-          <label for="date" class="form-label"></label>
+          <label for="date" class="form-label">Date</label>
         </td>
         <td><input [(ngModel)]="searchWalk.description" class="form-control" type="text" name="description"
-            id="description"><label for="description" class="form-label"></label>
+            id="description">Keyword<label for="description" class="form-label"></label>
         </td>
         <td>
           <select class="form-select form-control" name="category">
           <option aria-placeholder>Category</option>
           <option *ngFor="let category of walkCategories" [(ngModel)]="searchWalk.walkCategory"> {{category.name}} </option></select>
-          <label for="category"></label>
+          <label for="category">Category</label>
         </td>
         <td>
         <select class="form-select form-control" name ="walkType">
           <option aria-placeholder>Choose WalkType</option>
           <option *ngFor="let type of walkTypes" [(ngModel)]="searchWalk.walkType"> {{type.name}} </option></select>
-          <label for="walkType"></label>
+          <label for="walkType">Type</label>
         </td>
         <td>
         <select class="form-select form-control" name="WalkLocation">
           <option aria-placeholder>Choose Location</option>
           <option *ngFor="let category of walkLocations"   [(ngModel)]="searchWalk.walkLocation"> {{category.name}} </option></select>
-          <label for="WalkLocation"></label>
+          <label for="WalkLocation">Location</label>
                 </td>
           <td>
 
@@ -85,7 +87,7 @@
                       <th> Details</th>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let walk of displayWalks" (click)="selected = walk">
+                      <tr *ngFor="let walk of displayWalks" [routerLink]="['/profile/'+walk.user.id]">
                         <td>
                           {{walk.name}}
                         </td>
