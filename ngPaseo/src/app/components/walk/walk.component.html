@@ -1,10 +1,10 @@
-<div class="bg-image "
+<div class="bg-image"
   style="background-image: url('https://images.unsplash.com/photo-1487956382158-bb926046304a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8d2Fsa2luZ3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=2000&q=60' );
       background-size: cover; height: 100%; background-repeat: no-repeat; height: 80rem; background-attachment: fixed;">
 
-  <div class="form">
+  <div class="form col">
     <div
-      style="max-width: 750px; border: 3px solid #7B7D75; margin: 250px; float: left;  padding: 60px; background-color: #ADC084; ">
+      style=" border: 3px solid #7B7D75; margin: 250px; float: left;  padding: 60px; background-color: #ADC084; ">
       <h2>Create a Walk</h2>
 
       <form>
@@ -55,7 +55,7 @@
 
         <div class="input-group mb-3">
           <label for="walkType" class=" input-group-text form-label">Walk Type </label>
-          <select class="form-control form-select" [(ngModel)]="walk.walkType" name="walkType" id="walkType">
+          <select class="form-control input-group form-select" [(ngModel)]="walk.walkType" name="walkType" id="walkType">
             <option class="" [ngValue]="walkType" name="walkType" *ngFor="let walkType of walkTypes">
               {{ walkType.name }}
             </option>
@@ -64,7 +64,7 @@
         </div>
 
 
-        <div class="input-group mb-3">
+        <div class="input-group mb">
           <label for="walkLocation" class="input-group-text  form-label">Walk Location</label>
           <select class="form-control form-select" [(ngModel)]="walk.walkLocation" name="walkLocation"
             id="walkLocation">
@@ -80,7 +80,7 @@
         </div>
         <hr>
         <div class="d-flex justify-content-center">
-          <button class="btn btn-warning" (click)="showAddLocation()">Add New Location</button>
+          <button type="button" class="btn btn-warning" (click)="showAddLocation()">Add New Location</button>
         </div>
 
         <br>
@@ -123,36 +123,35 @@
             <br>
             <div class="row justify-content-around">
               <div class="col-4">
-
-                <button class="btn btn-primary btn-lg" (click)="createNewLocation(newLocation)">
-                  Create Location
-                </button>
+                <button class="btn btn-secondary" (click)="addLocation = false"> back</button>
               </div>
               <div class="col-4">
-                <button class="btn btn-danger btn-lg" (click)="addLocation = false"> Cancel</button>
+
+                <button class="btn btn-primary" (click)="createNewLocation(newLocation)">OK</button>
               </div>
             </div>
-
           </form>
+
         </div>
 
         <hr>
 
-        <div class="d-flex justify-content-center">
+        <div class="justify-content-center">
           <div class="form-group">
             <label for="privay">Private Walk</label>
             <input type="checkbox" name="privacy" id="privacy" [(ngModel)]="walk.privacy"/>
           </div>
         </div>
         <br>
-        <div class="row justify-content-around">
-          <div class="col-4">
-            <button class="btn btn-success btn-lg" (click)="createNewWalk(walk)">Create</button>
+        <div class="row justify-content-center">
+          <div class="col-md-4">
+            <button type="button" class="btn btn-danger btn">Cancel</button>
           </div>
-          <div class="col-4">
-            <button type="button" class="btn btn-danger btn-lg">Cancel</button>
+          <div class="col-md-4">
+            <button class="btn btn-primary btn" (click)="createNewWalk(walk)">Create</button>
           </div>
         </div>
       </form>
     </div>
   </div>
+</div>

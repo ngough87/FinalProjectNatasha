@@ -51,16 +51,19 @@ export class HomeComponent implements OnInit{
     private walkCatService: WalkCategoryService,
     private walkTypeService: WalkTypeService,
 
-  ) {}
+  ) {
+
+  }
 
 
   ngOnInit(): void {
-    this. getLoggedInUser();
+    this.getLoggedInUser();
     this.loadCategories();
     this.loadTypes();
     this.loadLocation();
     this.reload();
     this.checkLogin();
+
 
   }
 
@@ -95,6 +98,7 @@ reload(){
   this.walkService.index().subscribe({
     next: (data) => {
       this.walks = data;
+      this.displayWalks = this.walks;
     },
     error: (error) =>{
       console.error("HomeComponent reload error");
