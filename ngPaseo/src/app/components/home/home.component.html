@@ -1,35 +1,28 @@
 
 
+
 <div *ngIf="!checkLogin()">
-<ngb-carousel *ngIf="images">
-	<ng-template ngbSlide>
-		<div class="picsum-img-wrapper">
-			<img [src]="images[0]" alt="Random first slide" style="width: -webkit-fill-available;" />
-		</div>
-		<div class="carousel-caption">
-			<h3>Welcome To Paseo</h3>
-			<p>Helping you get out there since 2023.</p>
-		</div>
-	</ng-template>
-	<ng-template ngbSlide>
-		<div class="picsum-img-wrapper">
-			<img [src]="images[1]" alt="Random second slide" style="width: -webkit-fill-available;"/>
-		</div>
-		<div class="carousel-caption">
-			<h3>Second slide label</h3>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-		</div>
-	</ng-template>
-</ngb-carousel>
+  <body>
+<!-- Jumbotron -->
+<div
+  class="bg-image p-5 text-center shadow-1-strong rounded mb-10 text-white"
+  style="background-image: url('https://blog-assets.thedyrt.com/uploads/2018/10/93Xlomfw-compressor.jpeg');"
+>
+  <h1 class="mb-3 h2">Stay Connected</h1>
 
-<hr/>
+  <p>
+    In a perfect world, your ideal walking partner would live next door or work in the next office over.
+    If you don’t already have a local friend to recruit, take some steps and use Paseo to find one!
+  </p>
+</div>
+<!-- Jumbotron -->
+<div>
 
-<h3></h3>
   <app-register></app-register>
 </div>
 
 
-
+</body>
 
 
 <div *ngIf="checkLogin()">

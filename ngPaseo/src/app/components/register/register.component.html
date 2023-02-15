@@ -1,21 +1,49 @@
 
-<div class="col-4" id="form-wrapper">
-  <div style="max-width: 750px; margin: 100px; float: center;  padding: 40px; background-color: #FBFCF9;" >
-<div class="container">
-  <form>
-  <h1>Register here!</h1>
-  <div class="form-group">
-    <label for="userName">Username</label>
+
+<section class="h-100 gradient-form" style="background-color: rgb(3, 3, 3);">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-xl-10">
+        <div class="card rounded-3 text-black">
+          <div class="row g-0">
+            <div class="col-lg-6">
+              <div class="card-body p-md-5 mx-md-4">
+
+                <div class="text-center">
+                  <img src="https://t3.ftcdn.net/jpg/02/95/66/40/360_F_295664007_bb0wjMAiKV6HzvvIYoxp8W9beJxAFfxh.jpg"
+                    style="width: 185px;" alt="logo">
+                  <h4 class="mt-1 mb-5 pb-1">Welcome to Paseo</h4>
+                </div>
+
+                <form>
+                  <p>Please register to your account</p>
+
+                  <div class="form-outline mb-4">
+                    <label for="userName">Username</label>
     <input type="text" name="username" class="form-control" [(ngModel)]="newUser.username" placeholder="Username"/>
     <small  class="form-text text-muted">Create username</small>
+                  </div>
+
+                  <div class="form-outline mb-4">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input type="password" name="password" class="form-control" [(ngModel)]="newUser.password" placeholder="Password"/>
+                  </div>
+
+                  <button class="btn btn-primary" name="RegisterButton" (click)="register(newUser)">Register</button>
+
+                </form>
+
+              </div>
+            </div>
+            <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
+              <div class="text-white px-3 py-4 p-md-5 mx-md-4">
+                <h4 class="mb-4">We are more than just a company</h4>
+                <p class="small mb-0">Come and be a part of a community intent on promoting an active lifestyle. Meet like-minded people who share your love for walks, hikes, or strolls.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
-    <input type="password" name="password" class="form-control" [(ngModel)]="newUser.password" placeholder="Password"/>
-  </div>
-<br>
-  <button class="btn btn-primary" name="RegisterButton" (click)="register(newUser)">Register</button>
-</form>
-</div>
-</div>
-</div>
+</section>
