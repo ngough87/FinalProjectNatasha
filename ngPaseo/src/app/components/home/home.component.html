@@ -56,14 +56,17 @@
 
                 </td>
           <td>
-          <button class="btn-primary" (click)="search(searchWalk)">Search</button>
+          <button type="button" class="btn-primary" (click)="search(searchWalk); displayWalks = results ">Search</button>
         </td>
+        <td>
+          <button type="button" class="btn-primary"(click)="displayWalks = walks" >Show All Walks</button>
+          <td>
       </tr>
     </table>
 
   </div>
 
-  <div *ngIf="walks && !selected">
+  <div *ngIf="displayWalks && !selected">
 
 
 
@@ -77,7 +80,7 @@
                       <th> Details</th>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let walk of walks" (click)="selected = walk">
+                      <tr *ngFor="let walk of displayWalks" (click)="selected = walk">
                         <td>
                           {{walk.name}}
                         </td>
