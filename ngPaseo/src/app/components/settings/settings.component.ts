@@ -199,7 +199,10 @@ returnHome(){
 delete(id: number){
   this.userService.delete(id).subscribe({
     next:() =>{
-    this.auth.logout();
+    if(localStorage.getItem('currentUserId') != '1') {
+      this.auth.logout();
+
+    }
     this.router.navigateByUrl('/home');
 
     },

@@ -138,15 +138,19 @@ public class UserServiceImpl implements UserService {
 	public List<User> findByFirstNameLastNameOrUsername(String keyword) {
 		keyword = "%" + keyword + "%";
 		List<User> keywordSearch = userRepo.findByFirstNameLikeOrLastNameLikeOrUsernameLike(keyword, keyword, keyword);
+		List<User> enabledUsers = new ArrayList<>();
 		for(User user: keywordSearch) {
 			user.setBirthdate(null);
 			user.setAddress(null);
 			user.setPassword(null);
-			user.setEnabled(null);
-			user.setRole(null);
+		
+			if(user.getEnabled()==true) {
+				enabledUsers.add(user);
+			}
+			
 			
 		}
-		return userRepo.findByFirstNameLikeOrLastNameLikeOrUsernameLike(keyword, keyword, keyword);
+		return enabledUsers;
 	}
 	
 	

@@ -120,15 +120,9 @@
            </div>
            <div class="modal-footer">
              <button *ngIf="viewedWalkCreated || user.role === 'admin'" class="form-control btn btn-success"(click)="editWalk()">Edit Walk</button>
-<<<<<<< HEAD
-             <button *ngIf="viewedWalkCreated || user.role === 'admin'"  class="form-control btn btn-danger"(click)="deleteWalk()">Delete Walk</button>
-             <button *ngIf="!viewedWalkCreated && !viewedWalkJoined" class="form-control btn btn-success"(click)="joinWalk()">Join Walk</button>
-             <button *ngIf="!viewedWalkCreated && viewedWalkJoined" class="form-control btn btn-danger"(click)="leaveWalk()">Leave Walk</button>
-=======
              <button *ngIf="viewedWalkCreated || user.role === 'admin'"  class="form-control btn btn-danger"(click)="deleteWalk(); close()">Delete Walk</button>
              <button *ngIf="!viewedWalkJoined" class="form-control btn btn-primary"(click)="joinWalk(); close()">Join Walk</button>
              <button *ngIf="viewedWalkJoined" class="form-control btn btn-warning"(click)="leaveWalk(); close()">Leave Walk</button>
->>>>>>> bcf49aee8d8a336da651dabcebb6db9a5603f6b2
            </div>
        </ng-template>
        <!-- End Created Walk Modal -->
