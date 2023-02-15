@@ -54,7 +54,7 @@
   </div>
   <div *ngIf="walks && !selected">
     <div class="row-span-5">
-    <span *ngFor="let category of walkCategories">  {{category.name}} |</span><br>
+    <select> <option *ngFor="let category of walkCategories">  {{category.name}} </option><select>
     <span *ngFor="let type of walkTypes"> {{type.name}} |</span><br>
     <span *ngFor="let location of walkLocations">  {{location.name}}  |</span><br>
     </div>
@@ -179,7 +179,6 @@
 
 
     <app-walk></app-walk>
-
 
 
 
