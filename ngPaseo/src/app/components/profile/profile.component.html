@@ -31,6 +31,7 @@
             <p>{{user.address!.city + ', ' + user.address!.state}}</p>
           </div>
 
+
           <ul class="about">
             <li><span>{{followingUsers.length}}</span>Followers</li>
             <li><span>{{followedUsers.length}}</span>Following</li>
@@ -57,7 +58,6 @@
             <div *ngIf="followed">
               <button name="unfollowUser" (click)="unfollowUser()">Unfollow</button>
             </div>
-
           </nav>
 
 

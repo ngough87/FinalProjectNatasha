@@ -146,7 +146,58 @@
 
 
 
-<div *ngIf ="createNewWalk">
-  <app-walk></app-walk>
+
 </div>
+<div *ngIf="checkLogin()">
+<div class="searchForUsers">
+  <form >
+    <label for="keyword">Search by name or username</label>
+    <input [(ngModel)]="keyword" name="keyword" type="text">
+    <button (click)="onSubmitUserSearch(keyword)" class="button">Search</button>
+
+  </form>
+  <div *ngFor = "let usersSearchResult of usersSearchResults"></div>
+
+  <table class="table table-striped table-bordered table-hover table-condensed">
+
+
+    <tbody>
+      <tr *ngFor = "let usersSearchResult of usersSearchResults">
+      <td>
+        <a href="">
+        <img [src]="usersSearchResult.profileImageUrl" height="100px" width="100px" alt="" class="img-thumbnail" >
+        {{usersSearchResult.firstName}}
+        {{usersSearchResult.lastName}}
+        {{usersSearchResult.username}}
+      </a>
+        <button (click)="updateUser(this.usersSearchResult)" *ngIf="loggedInUser.role == 'admin'" >Edit</button>
+      </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<app-walk></app-walk>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="form-group">
+
+  <input  [keywordString]= "'keyword'" class="form-control" type="text" name="keyword" id="keyword">
+
+  <label for="keyword" class="form-label">User Search</label>
+
+
+
+</div> -->
 

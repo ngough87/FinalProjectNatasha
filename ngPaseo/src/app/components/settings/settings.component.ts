@@ -56,14 +56,17 @@ this.getWalkCategories();
 getLoggedInUser(){
   this.auth.getLoggedInUser().subscribe({
     next: (data) => {
+      this.user = data;
       let idString = this.route.snapshot.paramMap.get('id');
       let id = +idString!;
-      if (!isNaN(id)) {
-
-      this.userService.findUser(id);
-      }
+      if (!isNaN(id) && +localStorage.getItem('currentUserId')! != id && this.user.role == 'admin') {
+      this.userService.findUser(id).subscribe({
+        next: (data) => {
+          this.user = data;
+        }
+      });
+      } else {
       console.log(data);
-      this.user = data;
       console.log(this.user);
       if(!this.user.address)      {
         this.user.address = new Address();
@@ -82,6 +85,7 @@ getLoggedInUser(){
       //   }
       this.imageUrl = Object.assign({}, this.user.profileImageUrl);
       console.log("Logged in");
+    }
     },
     error: (fail) => {
       this.router.navigateByUrl('/notFound')

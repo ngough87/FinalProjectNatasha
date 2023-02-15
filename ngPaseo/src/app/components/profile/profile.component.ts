@@ -19,6 +19,7 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent implements OnInit {
+[x: string]: any;
   walks: Walk[] = [];
   joinedWalks: Walk[] = [];
   loggedInUserWalks: Walk[] = [];
@@ -41,6 +42,10 @@ export class ProfileComponent implements OnInit {
 
   closeResult = '';
   viewedWalk: Walk = new Walk();
+  adminUser : User = new User();
+  displayDeactivateProfileButton : boolean = false;
+  currentUserId : number = 0;
+
   viewedWalkJoined: boolean = false;
   viewedWalkCreated: boolean = false;
 
@@ -57,6 +62,7 @@ export class ProfileComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    // this.checkCurrentUserForAdminStatus();
     this.getUser();
   }
   getUser() {
@@ -132,6 +138,7 @@ export class ProfileComponent implements OnInit {
       },
     });
   }
+
 
   getUserWalks() {
     this.walkService.getUserWalks(this.user.id).subscribe({
@@ -257,9 +264,8 @@ export class ProfileComponent implements OnInit {
       },
     });
   }
-
-  unfollowUser() {
-    let id: string = this.route.snapshot.paramMap.get('id')!;
+    unfollowUser() {
+      let id: string = this.route.snapshot.paramMap.get('id')!;
     if (id === null) {
       id = localStorage.getItem('currentUserId')!;
     }
