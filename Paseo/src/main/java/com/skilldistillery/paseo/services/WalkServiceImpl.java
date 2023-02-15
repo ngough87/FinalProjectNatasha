@@ -26,7 +26,7 @@ public class WalkServiceImpl implements WalkService {
 
 	@Autowired
 	private UserRepository userRepo;
-	
+
 	@Autowired
 	private UserWalkRepository userWalkRepo;
 
@@ -64,7 +64,6 @@ public class WalkServiceImpl implements WalkService {
 		if (user != null && user.getEnabled() == true) {
 
 			usersListOfWalks = walkRepo.findByUser_IdAndEnabled(userID, true);
-			
 
 		}
 
@@ -79,7 +78,7 @@ public class WalkServiceImpl implements WalkService {
 			newWalk.setUser(user);
 			newWalk.setEnabled(true);
 			newWalk = walkRepo.saveAndFlush(newWalk);
-			
+
 			UserWalkKey key = new UserWalkKey(userId, newWalk.getId());
 			UserWalk joinedWalk = new UserWalk(key, user, newWalk);
 			userWalkRepo.saveAndFlush(joinedWalk);
@@ -119,7 +118,7 @@ public class WalkServiceImpl implements WalkService {
 			walk.setEnabled(false);
 			walkRepo.saveAndFlush(walk);
 			deleted = true;
-			
+
 			UserWalkKey key = new UserWalkKey(walk.getUser().getId(), walk.getId());
 			UserWalk leftWalk = new UserWalk(key, walk.getUser(), walk);
 			userWalkRepo.saveAndFlush(leftWalk);
@@ -128,51 +127,58 @@ public class WalkServiceImpl implements WalkService {
 
 		return deleted;
 	}
-	@Override
-	public List <Walk> searchByWalk(Walk searchWalk){
-	List<Walk> walks = walkRepo.findAll();
-	List<Walk> results = new ArrayList<>();
-	
-	for(Walk walk:walks){
-		LocalDate afterDate = walk.getDate().plusWeeks(1);
-		LocalDate beforeDate = walk.getDate().minusWeeks(1);
-		
-		if(walk.getPrivacy() == false) {
 
-		if (walk.getDescription().contains(searchWalk.getDescription())){
-			if(!results.contains(walk)) {
-			results.add(walk);
-				
-		}}
-		if(searchWalk.getDate().isAfter(beforeDate) && searchWalk.getDate().isBefore(afterDate) && searchWalk.getDate().isAfter(LocalDate.now())) {
-			if (!results.contains(walk)) {
-				results.add(walk);
+	@Override
+	public List<Walk> searchByWalk(Walk searchWalk) {
+		List<Walk> walks = walkRepo.findAll();
+		List<Walk> results = new ArrayList<>();
+
+		for (Walk walk : walks) {
+			LocalDate afterDate = LocalDate.now().minusDays(7);
+			LocalDate beforeDate = LocalDate.now().plusDays(7);
+			if (walk.getDate() != null) {
+				afterDate = walk.getDate().plusWeeks(1);
+				beforeDate = walk.getDate().minusWeeks(1);
+			}
+			if (walk.getPrivacy() == false) {
+
+				if (walk.getDescription().contains(searchWalk.getDescription())) {
+					if (!results.contains(walk)) {
+						results.add(walk);
+
+					}
+				}
+				if (searchWalk.getDate() != null && searchWalk.getDate().isAfter(beforeDate)
+						&& searchWalk.getDate().isBefore(afterDate) && searchWalk.getDate().isAfter(LocalDate.now())) {
+					if (!results.contains(walk)) {
+						results.add(walk);
+					}
+				}
+				if (walk.getWalkCategory() == searchWalk.getWalkCategory()
+						|| searchWalk.getWalkCategory().getId() == 99) {
+					if (!results.contains(walk)) {
+						results.add(walk);
+					}
+				}
+				if (walk.getWalkLocation() == searchWalk.getWalkLocation()
+						|| searchWalk.getWalkLocation().getId() == 99) {
+					if (!results.contains(walk)) {
+						results.add(walk);
+					}
+				}
+				if (walk.getWalkType() == searchWalk.getWalkType() || searchWalk.getWalkType().getId() == 99) {
+
+					if (!results.contains(walk)) {
+						results.add(walk);
+					}
+
+				}
+
 			}
 		}
-		if (walk.getWalkCategory() == searchWalk.getWalkCategory () || searchWalk.getWalkCategory().getId() == 99) {
-			if (!results.contains(walk)) {
-				results.add(walk);
-		}
-			}
-		if (walk.getWalkLocation() == searchWalk.getWalkLocation() ||  searchWalk.getWalkLocation().getId() == 99){
-			if (!results.contains(walk)) {
-				results.add(walk);
-		}
-		}
-		if (walk.getWalkType() == searchWalk.getWalkType() || searchWalk.getWalkType().getId() == 99) {
-		
-		
-			if (!results.contains(walk)) {
-				results.add(walk);
+		return results;
 	}
-	
-		}
-		
-		
-		} }
-	return results;
-}
-	
+
 	public List<Walk> getJoinedWalksByUserId(int id) {
 		List<UserWalk> query = userWalkRepo.findByUserIdAndWalk_Enabled(id, true);
 		List<Walk> output = new ArrayList<>();
